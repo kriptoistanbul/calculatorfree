@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="<%= locale %>">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %> | Online Free Calculator</title>
+  <meta name="description" content="<%= description %>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <meta name="keywords" content="<%= __('free calculators, online calculators, finance calculators, health calculators, astrology calculators, educational calculators') %>">
+  <meta name="author" content="Online Free Calculator">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="<%= title %>">
+  <meta property="og:description" content="<%= description %>">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="<%= currentUrl %>">
+  <meta property="og:image" content="https://calculator-free.online/assets/images/og-image.jpg">
+  
+  <!-- hreflang Tags -->
+  <% ['en', 'fr', 'es', 'de', 'zh', 'ru', 'ja', 'ar', 'pt', 'hi'].forEach(function(localeCode) { %>
+    <link rel="alternate" hreflang="<%= localeCode %>" href="https://calculator-free.online<%= localeCode === 'en' ? '' : '/' + localeCode %><%= originalUrl.replace(/^\/(en|fr|es|de|zh|ru|ja|ar|pt|hi)/, '') %>">
+  <% }); %>
+
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1><a href="/"><%= __('Online Free Calculator') %></a></h1>
+      <nav>
+        <div class="menu-icon" onclick="toggleMenu()">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+        <ul class="menu" id="menu">
+          <li><a href="/<%= locale %>/"><%= __('Home') %></a></li>
+          <!-- Categories -->
+          <li class="dropdown">
+            <a href="#"><%= __('Date and Time Calculators') %></a>
+            <ul class="submenu">
+              <li><a href="/<%= locale %>/calculators/age"><%= __('Age Calculator') %></a></li>
+              <li><a href="/<%= locale %>/calculators/date-difference"><%= __('Date Difference Calculator') %></a></li>
+              <li><a href="/<%= locale %>/calculators/time-zone-converter"><%= __('Time Zone Converter') %></a></li>
+              <li><a href="/<%= locale %>/calculators/work-hours"><%= __('Work Hours Calculator') %></a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#"><%= __('Financial Calculators') %></a>
+            <ul class="submenu">
+              <li><a href="/<%= locale %>/calculators/loan"><%= __('Advanced Loan Calculator') %></a></li>
+              <li><a href="/<%= locale %>/calculators/investment-return"><%= __('Investment Return Calculator') %></a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#"><%= __('Health and Fitness Calculators') %></a>
+            <ul class="submenu">
+              <li><a href="/<%= locale %>/calculators/bmi"><%= __('BMI Calculator') %></a></li>
+              <li><a href="/<%= locale %>/calculators/body-fat"><%= __('Body Fat Calculator') %></a></li>
+              <li><a href="/<%= locale %>/calculators/calorie-nutrition"><%= __('Calorie and Nutrition Calculator') %></a></li>
+              <li><a href="/<%= locale %>/calculators/pregnancy-due-date"><%= __('Pregnancy Due Date Calculator') %></a></li>
+              <li><a href="/<%= locale %>/calculators/ovulation"><%= __('Ovulation Calculator') %></a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#"><%= __('Educational Calculators') %></a>
+            <ul class="submenu">
+              <li><a href="/<%= locale %>/calculators/grade-gpa"><%= __('Grade and GPA Calculator') %></a></li>
+              <li><a href="/<%= locale %>/calculators/scientific"><%= __('Scientific Calculator') %></a></li>
+              <li><a href="/<%= locale %>/calculators/unit-conversion"><%= __('Unit Conversion Calculator') %></a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#"><%= __('Astrology and Zodiac Calculators') %></a>
+            <ul class="submenu">
+              <li><a href="/<%= locale %>/calculators/planetary-aspect"><%= __('Planetary Aspect Calculator') %></a></li>
+              <li><a href="/<%= locale %>/calculators/mercury-sign"><%= __('Mercury Sign Calculator') %></a></li>
+              <li><a href="/<%= locale %>/calculators/moon-sign"><%= __('Moon Sign Calculator') %></a></li>
+              <li><a href="/<%= locale %>/calculators/venus-sign"><%= __('Venus Sign Calculator') %></a></li>
+              <li><a href="/<%= locale %>/calculators/mars-sign"><%= __('Mars Sign Calculator') %></a></li>
+              <li><a href="/<%= locale %>/calculators/western-zodiac"><%= __('Western Zodiac Calculator') %></a></li>
+              <li><a href="/<%= locale %>/calculators/chinese-zodiac"><%= __('Chinese Zodiac Calculator') %></a></li>
+              <li><a href="/<%= locale %>/calculators/vedic-astrology"><%= __('Vedic Astrology Calculator') %></a></li>
+              <li><a href="/<%= locale %>/calculators/compatibility"><%= __('Compatibility Calculator') %></a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#"><%= __('Environmental Impact Calculators') %></a>
+            <ul class="submenu">
+              <li><a href="/<%= locale %>/calculators/carbon-footprint"><%= __('Carbon Footprint Calculator') %></a></li>
+              <li><a href="/<%= locale %>/calculators/water-usage"><%= __('Water Usage Calculator') %></a></li>
+              <li><a href="/<%= locale %>/calculators/energy-consumption"><%= __('Energy Consumption Calculator') %></a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#"><%= __('Business and Marketing Calculators') %></a>
+            <ul class="submenu">
+              <li><a href="/<%= locale %>/calculators/roi"><%= __('ROI Calculator') %></a></li>
+              <li><a href="/<%= locale %>/calculators/break-even"><%= __('Break-even Analysis Calculator') %></a></li>
+              <li><a href="/<%= locale %>/calculators/project-cost"><%= __('Project Cost Estimator') %></a></li>
+            </ul>
+          </li>
+          <li><a href="/<%= locale %>/about"><%= __('About Us') %></a></li>
+          <li><a href="/<%= locale %>/privacy-policy"><%= __('Privacy Policy') %></a></li>
+          <!-- Language Dropdown -->
+          <li class="dropdown">
+            <a href="#"><%= __('Language') %></a>
+            <ul class="submenu">
+              <% ['en', 'fr', 'es', 'de', 'zh', 'ru', 'ja', 'ar', 'pt', 'hi'].forEach(function(lang) { %>
+                <li><a href="/change-language/<%= lang %>?redirect=<%= encodeURIComponent(originalUrl) %>"><%= lang.toUpperCase() %></a></li>
+              <% }); %>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <%- body %>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <%= new Date().getFullYear() %> Online Free Calculator. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<h2><%= __('Western Zodiac Calculator') %></h2>
+<p><%= __('Determine your Sun sign and receive daily horoscopes.') %></p>
+
+<form id="western-zodiac-form">
+  <label for="birthdate"><%= __('Enter your birthdate:') %></label>
+  <input type="date" id="birthdate" name="birthdate" required>
+
+  <button type="submit"><%= __('Calculate') %></button>
+</form>
+
+<p id="result"></p>
+
+<script src="/assets/js/westernZodiacCalculator.js"></script>

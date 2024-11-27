@@ -1,0 +1,13 @@
+<h2><%= __('Age Calculator') %></h2>
+<p><%= __('Calculate your exact age in years, months, and days.') %></p>
+
+<form id="age-form">
+  <label for="birthdate"><%= __('Enter your birthdate:') %></label>
+  <input type="date" id="birthdate" name="birthdate" required>
+
+  <button type="submit"><%= __('Calculate') %></button>
+</form>
+
+<p id="result"></p>
+
+<script src="/assets/js/ageCalculator.js"></script>

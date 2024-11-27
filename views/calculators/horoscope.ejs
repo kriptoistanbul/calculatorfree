@@ -1,0 +1,13 @@
+<h2><%= __('Horoscope Finder') %></h2>
+<p><%= __('Discover your zodiac sign based on your birthdate.') %></p>
+
+<form id="horoscope-form">
+  <label for="birthdate"><%= __('Enter your birthdate:') %></label>
+  <input type="date" id="birthdate" name="birthdate" required>
+
+  <button type="submit"><%= __('Find Horoscope') %></button>
+</form>
+
+<p id="result"></p>
+
+<script src="/assets/js/horoscopeFinder.js"></script>

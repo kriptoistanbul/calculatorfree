@@ -1,0 +1,20 @@
+<h2>Pet Age to Human Age Calculator</h2>
+<p>Find out your pet's age in human years.</p>
+
+<form id="pet-age-form">
+  <label for="pet-type">Select Pet:</label>
+  <select id="pet-type" name="petType" required>
+    <option value="dog">Dog</option>
+    <option value="cat">Cat</option>
+    <!-- Add more pets if needed -->
+  </select>
+
+  <label for="pet-age">Pet's Age (years):</label>
+  <input type="number" id="pet-age" name="petAge" step="0.1" required>
+
+  <button type="submit">Calculate</button>
+</form>
+
+<p id="result"></p>
+
+<script src="/assets/js/petAgeCalculator.js"></script>

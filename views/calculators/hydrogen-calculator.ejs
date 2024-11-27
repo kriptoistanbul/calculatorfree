@@ -1,0 +1,13 @@
+<h2><%= __('Hydrogen Calculator') %></h2>
+<p><%= __('Calculate hydrogen levels and related metrics.') %></p>
+
+<form id="hydrogen-form">
+  <label for="hydrogen-level"><%= __('Hydrogen Level (mg/L):') %></label>
+  <input type="number" id="hydrogen-level" name="hydrogenLevel" step="0.1" required>
+
+  <button type="submit"><%= __('Calculate') %></button>
+</form>
+
+<p id="result"></p>
+
+<script src="/assets/js/hydrogenCalculator.js"></script>

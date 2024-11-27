@@ -1,0 +1,19 @@
+<h2><%= __('Work Hours Calculator') %></h2>
+<p><%= __('Calculate total hours worked including overtime and breaks.') %></p>
+
+<form id="work-hours-form">
+  <label for="regular-hours"><%= __('Regular Hours per Week:') %></label>
+  <input type="number" id="regular-hours" name="regularHours" step="0.1" required>
+
+  <label for="overtime-hours"><%= __('Overtime Hours per Week:') %></label>
+  <input type="number" id="overtime-hours" name="overtimeHours" step="0.1" required>
+
+  <label for="breaks"><%= __('Breaks (minutes) per Day:') %></label>
+  <input type="number" id="breaks" name="breaks" step="1" required>
+
+  <button type="submit"><%= __('Calculate') %></button>
+</form>
+
+<p id="result"></p>
+
+<script src="/assets/js/workHoursCalculator.js"></script>

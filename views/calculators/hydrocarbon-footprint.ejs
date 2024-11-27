@@ -1,0 +1,19 @@
+<h2><%= __('Carbon Footprint Calculator') %></h2>
+<p><%= __('Assess your environmental impact.') %></p>
+
+<form id="carbon-footprint-form">
+  <label for="car-miles"><%= __('Car Miles Driven per Year:') %></label>
+  <input type="number" id="car-miles" name="carMiles" step="1" required>
+
+  <label for="electricity"><%= __('Electricity Consumption (kWh per Month):') %></label>
+  <input type="number" id="electricity" name="electricity" step="1" required>
+
+  <label for="gas"><%= __('Gas Consumption (therms per Month):') %></label>
+  <input type="number" id="gas" name="gas" step="0.1" required>
+
+  <button type="submit"><%= __('Calculate') %></button>
+</form>
+
+<p id="result"></p>
+
+<script src="/assets/js/carbonFootprintCalculator.js"></script>

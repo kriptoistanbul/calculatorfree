@@ -1,0 +1,7 @@
+function calculateProfitMargin(costPrice, sellingPrice) {
+    if (costPrice <= 0) return 0;
+    return ((sellingPrice - costPrice) / sellingPrice) * 100;
+  }
+  
+  // Export the function if using modules
+  module.exports = calculateProfitMargin;

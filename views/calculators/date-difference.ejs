@@ -1,0 +1,16 @@
+<h2><%= __('Date Difference Calculator') %></h2>
+<p><%= __('Measure the interval between two dates.') %></p>
+
+<form id="date-diff-form">
+  <label for="start-date"><%= __('Start Date:') %></label>
+  <input type="date" id="start-date" name="startDate" required>
+
+  <label for="end-date"><%= __('End Date:') %></label>
+  <input type="date" id="end-date" name="endDate" required>
+
+  <button type="submit"><%= __('Calculate') %></button>
+</form>
+
+<p id="result"></p>
+
+<script src="/assets/js/dateDifferenceCalculator.js"></script>

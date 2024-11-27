@@ -1,0 +1,31 @@
+<h2><%= __('Time Zone Converter') %></h2>
+<p><%= __('Convert time between different global time zones.') %></p>
+
+<form id="time-zone-form">
+  <label for="source-time"><%= __('Source Time:') %></label>
+  <input type="datetime-local" id="source-time" name="sourceTime" required>
+
+  <label for="source-zone"><%= __('Source Time Zone:') %></label>
+  <select id="source-zone" name="sourceZone" required>
+    <option value="UTC">UTC</option>
+    <option value="America/New_York">New York (EST)</option>
+    <option value="Europe/London">London (GMT)</option>
+    <option value="Asia/Tokyo">Tokyo (JST)</option>
+    <!-- Add more time zones as needed -->
+  </select>
+
+  <label for="target-zone"><%= __('Target Time Zone:') %></label>
+  <select id="target-zone" name="targetZone" required>
+    <option value="UTC">UTC</option>
+    <option value="America/New_York">New York (EST)</option>
+    <option value="Europe/London">London (GMT)</option>
+    <option value="Asia/Tokyo">Tokyo (JST)</option>
+    <!-- Add more time zones as needed -->
+  </select>
+
+  <button type="submit"><%= __('Convert') %></button>
+</form>
+
+<p id="result"></p>
+
+<script src="/assets/js/timeZoneConverter.js"></script>
