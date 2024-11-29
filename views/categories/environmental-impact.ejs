@@ -6,9 +6,22 @@
 <section class="category-page">
   <h2><%= __('Environmental Impact Calculators') %></h2>
   <p><%= __('Contribute to a greener planet with our calculators.') %></p>
-  <ul class="calculator-list">
-    <li><a href="/<%= locale %>/calculators/carbon-footprint"><%= __('Carbon Footprint Calculator') %></a></li>
-    <li><a href="/<%= locale %>/calculators/water-usage"><%= __('Water Usage Calculator') %></a></li>
-    <li><a href="/<%= locale %>/calculators/energy-consumption"><%= __('Energy Consumption Calculator') %></a></li>
-  </ul>
+  <div class="calculator-list">
+    <div class="calculator-card">
+      <h3><%= __('Carbon Footprint Calculator') %></h3>
+      <p><%= __('Calculate your carbon footprint.') %></p>
+      <a href="<%= langPrefix %>/calculators/carbon-footprint" class="btn"><%= __('Calculate Carbon Footprint') %></a>
+    </div>
+    <div class="calculator-card">
+      <h3><%= __('Water Usage Calculator') %></h3>
+      <p><%= __('Calculate your water usage.') %></p>
+      <a href="<%= langPrefix %>/calculators/water-usage" class="btn"><%= __('Calculate Water Usage') %></a>
+    </div>
+    <div class="calculator-card">
+      <h3><%= __('Energy Consumption Calculator') %></h3>
+      <p><%= __('Calculate your energy consumption.') %></p>
+      <a href="<%= langPrefix %>/calculators/energy-consumption" class="btn"><%= __('Calculate Energy Consumption') %></a>
+    </div>
+    <!-- Add more environmental impact calculators here as needed -->
+  </div>
 </section>

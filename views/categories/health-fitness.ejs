@@ -6,11 +6,31 @@
 <section class="category-page">
   <h2><%= __('Health and Fitness Calculators') %></h2>
   <p><%= __('Stay on top of your health with our helpful calculators.') %></p>
-  <ul class="calculator-list">
-    <li><a href="/<%= locale %>/calculators/bmi"><%= __('BMI Calculator') %></a></li>
-    <li><a href="/<%= locale %>/calculators/body-fat"><%= __('Body Fat Calculator') %></a></li>
-    <li><a href="/<%= locale %>/calculators/calorie-nutrition"><%= __('Calorie and Nutrition Calculator') %></a></li>
-    <li><a href="/<%= locale %>/calculators/pregnancy-due-date"><%= __('Pregnancy Due Date Calculator') %></a></li>
-    <li><a href="/<%= locale %>/calculators/ovulation"><%= __('Ovulation Calculator') %></a></li>
-  </ul>
+  <div class="calculator-list">
+    <div class="calculator-card">
+      <h3><%= __('BMI Calculator') %></h3>
+      <p><%= __('Calculate your Body Mass Index to assess your weight status.') %></p>
+      <a href="<%= langPrefix %>/calculators/bmi" class="btn"><%= __('Calculate BMI') %></a>
+    </div>
+    <div class="calculator-card">
+      <h3><%= __('Body Fat Calculator') %></h3>
+      <p><%= __('Determine your body fat percentage for better health insights.') %></p>
+      <a href="<%= langPrefix %>/calculators/body-fat" class="btn"><%= __('Calculate Body Fat') %></a>
+    </div>
+    <div class="calculator-card">
+      <h3><%= __('Calorie and Nutrition Calculator') %></h3>
+      <p><%= __('Track your daily calorie and nutrition intake to meet your goals.') %></p>
+      <a href="<%= langPrefix %>/calculators/calorie-nutrition" class="btn"><%= __('Calculate Nutrition') %></a>
+    </div>
+    <div class="calculator-card">
+      <h3><%= __('Pregnancy Due Date Calculator') %></h3>
+      <p><%= __('Estimate your pregnancy due date with our simple calculator.') %></p>
+      <a href="<%= langPrefix %>/calculators/pregnancy-due-date" class="btn"><%= __('Calculate Due Date') %></a>
+    </div>
+    <div class="calculator-card">
+      <h3><%= __('Ovulation Calculator') %></h3>
+      <p><%= __('Identify your ovulation days for better family planning.') %></p>
+      <a href="<%= langPrefix %>/calculators/ovulation" class="btn"><%= __('Calculate Ovulation') %></a>
+    </div>
+  </div>
 </section>

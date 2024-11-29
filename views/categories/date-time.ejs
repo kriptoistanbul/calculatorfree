@@ -1,15 +1,32 @@
 <%
   title = __('Date and Time Calculators');
   description = __('Explore calculators related to date and time.');
-  var langPrefix = locale === 'en' ? '' : '/' + locale;
 %>
 
 <section class="category-page">
   <h2><%= title %></h2>
-  <ul>
-    <li><a href="<%= langPrefix %>/calculators/age"><%= __('Age Calculator') %></a></li>
-    <li><a href="<%= langPrefix %>/calculators/date-difference"><%= __('Date Difference Calculator') %></a></li>
-    <li><a href="<%= langPrefix %>/calculators/time-zone-converter"><%= __('Time Zone Converter') %></a></li>
-    <li><a href="<%= langPrefix %>/calculators/work-hours"><%= __('Work Hours Calculator') %></a></li>
-  </ul>
+  <p><%= __('Explore our date and time calculators to manage your schedules and timelines effectively.') %></p>
+  <div class="calculator-list">
+    <div class="calculator-card">
+      <h3><%= __('Age Calculator') %></h3>
+      <p><%= __('Calculate your exact age in years, months, and days.') %></p>
+      <a href="<%= langPrefix %>/calculators/age" class="btn"><%= __('Calculate Age') %></a>
+    </div>
+    <div class="calculator-card">
+      <h3><%= __('Date Difference Calculator') %></h3>
+      <p><%= __('Calculate the difference between two dates.') %></p>
+      <a href="<%= langPrefix %>/calculators/date-difference" class="btn"><%= __('Calculate Date Difference') %></a>
+    </div>
+    <div class="calculator-card">
+      <h3><%= __('Time Zone Converter') %></h3>
+      <p><%= __('Convert time between different time zones.') %></p>
+      <a href="<%= langPrefix %>/calculators/time-zone-converter" class="btn"><%= __('Convert Time Zone') %></a>
+    </div>
+    <div class="calculator-card">
+      <h3><%= __('Work Hours Calculator') %></h3>
+      <p><%= __('Calculate total work hours.') %></p>
+      <a href="<%= langPrefix %>/calculators/work-hours" class="btn"><%= __('Calculate Work Hours') %></a>
+    </div>
+    <!-- Add more date and time calculators here as needed -->
+  </div>
 </section>

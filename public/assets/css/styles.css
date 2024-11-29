@@ -621,3 +621,54 @@ footer .language-selector select {
 .footer-social ul li a:hover i {
   color: #3498db;
 }
+
+/* Calculator List Styles */
+.calculator-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2em;
+  justify-content: center;
+  margin-top: 2em;
+}
+
+.calculator-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 300px;
+  padding: 1.5em;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.calculator-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.calculator-card h3 {
+  margin-bottom: 1em;
+  font-size: 1.5em;
+  color: #2c3e50;
+}
+
+.calculator-card p {
+  margin-bottom: 1.5em;
+  color: #555;
+  line-height: 1.6;
+}
+
+.calculator-card .btn {
+  background-color: #3498db;
+  color: #fff;
+  padding: 0.6em 1.2em;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.calculator-card .btn:hover {
+  background-color: #2980b9;
+}

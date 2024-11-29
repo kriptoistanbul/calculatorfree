@@ -1,0 +1,10 @@
+<%
+  title = __('Internal Server Error');
+  description = __('An unexpected error has occurred.');
+%>
+
+<section class="error-page">
+  <h2><%= __('500 - Internal Server Error') %></h2>
+  <p><%= message %></p>
+  <a href="<%= langPrefix %>/" class="btn"><%= __('Go to Homepage') %></a>
+</section>

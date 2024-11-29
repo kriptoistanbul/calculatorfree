@@ -6,15 +6,52 @@
 <section class="category-page">
   <h2><%= __('Astrology and Zodiac Calculators') %></h2>
   <p><%= __('Explore your astrological profile with our calculators.') %></p>
-  <ul class="calculator-list">
-    <li><a href="/<%= locale %>/calculators/planetary-aspect"><%= __('Planetary Aspect Calculator') %></a></li>
-    <li><a href="/<%= locale %>/calculators/mercury-sign"><%= __('Mercury Sign Calculator') %></a></li>
-    <li><a href="/<%= locale %>/calculators/moon-sign"><%= __('Moon Sign Calculator') %></a></li>
-    <li><a href="/<%= locale %>/calculators/venus-sign"><%= __('Venus Sign Calculator') %></a></li>
-    <li><a href="/<%= locale %>/calculators/mars-sign"><%= __('Mars Sign Calculator') %></a></li>
-    <li><a href="/<%= locale %>/calculators/western-zodiac"><%= __('Western Zodiac Calculator') %></a></li>
-    <li><a href="/<%= locale %>/calculators/chinese-zodiac"><%= __('Chinese Zodiac Calculator') %></a></li>
-    <li><a href="/<%= locale %>/calculators/vedic-astrology"><%= __('Vedic Astrology Calculator') %></a></li>
-    <li><a href="/<%= locale %>/calculators/compatibility"><%= __('Compatibility Calculator') %></a></li>
-  </ul>
+  <div class="calculator-list">
+    <div class="calculator-card">
+      <h3><%= __('Planetary Aspect Calculator') %></h3>
+      <p><%= __('Calculate planetary aspects in astrology.') %></p>
+      <a href="<%= langPrefix %>/calculators/planetary-aspect" class="btn"><%= __('Calculate Planetary Aspect') %></a>
+    </div>
+    <div class="calculator-card">
+      <h3><%= __('Mercury Sign Calculator') %></h3>
+      <p><%= __('Find out your Mercury sign.') %></p>
+      <a href="<%= langPrefix %>/calculators/mercury-sign" class="btn"><%= __('Find Mercury Sign') %></a>
+    </div>
+    <div class="calculator-card">
+      <h3><%= __('Moon Sign Calculator') %></h3>
+      <p><%= __('Find out your Moon sign.') %></p>
+      <a href="<%= langPrefix %>/calculators/moon-sign" class="btn"><%= __('Find Moon Sign') %></a>
+    </div>
+    <div class="calculator-card">
+      <h3><%= __('Venus Sign Calculator') %></h3>
+      <p><%= __('Find out your Venus sign.') %></p>
+      <a href="<%= langPrefix %>/calculators/venus-sign" class="btn"><%= __('Find Venus Sign') %></a>
+    </div>
+    <div class="calculator-card">
+      <h3><%= __('Mars Sign Calculator') %></h3>
+      <p><%= __('Find out your Mars sign.') %></p>
+      <a href="<%= langPrefix %>/calculators/mars-sign" class="btn"><%= __('Find Mars Sign') %></a>
+    </div>
+    <div class="calculator-card">
+      <h3><%= __('Western Zodiac Calculator') %></h3>
+      <p><%= __('Find out your Western zodiac sign.') %></p>
+      <a href="<%= langPrefix %>/calculators/western-zodiac" class="btn"><%= __('Find Western Zodiac') %></a>
+    </div>
+    <div class="calculator-card">
+      <h3><%= __('Chinese Zodiac Calculator') %></h3>
+      <p><%= __('Find out your Chinese zodiac sign.') %></p>
+      <a href="<%= langPrefix %>/calculators/chinese-zodiac" class="btn"><%= __('Find Chinese Zodiac') %></a>
+    </div>
+    <div class="calculator-card">
+      <h3><%= __('Vedic Astrology Calculator') %></h3>
+      <p><%= __('Explore Vedic astrology.') %></p>
+      <a href="<%= langPrefix %>/calculators/vedic-astrology" class="btn"><%= __('Explore Vedic Astrology') %></a>
+    </div>
+    <div class="calculator-card">
+      <h3><%= __('Compatibility Calculator') %></h3>
+      <p><%= __('Check compatibility between signs.') %></p>
+      <a href="<%= langPrefix %>/calculators/compatibility" class="btn"><%= __('Check Compatibility') %></a>
+    </div>
+    <!-- Add more astrology and zodiac calculators here as needed -->
+  </div>
 </section>

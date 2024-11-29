@@ -1,0 +1,19 @@
+<%
+  // Set default title and description if not provided
+  title = title || __('Category');
+  description = description || __('Explore our range of calculators in this category.');
+%>
+
+<section class="category-page">
+  <h2><%= title %></h2>
+  <p><%= description %></p>
+  <div class="calculator-list">
+    <% calculators.forEach(function(calculator) { %>
+      <div class="calculator-card">
+        <h3><%= __(calculator.name) %></h3>
+        <p><%= __(calculator.description) %></p>
+        <a href="<%= langPrefix %><%= calculator.path %>" class="btn"><%= __('Calculate') %></a>
+      </div>
+    <% }); %>
+  </div>
+</section>
