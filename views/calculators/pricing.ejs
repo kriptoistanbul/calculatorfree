@@ -1,0 +1,16 @@
+<h2><%= __('Pricing Calculator') %></h2>
+<p><%= __('Determine the selling price of your product or service based on costs and desired profit margin.') %></p>
+
+<form id="pricing-form">
+  <label for="costPrice"><%= __('Cost Price ($):') %></label>
+  <input type="number" id="costPrice" name="costPrice" step="0.01" required>
+
+  <label for="desiredMargin"><%= __('Desired Profit Margin (%):') %></label>
+  <input type="number" id="desiredMargin" name="desiredMargin" step="0.1" required>
+
+  <button type="submit"><%= __('Calculate') %></button>
+</form>
+
+<p id="pricing-result"></p>
+
+<script src="/assets/js/pricingCalculator.js"></script>

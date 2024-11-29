@@ -1,0 +1,25 @@
+<h2><%= __('Retirement Calculator') %></h2>
+<p><%= __('Estimate your retirement savings based on current savings, contributions, and expected returns.') %></p>
+
+<form id="retirement-form">
+  <label for="currentAge"><%= __('Current Age:') %></label>
+  <input type="number" id="currentAge" name="currentAge" required>
+
+  <label for="retirementAge"><%= __('Retirement Age:') %></label>
+  <input type="number" id="retirementAge" name="retirementAge" required>
+
+  <label for="currentSavings"><%= __('Current Savings ($):') %></label>
+  <input type="number" id="currentSavings" name="currentSavings" step="0.01" required>
+
+  <label for="monthlyContribution"><%= __('Monthly Contribution ($):') %></label>
+  <input type="number" id="monthlyContribution" name="monthlyContribution" step="0.01" required>
+
+  <label for="annualReturnRate"><%= __('Annual Return Rate (%):') %></label>
+  <input type="number" id="annualReturnRate" name="annualReturnRate" step="0.01" required>
+
+  <button type="submit"><%= __('Calculate') %></button>
+</form>
+
+<p id="retirement-result"></p>
+
+<script src="/assets/js/retirementCalculator.js"></script>

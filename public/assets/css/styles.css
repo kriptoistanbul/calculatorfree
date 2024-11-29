@@ -30,25 +30,27 @@ a:hover {
 header {
   background-color: #fff;
   border-bottom: 1px solid #ddd;
-  position: sticky;
-  top: 0;
+  position: relative; /* Changed from fixed to relative */
+  padding: 0.5em 0; /* Reduced vertical padding for smaller header */
   z-index: 1000;
 }
 
 .header-top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 1em 0;
+  justify-content: space-between; /* Space between logo and toggle */
+  padding: 0 1em; /* Adjusted horizontal padding */
 }
 
+/* Logo Styles */
 header h1 a {
-  font-size: 1.8em;
+  font-size: 1.5em; /* Reduced font size for smaller header */
   font-weight: bold;
   color: #2c3e50;
   text-decoration: none;
 }
 
+/* Navigation Menu Styles */
 nav {
   position: relative;
 }
@@ -109,18 +111,19 @@ nav ul.submenu li a:hover {
 
 /* Mobile Menu Toggle Button */
 .menu-toggle {
-  display: none;
+  display: none; /* Hidden by default, shown on mobile via media queries */
   flex-direction: column;
   cursor: pointer;
   border: none;
   background: none;
+  padding: 0.3em; /* Reduced padding for smaller toggle */
 }
 
 .menu-toggle .bar {
-  width: 25px;
-  height: 3px;
+  width: 20px; /* Reduced width for smaller toggle */
+  height: 2px;  /* Reduced height */
   background-color: #333;
-  margin: 4px 0;
+  margin: 3px 0; /* Reduced margin between bars */
   transition: 0.4s;
 }
 
@@ -500,6 +503,7 @@ footer .language-selector select {
 
 /* Responsive Styles */
 @media (max-width: 768px) {
+  /* Calculator Categories */
   .categories {
     flex-direction: column;
     align-items: center;
@@ -509,16 +513,20 @@ footer .language-selector select {
     width: 80%;
   }
 
+  /* Header Top Adjustments */
   .header-top {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: column; /* Stack logo and toggle vertically */
+    align-items: center;    /* Center items horizontally */
+    padding: 0.5em 1em;     /* Adjust padding */
   }
 
+  /* Show Menu Toggle Button */
   .menu-toggle {
     display: flex;
-    margin-top: 10px;
+    margin: 0.5em 0; /* Centered with minimal margin */
   }
 
+  /* Mobile Menu Styles */
   nav ul.menu {
     display: none;
     flex-direction: column;
@@ -529,10 +537,14 @@ footer .language-selector select {
     top: 100%;
     left: 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: max-height 0.3s ease-in-out; /* Smooth transition */
+    overflow: hidden;
+    max-height: 0;
   }
 
   nav ul.menu.active {
     display: flex;
+    max-height: 1000px; /* Arbitrary large value to allow full height */
   }
 
   nav ul.menu > li {
@@ -543,8 +555,9 @@ footer .language-selector select {
   nav ul.menu > li > a {
     width: 100%;
     display: block;
-    padding: 1em;
+    padding: 0.8em 1em; /* Reduced padding */
     border-bottom: 1px solid #ddd;
+    font-size: 1em;      /* Reduced font size */
   }
 
   nav ul.menu > li.dropdown > a::after {
@@ -567,11 +580,12 @@ footer .language-selector select {
   }
 
   nav ul.submenu li a {
-    padding-left: 2em;
+    padding-left: 1.5em; /* Adjusted padding */
     border-bottom: 1px solid #eee;
+    font-size: 0.95em;    /* Slightly smaller font */
   }
 
-  /* Adjust footer for mobile */
+  /* Footer Adjustments for Mobile */
   footer .footer-content {
     flex-direction: column;
     align-items: center;
@@ -588,8 +602,8 @@ footer .language-selector select {
 
 /* Smooth Transitions */
 .menu-toggle .bar,
-.nav ul.menu > li > a,
-.nav ul.submenu li a,
+nav ul.menu > li > a,
+nav ul.submenu li a,
 .button,
 .btn {
   transition: all 0.3s ease;

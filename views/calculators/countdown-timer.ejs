@@ -1,0 +1,16 @@
+<h2><%= __('Countdown Timer') %></h2>
+<p><%= __('Set a future date and time to see the countdown.') %></p>
+
+<form id="countdown-form">
+  <label for="eventName"><%= __('Event Name:') %></label>
+  <input type="text" id="eventName" name="eventName" required>
+
+  <label for="eventDateTime"><%= __('Event Date and Time:') %></label>
+  <input type="datetime-local" id="eventDateTime" name="eventDateTime" required>
+
+  <button type="submit"><%= __('Start Countdown') %></button>
+</form>
+
+<p id="countdown-result"></p>
+
+<script src="/assets/js/countdownTimer.js"></script>

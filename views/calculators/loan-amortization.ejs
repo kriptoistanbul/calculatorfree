@@ -1,0 +1,19 @@
+<h2><%= __('Loan Amortization Calculator') %></h2>
+<p><%= __('Generate a detailed loan amortization schedule.') %></p>
+
+<form id="loan-amortization-form">
+  <label for="loanAmount"><%= __('Loan Amount ($):') %></label>
+  <input type="number" id="loanAmount" name="loanAmount" step="0.01" required>
+
+  <label for="interestRate"><%= __('Annual Interest Rate (%):') %></label>
+  <input type="number" id="interestRate" name="interestRate" step="0.01" required>
+
+  <label for="loanTerm"><%= __('Loan Term (years):') %></label>
+  <input type="number" id="loanTerm" name="loanTerm" required>
+
+  <button type="submit"><%= __('Generate Schedule') %></button>
+</form>
+
+<div id="loan-amortization-result"></div>
+
+<script src="/assets/js/loanAmortizationCalculator.js"></script>

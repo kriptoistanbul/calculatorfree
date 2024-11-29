@@ -1,0 +1,22 @@
+<h2><%= __('Electricity Usage Calculator') %></h2>
+<p><%= __('Calculate your electricity consumption and estimate the associated cost.') %></p>
+
+<form id="electricity-usage-form">
+  <label for="powerRating"><%= __('Appliance Power Rating (Watts):') %></label>
+  <input type="number" id="powerRating" name="powerRating" step="0.1" required>
+
+  <label for="usageHours"><%= __('Usage Hours per Day:') %></label>
+  <input type="number" id="usageHours" name="usageHours" step="0.1" required>
+
+  <label for="electricityRate"><%= __('Electricity Rate ($ per kWh):') %></label>
+  <input type="number" id="electricityRate" name="electricityRate" step="0.01" required>
+
+  <label for="days"><%= __('Number of Days:') %></label>
+  <input type="number" id="days" name="days" required>
+
+  <button type="submit"><%= __('Calculate') %></button>
+</form>
+
+<p id="electricity-usage-result"></p>
+
+<script src="/assets/js/electricityUsageCalculator.js"></script>

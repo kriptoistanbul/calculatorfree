@@ -23,6 +23,7 @@ i18n.configure({
 app.use(cookieParser());
 app.use(i18n.init);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true })); // To parse URL-encoded bodies
 
 // Set the view engine to EJS
 app.set('view engine', 'ejs');
@@ -34,6 +35,7 @@ app.use((req, res, next) => {
   res.locals.currentUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
   res.locals.originalUrl = req.originalUrl;
   res.locals.locale = req.getLocale();
+  res.locals.currencies = ['USD', 'EUR', 'GBP', 'JPY', 'CAD', 'AUD', 'CHF', 'CNY', 'SEK', 'NZD']; // Currency list
   next();
 });
 
@@ -89,50 +91,68 @@ const blogPosts = [
   // Add more posts as needed
 ];
 
-// Define calculator routes
+// Define calculator routes (only those with existing EJS templates)
 const calculatorRoutes = [
   // Date and Time Calculators
   { path: '/calculators/age', view: 'calculators/age', title: 'Age Calculator', description: 'Calculate your exact age in years, months, and days.' },
   { path: '/calculators/date-difference', view: 'calculators/date-difference', title: 'Date Difference Calculator', description: 'Calculate the difference between two dates.' },
   { path: '/calculators/time-zone-converter', view: 'calculators/time-zone-converter', title: 'Time Zone Converter', description: 'Convert time between different time zones.' },
   { path: '/calculators/work-hours', view: 'calculators/work-hours', title: 'Work Hours Calculator', description: 'Calculate total work hours.' },
-  
+  { path: '/calculators/age-in-days', view: 'calculators/age-in-days', title: 'Age in Days Calculator', description: 'Enter your birthdate to calculate your age in total days.' },
+  { path: '/calculators/countdown-timer', view: 'calculators/countdown-timer', title: 'Countdown Timer', description: 'Set a countdown timer for any event.' },
+
   // Financial Calculators
   { path: '/calculators/loan', view: 'calculators/loan', title: 'Advanced Loan Calculator', description: 'Calculate loan payments and interests.' },
   { path: '/calculators/investment-return', view: 'calculators/investment-return', title: 'Investment Return Calculator', description: 'Calculate returns on investments.' },
-  
+  { path: '/calculators/loan-amortization', view: 'calculators/loan-amortization', title: 'Loan Amortization Calculator', description: 'Generate an amortization schedule for your loan.' },
+  { path: '/calculators/mortgage', view: 'calculators/mortgage', title: 'Mortgage Calculator', description: 'Calculate your mortgage payments and terms.' },
+  { path: '/calculators/retirement', view: 'calculators/retirement', title: 'Retirement Calculator', description: 'Plan your retirement savings and timeline.' },
+  { path: '/calculators/savings', view: 'calculators/savings', title: 'Savings Calculator', description: 'Estimate your savings growth over time.' },
+  { path: '/calculators/tip', view: 'calculators/tip', title: 'Tip Calculator', description: 'Calculate the tip amount based on your bill.' },
+
   // Health and Fitness Calculators
   { path: '/calculators/bmi', view: 'calculators/bmi', title: 'BMI Calculator', description: 'Calculate your Body Mass Index.' },
   { path: '/calculators/body-fat', view: 'calculators/body-fat', title: 'Body Fat Calculator', description: 'Calculate your body fat percentage.' },
   { path: '/calculators/calorie-nutrition', view: 'calculators/calorie-nutrition', title: 'Calorie and Nutrition Calculator', description: 'Calculate your daily calorie and nutrition intake.' },
   { path: '/calculators/pregnancy-due-date', view: 'calculators/pregnancy-due-date', title: 'Pregnancy Due Date Calculator', description: 'Calculate your pregnancy due date.' },
   { path: '/calculators/ovulation', view: 'calculators/ovulation', title: 'Ovulation Calculator', description: 'Calculate your ovulation days.' },
-  
+  { path: '/calculators/bmr', view: 'calculators/bmr', title: 'Basal Metabolic Rate (BMR) Calculator', description: 'Calculate your BMR to understand your daily caloric needs.' },
+  { path: '/calculators/calorie-deficit', view: 'calculators/calorie-deficit', title: 'Calorie Deficit Calculator', description: 'Determine your calorie deficit for weight loss.' },
+  { path: '/calculators/ideal-body-weight', view: 'calculators/ideal-body-weight', title: 'Ideal Body Weight Calculator', description: 'Calculate your ideal body weight based on height and other factors.' },
+  { path: '/calculators/pet-age', view: 'calculators/pet-age', title: 'Pet Age Calculator', description: 'Calculate your pet’s age in human years.' },
+
   // Educational Calculators
   { path: '/calculators/grade-gpa', view: 'calculators/grade-gpa', title: 'Grade and GPA Calculator', description: 'Calculate your grades and GPA.' },
   { path: '/calculators/scientific', view: 'calculators/scientific', title: 'Scientific Calculator', description: 'Use our scientific calculator for complex calculations.' },
   { path: '/calculators/unit-conversion', view: 'calculators/unit-conversion', title: 'Unit Conversion Calculator', description: 'Convert units easily.' },
-  
+  { path: '/calculators/percentage-change', view: 'calculators/percentage-change', title: 'Percentage Change Calculator', description: 'Calculate the percentage change between two numbers.' },
+  { path: '/calculators/percentage', view: 'calculators/percentage', title: 'Percentage Calculator', description: 'Perform various percentage calculations.' },
+
   // Astrology and Zodiac Calculators
-  { path: '/calculators/planetary-aspect', view: 'calculators/planetary-aspect', title: 'Planetary Aspect Calculator', description: 'Calculate planetary aspects in astrology.' },
-  { path: '/calculators/mercury-sign', view: 'calculators/mercury-sign', title: 'Mercury Sign Calculator', description: 'Find out your Mercury sign.' },
-  { path: '/calculators/moon-sign', view: 'calculators/moon-sign', title: 'Moon Sign Calculator', description: 'Find out your Moon sign.' },
-  { path: '/calculators/venus-sign', view: 'calculators/venus-sign', title: 'Venus Sign Calculator', description: 'Find out your Venus sign.' },
-  { path: '/calculators/mars-sign', view: 'calculators/mars-sign', title: 'Mars Sign Calculator', description: 'Find out your Mars sign.' },
-  { path: '/calculators/western-zodiac', view: 'calculators/western-zodiac', title: 'Western Zodiac Calculator', description: 'Find out your Western zodiac sign.' },
-  { path: '/calculators/chinese-zodiac', view: 'calculators/chinese-zodiac', title: 'Chinese Zodiac Calculator', description: 'Find out your Chinese zodiac sign.' },
-  { path: '/calculators/vedic-astrology', view: 'calculators/vedic-astrology', title: 'Vedic Astrology Calculator', description: 'Explore Vedic astrology.' },
+  // Removed missing EJS templates
+  // Ensure EJS files exist for these routes or remove them
+  // For demonstration, only include existing ones
   { path: '/calculators/compatibility', view: 'calculators/compatibility', title: 'Compatibility Calculator', description: 'Check compatibility between signs.' },
-  
+  { path: '/calculators/aily-horoscope', view: 'calculators/aily-horoscope', title: 'Daily Horoscope Calculator', description: 'Get your daily horoscope based on your zodiac sign.' },
+  { path: '/calculators/horoscope', view: 'calculators/horoscope', title: 'Horoscope Calculator', description: 'Explore detailed horoscopes based on your birth details.' },
+  { path: '/calculators/natal-chart', view: 'calculators/natal-chart', title: 'Natal Chart Calculator', description: 'Generate your natal chart for detailed astrological insights.' },
+  { path: '/calculators/western-zodiac', view: 'calculators/western-zodiac', title: 'Western Zodiac Calculator', description: 'Find out your Western zodiac sign.' },
+
   // Environmental Impact Calculators
   { path: '/calculators/carbon-footprint', view: 'calculators/carbon-footprint', title: 'Carbon Footprint Calculator', description: 'Calculate your carbon footprint.' },
   { path: '/calculators/water-usage', view: 'calculators/water-usage', title: 'Water Usage Calculator', description: 'Calculate your water usage.' },
   { path: '/calculators/energy-consumption', view: 'calculators/energy-consumption', title: 'Energy Consumption Calculator', description: 'Calculate your energy consumption.' },
-  
+  { path: '/calculators/electricity-usage', view: 'calculators/electricity-usage', title: 'Electricity Usage Calculator', description: 'Calculate your electricity usage.' },
+  { path: '/calculators/hydrocarbon-footprint', view: 'calculators/hydrocarbon-footprint', title: 'Hydrocarbon Footprint Calculator', description: 'Calculate your hydrocarbon footprint.' },
+  { path: '/calculators/hydrogen-calculator', view: 'calculators/hydrogen-calculator', title: 'Hydrogen Calculator', description: 'Calculate your hydrogen consumption and impact.' },
+
   // Business and Marketing Calculators
   { path: '/calculators/roi', view: 'calculators/roi', title: 'ROI Calculator', description: 'Calculate Return on Investment.' },
   { path: '/calculators/break-even', view: 'calculators/break-even', title: 'Break-even Analysis Calculator', description: 'Calculate your break-even point.' },
   { path: '/calculators/project-cost', view: 'calculators/project-cost', title: 'Project Cost Estimator', description: 'Estimate your project costs.' },
+  { path: '/calculators/customer-lifetime-value', view: 'calculators/customer-lifetime-value', title: 'Customer Lifetime Value Calculator', description: 'Determine the value of a customer over their lifetime.' },
+  { path: '/calculators/pricing', view: 'calculators/pricing', title: 'Pricing Calculator', description: 'Set optimal pricing for your products or services.' },
+  { path: '/calculators/profit-margin', view: 'calculators/profit-margin', title: 'Profit Margin Calculator', description: 'Calculate your profit margins accurately.' },
 ];
 
 // Define category routes
@@ -163,7 +183,8 @@ app.get('/', (req, res) => {
 ['fr', 'es', 'de', 'zh', 'ru', 'ja', 'ar', 'pt', 'hi'].forEach(lang => {
   app.get(`/${lang}/`, (req, res) => {
     console.log(`Accessed /${lang}/ homepage route`);
-    res.setLocale(lang);
+    req.setLocale(lang);
+    res.locals.locale = lang;
     res.render('index', {
       title: res.__('Online Free Calculator - Your One-Stop Destination for All Calculations'),
       description: res.__('Discover a wide range of free calculators for finance, health, astrology, education, and more. Simplify complex calculations with ease.'),

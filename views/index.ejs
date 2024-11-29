@@ -1,3 +1,5 @@
+<!-- views/index.ejs -->
+
 <%
   title = __('Online Free Calculator - Your One-Stop Destination for All Calculations');
   description = __('Discover a wide range of free calculators for finance, health, astrology, education, and more. Simplify complex calculations with ease.');
@@ -18,9 +20,11 @@
       <h4><%= __('Date and Time Calculators') %></h4>
       <ul>
         <li><a href="<%= langPrefix %>/calculators/age"><%= __('Age Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/age-in-days"><%= __('Age in Days Calculator') %></a></li>
         <li><a href="<%= langPrefix %>/calculators/date-difference"><%= __('Date Difference Calculator') %></a></li>
         <li><a href="<%= langPrefix %>/calculators/time-zone-converter"><%= __('Time Zone Converter') %></a></li>
         <li><a href="<%= langPrefix %>/calculators/work-hours"><%= __('Work Hours Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/countdown-timer"><%= __('Countdown Timer') %></a></li>
       </ul>
     </div>
     <!-- Financial Calculators -->
@@ -29,6 +33,11 @@
       <ul>
         <li><a href="<%= langPrefix %>/calculators/loan"><%= __('Advanced Loan Calculator') %></a></li>
         <li><a href="<%= langPrefix %>/calculators/investment-return"><%= __('Investment Return Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/loan-amortization"><%= __('Loan Amortization Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/mortgage"><%= __('Mortgage Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/retirement"><%= __('Retirement Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/savings"><%= __('Savings Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/tip"><%= __('Tip Calculator') %></a></li>
       </ul>
     </div>
     <!-- Health and Fitness Calculators -->
@@ -40,6 +49,10 @@
         <li><a href="<%= langPrefix %>/calculators/calorie-nutrition"><%= __('Calorie and Nutrition Calculator') %></a></li>
         <li><a href="<%= langPrefix %>/calculators/pregnancy-due-date"><%= __('Pregnancy Due Date Calculator') %></a></li>
         <li><a href="<%= langPrefix %>/calculators/ovulation"><%= __('Ovulation Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/bmr"><%= __('Basal Metabolic Rate (BMR) Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/calorie-deficit"><%= __('Calorie Deficit Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/ideal-body-weight"><%= __('Ideal Body Weight Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/pet-age"><%= __('Pet Age Calculator') %></a></li>
       </ul>
     </div>
     <!-- Educational Calculators -->
@@ -49,21 +62,19 @@
         <li><a href="<%= langPrefix %>/calculators/grade-gpa"><%= __('Grade and GPA Calculator') %></a></li>
         <li><a href="<%= langPrefix %>/calculators/scientific"><%= __('Scientific Calculator') %></a></li>
         <li><a href="<%= langPrefix %>/calculators/unit-conversion"><%= __('Unit Conversion Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/percentage-change"><%= __('Percentage Change Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/percentage"><%= __('Percentage Calculator') %></a></li>
       </ul>
     </div>
     <!-- Astrology and Zodiac Calculators -->
     <div class="category">
       <h4><%= __('Astrology and Zodiac Calculators') %></h4>
       <ul>
-        <li><a href="<%= langPrefix %>/calculators/planetary-aspect"><%= __('Planetary Aspect Calculator') %></a></li>
-        <li><a href="<%= langPrefix %>/calculators/mercury-sign"><%= __('Mercury Sign Calculator') %></a></li>
-        <li><a href="<%= langPrefix %>/calculators/moon-sign"><%= __('Moon Sign Calculator') %></a></li>
-        <li><a href="<%= langPrefix %>/calculators/venus-sign"><%= __('Venus Sign Calculator') %></a></li>
-        <li><a href="<%= langPrefix %>/calculators/mars-sign"><%= __('Mars Sign Calculator') %></a></li>
-        <li><a href="<%= langPrefix %>/calculators/western-zodiac"><%= __('Western Zodiac Calculator') %></a></li>
-        <li><a href="<%= langPrefix %>/calculators/chinese-zodiac"><%= __('Chinese Zodiac Calculator') %></a></li>
-        <li><a href="<%= langPrefix %>/calculators/vedic-astrology"><%= __('Vedic Astrology Calculator') %></a></li>
         <li><a href="<%= langPrefix %>/calculators/compatibility"><%= __('Compatibility Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/aily-horoscope"><%= __('Daily Horoscope Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/horoscope"><%= __('Horoscope Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/natal-chart"><%= __('Natal Chart Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/western-zodiac"><%= __('Western Zodiac Calculator') %></a></li>
       </ul>
     </div>
     <!-- Environmental Impact Calculators -->
@@ -73,6 +84,9 @@
         <li><a href="<%= langPrefix %>/calculators/carbon-footprint"><%= __('Carbon Footprint Calculator') %></a></li>
         <li><a href="<%= langPrefix %>/calculators/water-usage"><%= __('Water Usage Calculator') %></a></li>
         <li><a href="<%= langPrefix %>/calculators/energy-consumption"><%= __('Energy Consumption Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/electricity-usage"><%= __('Electricity Usage Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/hydrocarbon-footprint"><%= __('Hydrocarbon Footprint Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/hydrogen-calculator"><%= __('Hydrogen Calculator') %></a></li>
       </ul>
     </div>
     <!-- Business and Marketing Calculators -->
@@ -82,6 +96,9 @@
         <li><a href="<%= langPrefix %>/calculators/roi"><%= __('ROI Calculator') %></a></li>
         <li><a href="<%= langPrefix %>/calculators/break-even"><%= __('Break-even Analysis Calculator') %></a></li>
         <li><a href="<%= langPrefix %>/calculators/project-cost"><%= __('Project Cost Estimator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/customer-lifetime-value"><%= __('Customer Lifetime Value Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/pricing"><%= __('Pricing Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/profit-margin"><%= __('Profit Margin Calculator') %></a></li>
       </ul>
     </div>
   </div>

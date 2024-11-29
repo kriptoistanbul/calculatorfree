@@ -1,0 +1,19 @@
+<h2><%= __('Natal Chart Calculator') %></h2>
+<p><%= __('Generate your natal chart based on your birth details.') %></p>
+
+<form id="natal-chart-form">
+  <label for="birthDate"><%= __('Birth Date:') %></label>
+  <input type="date" id="birthDate" name="birthDate" required>
+
+  <label for="birthTime"><%= __('Birth Time:') %></label>
+  <input type="time" id="birthTime" name="birthTime" required>
+
+  <label for="birthPlace"><%= __('Birth Place:') %></label>
+  <input type="text" id="birthPlace" name="birthPlace" required>
+
+  <button type="submit"><%= __('Generate Chart') %></button>
+</form>
+
+<p id="natal-chart-result"></p>
+
+<script src="/assets/js/natalChartCalculator.js"></script>

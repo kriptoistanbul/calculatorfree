@@ -1,0 +1,22 @@
+<h2><%= __('Calorie Deficit Calculator') %></h2>
+<p><%= __('Plan your weight loss by calculating the necessary daily calorie deficit.') %></p>
+
+<form id="calorie-deficit-form">
+  <label for="currentCalories"><%= __('Current Daily Caloric Intake ($):') %></label>
+  <input type="number" id="currentCalories" name="currentCalories" step="1" required>
+
+  <label for="goalCalories"><%= __('Goal Daily Caloric Intake ($):') %></label>
+  <input type="number" id="goalCalories" name="goalCalories" step="1" required>
+
+  <label for="weightToLose"><%= __('Weight to Lose (kg):') %></label>
+  <input type="number" id="weightToLose" name="weightToLose" step="0.1" required>
+
+  <label for="weeks"><%= __('Number of Weeks:') %></label>
+  <input type="number" id="weeks" name="weeks" required>
+
+  <button type="submit"><%= __('Calculate') %></button>
+</form>
+
+<p id="calorie-deficit-result"></p>
+
+<script src="/assets/js/calorieDeficitCalculator.js"></script>

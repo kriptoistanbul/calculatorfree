@@ -1,0 +1,19 @@
+<h2><%= __('Customer Lifetime Value (CLV) Calculator') %></h2>
+<p><%= __('Estimate the total revenue expected from a customer over their relationship with your business.') %></p>
+
+<form id="clv-form">
+  <label for="averagePurchaseValue"><%= __('Average Purchase Value ($):') %></label>
+  <input type="number" id="averagePurchaseValue" name="averagePurchaseValue" step="0.01" required>
+
+  <label for="purchaseFrequency"><%= __('Purchase Frequency (per year):') %></label>
+  <input type="number" id="purchaseFrequency" name="purchaseFrequency" step="0.1" required>
+
+  <label for="customerLifespan"><%= __('Customer Lifespan (years):') %></label>
+  <input type="number" id="customerLifespan" name="customerLifespan" step="0.1" required>
+
+  <button type="submit"><%= __('Calculate') %></button>
+</form>
+
+<p id="clv-result"></p>
+
+<script src="/assets/js/clvCalculator.js"></script>

@@ -1,0 +1,22 @@
+<h2><%= __('Savings Calculator') %></h2>
+<p><%= __('Estimate your future savings based on current savings, monthly contributions, and interest rate.') %></p>
+
+<form id="savings-form">
+  <label for="currentSavings"><%= __('Current Savings ($):') %></label>
+  <input type="number" id="currentSavings" name="currentSavings" step="0.01" required>
+
+  <label for="monthlyContribution"><%= __('Monthly Contribution ($):') %></label>
+  <input type="number" id="monthlyContribution" name="monthlyContribution" step="0.01" required>
+
+  <label for="annualInterestRate"><%= __('Annual Interest Rate (%):') %></label>
+  <input type="number" id="annualInterestRate" name="annualInterestRate" step="0.01" required>
+
+  <label for="years"><%= __('Number of Years:') %></label>
+  <input type="number" id="years" name="years" required>
+
+  <button type="submit"><%= __('Calculate') %></button>
+</form>
+
+<p id="savings-result"></p>
+
+<script src="/assets/js/savingsCalculator.js"></script>

@@ -1,0 +1,16 @@
+<h2><%= __('Percentage Change Calculator') %></h2>
+<p><%= __('Calculate the percentage increase or decrease between two values.') %></p>
+
+<form id="percentage-change-form">
+  <label for="originalValue"><%= __('Original Value:') %></label>
+  <input type="number" id="originalValue" name="originalValue" step="0.01" required>
+
+  <label for="newValue"><%= __('New Value:') %></label>
+  <input type="number" id="newValue" name="newValue" step="0.01" required>
+
+  <button type="submit"><%= __('Calculate') %></button>
+</form>
+
+<p id="percentage-change-result"></p>
+
+<script src="/assets/js/percentageChangeCalculator.js"></script>

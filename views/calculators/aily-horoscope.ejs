@@ -1,0 +1,27 @@
+<h2><%= __('Daily Horoscope Calculator') %></h2>
+<p><%= __('Get your daily horoscope based on your zodiac sign.') %></p>
+
+<form id="daily-horoscope-form">
+  <label for="zodiacSign"><%= __('Zodiac Sign:') %></label>
+  <select id="zodiacSign" name="zodiacSign" required>
+    <option value="" disabled selected><%= __('Select your sign') %></option>
+    <option value="aries"><%= __('Aries') %></option>
+    <option value="taurus"><%= __('Taurus') %></option>
+    <option value="gemini"><%= __('Gemini') %></option>
+    <option value="cancer"><%= __('Cancer') %></option>
+    <option value="leo"><%= __('Leo') %></option>
+    <option value="virgo"><%= __('Virgo') %></option>
+    <option value="libra"><%= __('Libra') %></option>
+    <option value="scorpio"><%= __('Scorpio') %></option>
+    <option value="sagittarius"><%= __('Sagittarius') %></option>
+    <option value="capricorn"><%= __('Capricorn') %></option>
+    <option value="aquarius"><%= __('Aquarius') %></option>
+    <option value="pisces"><%= __('Pisces') %></option>
+  </select>
+
+  <button type="submit"><%= __('Get Horoscope') %></button>
+</form>
+
+<p id="daily-horoscope-result"></p>
+
+<script src="/assets/js/dailyHoroscopeCalculator.js"></script>
