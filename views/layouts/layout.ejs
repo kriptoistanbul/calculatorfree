@@ -22,96 +22,55 @@
     <link rel="alternate" hreflang="<%= localeCode %>" href="https://calculator-free.online<%= localeCode === 'en' ? '' : '/' + localeCode %><%= originalUrl.replace(/^\/(en|fr|es|de|zh|ru|ja|ar|pt|hi)/, '') %>">
   <% }); %>
 
+  <!-- JSON-LD Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Online Free Calculator",
+    "url": "https://calculator-free.online",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://calculator-free.online/search?query={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  
   <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 <body>
   <header>
     <div class="container">
-      <h1><a href="/"><%= __('Online Free Calculator') %></a></h1>
+      <div class="header-top">
+        <h1><a href="/"><%= __('Online Free Calculator') %></a></h1>
+        <button class="menu-toggle" onclick="toggleMenu()">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
       <nav>
-        <div class="menu-icon" onclick="toggleMenu()">
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-        </div>
+        <% var langPrefix = locale === 'en' ? '' : '/' + locale; %>
         <ul class="menu" id="menu">
-          <li><a href="/<%= locale %>/"><%= __('Home') %></a></li>
-          <!-- Categories -->
+          <li><a href="<%= langPrefix %>/"><%= __('Home') %></a></li>
           <li class="dropdown">
-            <a href="#"><%= __('Date and Time Calculators') %></a>
+            <a href="#" class="dropdown-toggle"><%= __('Categories') %> ▼</a>
             <ul class="submenu">
-              <li><a href="/<%= locale %>/calculators/age"><%= __('Age Calculator') %></a></li>
-              <li><a href="/<%= locale %>/calculators/date-difference"><%= __('Date Difference Calculator') %></a></li>
-              <li><a href="/<%= locale %>/calculators/time-zone-converter"><%= __('Time Zone Converter') %></a></li>
-              <li><a href="/<%= locale %>/calculators/work-hours"><%= __('Work Hours Calculator') %></a></li>
+              <!-- Category links -->
+              <li><a href="<%= langPrefix %>/categories/date-time"><%= __('Date and Time') %></a></li>
+              <li><a href="<%= langPrefix %>/categories/financial"><%= __('Financial') %></a></li>
+              <li><a href="<%= langPrefix %>/categories/health-fitness"><%= __('Health and Fitness') %></a></li>
+              <li><a href="<%= langPrefix %>/categories/educational"><%= __('Educational') %></a></li>
+              <li><a href="<%= langPrefix %>/categories/astrology-zodiac"><%= __('Astrology and Zodiac') %></a></li>
+              <li><a href="<%= langPrefix %>/categories/environmental-impact"><%= __('Environmental Impact') %></a></li>
+              <li><a href="<%= langPrefix %>/categories/business-marketing"><%= __('Business and Marketing') %></a></li>
+              <!-- Add other categories here -->
             </ul>
           </li>
-          <li class="dropdown">
-            <a href="#"><%= __('Financial Calculators') %></a>
-            <ul class="submenu">
-              <li><a href="/<%= locale %>/calculators/loan"><%= __('Advanced Loan Calculator') %></a></li>
-              <li><a href="/<%= locale %>/calculators/investment-return"><%= __('Investment Return Calculator') %></a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#"><%= __('Health and Fitness Calculators') %></a>
-            <ul class="submenu">
-              <li><a href="/<%= locale %>/calculators/bmi"><%= __('BMI Calculator') %></a></li>
-              <li><a href="/<%= locale %>/calculators/body-fat"><%= __('Body Fat Calculator') %></a></li>
-              <li><a href="/<%= locale %>/calculators/calorie-nutrition"><%= __('Calorie and Nutrition Calculator') %></a></li>
-              <li><a href="/<%= locale %>/calculators/pregnancy-due-date"><%= __('Pregnancy Due Date Calculator') %></a></li>
-              <li><a href="/<%= locale %>/calculators/ovulation"><%= __('Ovulation Calculator') %></a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#"><%= __('Educational Calculators') %></a>
-            <ul class="submenu">
-              <li><a href="/<%= locale %>/calculators/grade-gpa"><%= __('Grade and GPA Calculator') %></a></li>
-              <li><a href="/<%= locale %>/calculators/scientific"><%= __('Scientific Calculator') %></a></li>
-              <li><a href="/<%= locale %>/calculators/unit-conversion"><%= __('Unit Conversion Calculator') %></a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#"><%= __('Astrology and Zodiac Calculators') %></a>
-            <ul class="submenu">
-              <li><a href="/<%= locale %>/calculators/planetary-aspect"><%= __('Planetary Aspect Calculator') %></a></li>
-              <li><a href="/<%= locale %>/calculators/mercury-sign"><%= __('Mercury Sign Calculator') %></a></li>
-              <li><a href="/<%= locale %>/calculators/moon-sign"><%= __('Moon Sign Calculator') %></a></li>
-              <li><a href="/<%= locale %>/calculators/venus-sign"><%= __('Venus Sign Calculator') %></a></li>
-              <li><a href="/<%= locale %>/calculators/mars-sign"><%= __('Mars Sign Calculator') %></a></li>
-              <li><a href="/<%= locale %>/calculators/western-zodiac"><%= __('Western Zodiac Calculator') %></a></li>
-              <li><a href="/<%= locale %>/calculators/chinese-zodiac"><%= __('Chinese Zodiac Calculator') %></a></li>
-              <li><a href="/<%= locale %>/calculators/vedic-astrology"><%= __('Vedic Astrology Calculator') %></a></li>
-              <li><a href="/<%= locale %>/calculators/compatibility"><%= __('Compatibility Calculator') %></a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#"><%= __('Environmental Impact Calculators') %></a>
-            <ul class="submenu">
-              <li><a href="/<%= locale %>/calculators/carbon-footprint"><%= __('Carbon Footprint Calculator') %></a></li>
-              <li><a href="/<%= locale %>/calculators/water-usage"><%= __('Water Usage Calculator') %></a></li>
-              <li><a href="/<%= locale %>/calculators/energy-consumption"><%= __('Energy Consumption Calculator') %></a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#"><%= __('Business and Marketing Calculators') %></a>
-            <ul class="submenu">
-              <li><a href="/<%= locale %>/calculators/roi"><%= __('ROI Calculator') %></a></li>
-              <li><a href="/<%= locale %>/calculators/break-even"><%= __('Break-even Analysis Calculator') %></a></li>
-              <li><a href="/<%= locale %>/calculators/project-cost"><%= __('Project Cost Estimator') %></a></li>
-            </ul>
-          </li>
-          <li><a href="/<%= locale %>/about"><%= __('About Us') %></a></li>
-          <li><a href="/<%= locale %>/privacy-policy"><%= __('Privacy Policy') %></a></li>
-          <!-- Language Dropdown -->
-          <li class="dropdown">
-            <a href="#"><%= __('Language') %></a>
-            <ul class="submenu">
-              <% ['en', 'fr', 'es', 'de', 'zh', 'ru', 'ja', 'ar', 'pt', 'hi'].forEach(function(lang) { %>
-                <li><a href="/change-language/<%= lang %>?redirect=<%= encodeURIComponent(originalUrl) %>"><%= lang.toUpperCase() %></a></li>
-              <% }); %>
-            </ul>
-          </li>
+          <li><a href="<%= langPrefix %>/blog"><%= __('Blog') %></a></li>
+          <li><a href="<%= langPrefix %>/about"><%= __('About Us') %></a></li>
+          <li><a href="<%= langPrefix %>/privacy-policy"><%= __('Privacy Policy') %></a></li>
         </ul>
       </nav>
     </div>
@@ -123,8 +82,70 @@
 
   <footer>
     <div class="container">
-      <p>&copy; <%= new Date().getFullYear() %> Online Free Calculator. All rights reserved.</p>
+      <div class="footer-content">
+        <div class="footer-links">
+          <h4><%= __('Quick Links') %></h4>
+          <ul>
+            <li><a href="<%= langPrefix %>/about"><%= __('About Us') %></a></li>
+            <li><a href="<%= langPrefix %>/privacy-policy"><%= __('Privacy Policy') %></a></li>
+            <li><a href="<%= langPrefix %>/blog"><%= __('Blog') %></a></li>
+            <!-- Add more links as needed -->
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4><%= __('Contact Us') %></h4>
+          <p>Email: <a href="mailto:info@calculator-free.online">info@calculator-free.online</a></p>
+          <p>Phone: +1 (234) 567-890</p>
+        </div>
+        <div class="footer-social">
+          <h4><%= __('Follow Us') %></h4>
+          <ul>
+            <li><a href="#"><i class="fab fa-facebook-f"></i> Facebook</a></li>
+            <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+            <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+            <!-- Add more social links as needed -->
+          </ul>
+        </div>
+      </div>
+      <p class="footer-bottom">&copy; <%= new Date().getFullYear() %> Online Free Calculator. All rights reserved.</p>
+      <div class="language-selector">
+        <label for="language-select"><%= __('Language') %>:</label>
+        <select id="language-select" onchange="changeLanguage(this.value)">
+          <% ['en', 'fr', 'es', 'de', 'zh', 'ru', 'ja', 'ar', 'pt', 'hi'].forEach(function(lang) { %>
+            <option value="<%= lang %>" <% if(locale === lang){ %>selected<% } %>><%= lang.toUpperCase() %></option>
+          <% }); %>
+        </select>
+      </div>
     </div>
   </footer>
+
+  <!-- JavaScript -->
+  <script>
+    function changeLanguage(lang) {
+      // Use <%- %> to output unescaped JSON string
+      var originalUrl = <%- JSON.stringify(originalUrl) %>;
+      var currentUrl = originalUrl.replace(/^\/(en|fr|es|de|zh|ru|ja|ar|pt|hi)/, '');
+      var newUrl = lang === 'en' ? currentUrl : '/' + lang + currentUrl;
+      window.location.href = newUrl;
+    }
+
+    function toggleMenu() {
+      var menu = document.getElementById('menu');
+      menu.classList.toggle('active');
+    }
+
+    // Accordion functionality for mobile submenu
+    var dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+    dropdownToggles.forEach(function(toggle) {
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        this.parentElement.querySelector('.submenu').classList.toggle('active');
+        this.classList.toggle('active');
+      });
+    });
+  </script>
+  
+  <!-- Font Awesome for Social Icons (Optional) -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 </html>

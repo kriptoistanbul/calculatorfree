@@ -1,11 +1,21 @@
-<h2><%= __('Blog') %></h2>
-<p><%= __('Read our latest articles and updates.') %></p>
+<%
+  title = __('Blog');
+  description = __('Read our latest articles and updates.');
+  var langPrefix = locale === 'en' ? '' : '/' + locale;
+%>
 
-<ul class="blog-list">
-  <!-- Example blog posts -->
-  <li>
-    <a href="/blog/example-post"><%= __('Example Blog Post') %></a>
-    <p><%= __('An introduction to our new features.') %></p>
-  </li>
-  <!-- Add more blog posts dynamically -->
-</ul>
+<section class="blog-list">
+  <h2><%= __('Blog') %></h2>
+  <% if(posts.length === 0) { %>
+    <p><%= __('No blog posts found.') %></p>
+  <% } else { %>
+    <% posts.forEach(function(post) { %>
+      <div class="blog-summary">
+        <h3><a href="<%= langPrefix %>/blog/<%= post.slug %>"><%= post.title %></a></h3>
+        <div class="post-meta"><%= __('Posted on') %> <%= post.date %> | <a href="<%= langPrefix %>/categories/<%= post.categorySlug %>"><%= post.category %></a></div>
+        <p><%= post.excerpt %></p>
+        <a href="<%= langPrefix %>/blog/<%= post.slug %>" class="read-more"><%= __('Read More') %></a>
+      </div>
+    <% }); %>
+  <% } %>
+</section>

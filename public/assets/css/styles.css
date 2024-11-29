@@ -1,4 +1,4 @@
-/* Reset and basic styles */
+/* Reset and Basic Styles */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -30,9 +30,12 @@ a:hover {
 header {
   background-color: #fff;
   border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-header .container {
+.header-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -40,8 +43,14 @@ header .container {
 }
 
 header h1 a {
-  font-size: 1.5em;
+  font-size: 1.8em;
   font-weight: bold;
+  color: #2c3e50;
+  text-decoration: none;
+}
+
+nav {
+  position: relative;
 }
 
 nav ul.menu {
@@ -57,6 +66,17 @@ nav ul.menu > li {
 
 nav ul.menu > li > a {
   padding: 0.5em;
+  color: #2c3e50;
+  font-weight: 500;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+nav ul.menu > li.dropdown > a::after {
+  content: ' ▼';
+  font-size: 0.7em;
+  margin-left: 5px;
 }
 
 nav ul.menu > li.dropdown:hover .submenu {
@@ -73,45 +93,65 @@ nav ul.submenu {
   list-style: none;
   min-width: 200px;
   z-index: 1000;
-}
-
-nav ul.submenu li {
-  margin: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 nav ul.submenu li a {
   padding: 0.5em 1em;
   display: block;
-  white-space: nowrap;
+  color: #2c3e50;
+  text-decoration: none;
 }
 
 nav ul.submenu li a:hover {
   background-color: #f0f0f0;
 }
 
+/* Mobile Menu Toggle Button */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.menu-toggle .bar {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 4px 0;
+  transition: 0.4s;
+}
+
 /* Hero Section */
 .hero {
   text-align: center;
-  padding: 4em 1em;
+  padding: 6em 1em;
   background-color: #ecf0f1;
+  background-image: url('/assets/images/hero-background.jpg');
+  background-size: cover;
+  background-position: center;
+  color: #2c3e50;
 }
 
 .hero h2 {
-  font-size: 2.5em;
+  font-size: 3em;
   margin-bottom: 0.5em;
 }
 
 .hero p {
-  font-size: 1.2em;
-  margin-bottom: 1em;
+  font-size: 1.3em;
+  margin-bottom: 1.5em;
 }
 
 .hero .btn {
   display: inline-block;
-  padding: 0.8em 1.5em;
+  padding: 0.8em 2em;
   background-color: #3498db;
   color: #fff;
   border-radius: 4px;
+  transition: background-color 0.3s ease;
 }
 
 .hero .btn:hover {
@@ -120,51 +160,66 @@ nav ul.submenu li a:hover {
 
 /* Main Content */
 main {
-  padding: 2em 0;
+  padding: 3em 0;
 }
 
 h2 {
-  margin-bottom: 0.5em;
+  margin-bottom: 0.7em;
+  font-size: 2em;
+  color: #2c3e50;
 }
 
 p {
-  margin-bottom: 1em;
+  margin-bottom: 1.2em;
+  line-height: 1.6;
+  color: #555;
 }
 
 /* Form Styles */
 form {
-  max-width: 500px;
-  margin: 1em auto;
+  max-width: 600px;
+  margin: 2em auto;
   background-color: #fff;
-  padding: 2em;
-  border-radius: 4px;
+  padding: 2.5em;
+  border-radius: 6px;
   border: 1px solid #ddd;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 form label {
   display: block;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.6em;
   font-weight: bold;
+  color: #2c3e50;
 }
 
 form input,
 form select {
   width: 100%;
-  padding: 0.5em;
-  margin-bottom: 1em;
+  padding: 0.7em;
+  margin-bottom: 1.2em;
   border: 1px solid #ccc;
   border-radius: 4px;
+  font-size: 1em;
+  transition: border-color 0.3s ease;
+}
+
+form input:focus,
+form select:focus {
+  border-color: #3498db;
+  outline: none;
 }
 
 button[type="submit"] {
   width: 100%;
-  padding: 0.7em;
+  padding: 0.8em;
   background-color: #3498db;
   color: #fff;
   border: none;
-  font-size: 1em;
+  font-size: 1.1em;
   cursor: pointer;
   border-radius: 4px;
+  transition: background-color 0.3s ease;
 }
 
 button[type="submit"]:hover {
@@ -172,19 +227,23 @@ button[type="submit"]:hover {
 }
 
 #result {
-  margin-top: 1em;
+  margin-top: 1.5em;
   font-weight: bold;
   text-align: center;
+  font-size: 1.2em;
+  color: #27ae60;
 }
 
 /* Categories Section */
 .calculator-categories {
-  margin-top: 2em;
+  margin-top: 3em;
 }
 
 .calculator-categories h3 {
   text-align: center;
-  margin-bottom: 1.5em;
+  margin-bottom: 2em;
+  font-size: 2em;
+  color: #2c3e50;
 }
 
 .categories {
@@ -196,20 +255,23 @@ button[type="submit"]:hover {
 .category {
   background-color: #fff;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 6px;
   width: 30%;
   min-width: 250px;
-  margin-bottom: 1em;
-  padding: 1em;
-  transition: box-shadow 0.3s;
+  margin-bottom: 1.5em;
+  padding: 1.5em;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .category:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
 }
 
 .category h4 {
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
+  font-size: 1.5em;
+  color: #2c3e50;
 }
 
 .category ul {
@@ -217,11 +279,13 @@ button[type="submit"]:hover {
 }
 
 .category ul li {
-  margin-bottom: 0.5em;
+  margin-bottom: 0.7em;
 }
 
 .category ul li a {
   color: #2c3e50;
+  font-size: 1.1em;
+  transition: color 0.3s ease;
 }
 
 .category ul li a:hover {
@@ -231,38 +295,207 @@ button[type="submit"]:hover {
 /* About Section */
 .about-section {
   background-color: #fff;
-  padding: 2em;
-  margin-top: 2em;
+  padding: 3em 1em;
+  margin-top: 3em;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .about-section h3 {
-  margin-bottom: 1em;
+  margin-bottom: 1.5em;
+  font-size: 2em;
+  color: #2c3e50;
+  text-align: center;
 }
 
 .about-section p {
-  margin-bottom: 1em;
+  margin-bottom: 1.5em;
+  line-height: 1.6;
+  color: #555;
+  text-align: center;
 }
 
 .about-section .btn {
   display: inline-block;
-  padding: 0.8em 1.5em;
+  padding: 0.8em 2em;
   background-color: #2ecc71;
   color: #fff;
   border-radius: 4px;
+  transition: background-color 0.3s ease;
 }
 
 .about-section .btn:hover {
   background-color: #27ae60;
 }
 
+/* Blog Styles */
+.blog-list {
+  margin-top: 3em;
+}
+
+.blog-list h2 {
+  text-align: center;
+  margin-bottom: 2em;
+  font-size: 2em;
+  color: #2c3e50;
+}
+
+.blog-summary {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 1.8em;
+  margin-bottom: 1.8em;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.blog-summary h3 {
+  margin-bottom: 0.8em;
+  font-size: 1.5em;
+  color: #2c3e50;
+}
+
+.blog-summary .post-meta {
+  font-size: 0.95em;
+  color: #777;
+  margin-bottom: 1em;
+}
+
+.blog-summary p {
+  margin-bottom: 1.5em;
+  line-height: 1.6;
+  color: #555;
+}
+
+.blog-summary .read-more {
+  color: #3498db;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.blog-summary .read-more:hover {
+  color: #2980b9;
+  text-decoration: underline;
+}
+
+.blog-post {
+  max-width: 800px;
+  margin: 3em auto;
+  background-color: #fff;
+  padding: 2em;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.blog-post h1 {
+  margin-bottom: 0.8em;
+  font-size: 2.5em;
+  color: #2c3e50;
+}
+
+.blog-post .post-meta {
+  font-size: 0.95em;
+  color: #777;
+  margin-bottom: 1.5em;
+}
+
+.blog-post .post-content p {
+  margin-bottom: 1.5em;
+  line-height: 1.8;
+  color: #555;
+}
+
+.blog-post .post-content img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 1.5em;
+  border-radius: 4px;
+}
+
 /* Footer Styles */
 footer {
   background-color: #fff;
   border-top: 1px solid #ddd;
-  padding: 1em 0;
+  padding: 2em 0;
   text-align: center;
+  margin-top: 3em;
+}
+
+footer .footer-content {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-bottom: 1.5em;
+}
+
+footer .footer-links,
+footer .footer-contact,
+footer .footer-social {
+  flex: 1;
+  min-width: 200px;
+  margin: 1em;
+}
+
+footer .footer-links h4,
+footer .footer-contact h4,
+footer .footer-social h4 {
+  margin-bottom: 1em;
+  font-size: 1.3em;
+  color: #2c3e50;
+}
+
+footer .footer-links ul,
+footer .footer-social ul {
+  list-style: none;
+}
+
+footer .footer-links ul li,
+footer .footer-social ul li {
+  margin-bottom: 0.8em;
+}
+
+footer .footer-links ul li a,
+footer .footer-social ul li a {
+  color: #555;
+  transition: color 0.3s ease;
+}
+
+footer .footer-links ul li a:hover,
+footer .footer-social ul li a:hover {
+  color: #3498db;
+}
+
+footer .footer-contact p {
+  margin-bottom: 0.8em;
+  color: #555;
+}
+
+footer .footer-social ul li a i {
+  margin-right: 0.5em;
+}
+
+footer .footer-bottom {
+  color: #aaa;
+  font-size: 0.9em;
+}
+
+footer .language-selector {
+  margin-top: 1.5em;
+}
+
+footer .language-selector label {
+  margin-right: 0.5em;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+footer .language-selector select {
+  padding: 0.4em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
 }
 
 /* Responsive Styles */
@@ -276,14 +509,30 @@ footer {
     width: 80%;
   }
 
-  header .container {
+  .header-top {
     flex-direction: column;
     align-items: flex-start;
   }
 
+  .menu-toggle {
+    display: flex;
+    margin-top: 10px;
+  }
+
   nav ul.menu {
+    display: none;
     flex-direction: column;
     width: 100%;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  nav ul.menu.active {
+    display: flex;
   }
 
   nav ul.menu > li {
@@ -294,14 +543,81 @@ footer {
   nav ul.menu > li > a {
     width: 100%;
     display: block;
+    padding: 1em;
+    border-bottom: 1px solid #ddd;
+  }
+
+  nav ul.menu > li.dropdown > a::after {
+    content: ' ▼';
+    float: right;
+    margin-right: 1em;
   }
 
   nav ul.submenu {
+    display: none;
+    flex-direction: column;
     position: static;
+    background-color: #f9f9f9;
     border: none;
+    box-shadow: none;
+  }
+
+  nav ul.submenu.active {
+    display: flex;
   }
 
   nav ul.submenu li a {
     padding-left: 2em;
+    border-bottom: 1px solid #eee;
   }
+
+  /* Adjust footer for mobile */
+  footer .footer-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  footer .footer-links,
+  footer .footer-contact,
+  footer .footer-social {
+    margin: 1em 0;
+  }
+}
+
+/* Additional Enhancements */
+
+/* Smooth Transitions */
+.menu-toggle .bar,
+.nav ul.menu > li > a,
+.nav ul.submenu li a,
+.button,
+.btn {
+  transition: all 0.3s ease;
+}
+
+/* Button Styles */
+.btn {
+  display: inline-block;
+  padding: 0.8em 2em;
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #2980b9;
+}
+
+/* Social Media Icons (Font Awesome) */
+.footer-social ul li a i {
+  font-size: 1.2em;
+  color: #555;
+  transition: color 0.3s ease;
+}
+
+.footer-social ul li a:hover i {
+  color: #3498db;
 }

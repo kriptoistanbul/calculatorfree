@@ -1,0 +1,15 @@
+<%
+  title = __('Date and Time Calculators');
+  description = __('Explore calculators related to date and time.');
+  var langPrefix = locale === 'en' ? '' : '/' + locale;
+%>
+
+<section class="category-page">
+  <h2><%= title %></h2>
+  <ul>
+    <li><a href="<%= langPrefix %>/calculators/age"><%= __('Age Calculator') %></a></li>
+    <li><a href="<%= langPrefix %>/calculators/date-difference"><%= __('Date Difference Calculator') %></a></li>
+    <li><a href="<%= langPrefix %>/calculators/time-zone-converter"><%= __('Time Zone Converter') %></a></li>
+    <li><a href="<%= langPrefix %>/calculators/work-hours"><%= __('Work Hours Calculator') %></a></li>
+  </ul>
+</section>

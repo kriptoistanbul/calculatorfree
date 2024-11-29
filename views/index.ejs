@@ -1,6 +1,7 @@
 <%
   title = __('Online Free Calculator - Your One-Stop Destination for All Calculations');
   description = __('Discover a wide range of free calculators for finance, health, astrology, education, and more. Simplify complex calculations with ease.');
+  var langPrefix = locale === 'en' ? '' : '/' + locale;
 %>
 
 <section class="hero">
@@ -16,71 +17,71 @@
     <div class="category">
       <h4><%= __('Date and Time Calculators') %></h4>
       <ul>
-        <li><a href="/<%= locale %>/calculators/age"><%= __('Age Calculator') %></a></li>
-        <li><a href="/<%= locale %>/calculators/date-difference"><%= __('Date Difference Calculator') %></a></li>
-        <li><a href="/<%= locale %>/calculators/time-zone-converter"><%= __('Time Zone Converter') %></a></li>
-        <li><a href="/<%= locale %>/calculators/work-hours"><%= __('Work Hours Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/age"><%= __('Age Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/date-difference"><%= __('Date Difference Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/time-zone-converter"><%= __('Time Zone Converter') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/work-hours"><%= __('Work Hours Calculator') %></a></li>
       </ul>
     </div>
     <!-- Financial Calculators -->
     <div class="category">
       <h4><%= __('Financial Calculators') %></h4>
       <ul>
-        <li><a href="/<%= locale %>/calculators/loan"><%= __('Advanced Loan Calculator') %></a></li>
-        <li><a href="/<%= locale %>/calculators/investment-return"><%= __('Investment Return Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/loan"><%= __('Advanced Loan Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/investment-return"><%= __('Investment Return Calculator') %></a></li>
       </ul>
     </div>
     <!-- Health and Fitness Calculators -->
     <div class="category">
       <h4><%= __('Health and Fitness Calculators') %></h4>
       <ul>
-        <li><a href="/<%= locale %>/calculators/bmi"><%= __('BMI Calculator') %></a></li>
-        <li><a href="/<%= locale %>/calculators/body-fat"><%= __('Body Fat Calculator') %></a></li>
-        <li><a href="/<%= locale %>/calculators/calorie-nutrition"><%= __('Calorie and Nutrition Calculator') %></a></li>
-        <li><a href="/<%= locale %>/calculators/pregnancy-due-date"><%= __('Pregnancy Due Date Calculator') %></a></li>
-        <li><a href="/<%= locale %>/calculators/ovulation"><%= __('Ovulation Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/bmi"><%= __('BMI Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/body-fat"><%= __('Body Fat Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/calorie-nutrition"><%= __('Calorie and Nutrition Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/pregnancy-due-date"><%= __('Pregnancy Due Date Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/ovulation"><%= __('Ovulation Calculator') %></a></li>
       </ul>
     </div>
     <!-- Educational Calculators -->
     <div class="category">
       <h4><%= __('Educational Calculators') %></h4>
       <ul>
-        <li><a href="/<%= locale %>/calculators/grade-gpa"><%= __('Grade and GPA Calculator') %></a></li>
-        <li><a href="/<%= locale %>/calculators/scientific"><%= __('Scientific Calculator') %></a></li>
-        <li><a href="/<%= locale %>/calculators/unit-conversion"><%= __('Unit Conversion Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/grade-gpa"><%= __('Grade and GPA Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/scientific"><%= __('Scientific Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/unit-conversion"><%= __('Unit Conversion Calculator') %></a></li>
       </ul>
     </div>
     <!-- Astrology and Zodiac Calculators -->
     <div class="category">
       <h4><%= __('Astrology and Zodiac Calculators') %></h4>
       <ul>
-        <li><a href="/<%= locale %>/calculators/planetary-aspect"><%= __('Planetary Aspect Calculator') %></a></li>
-        <li><a href="/<%= locale %>/calculators/mercury-sign"><%= __('Mercury Sign Calculator') %></a></li>
-        <li><a href="/<%= locale %>/calculators/moon-sign"><%= __('Moon Sign Calculator') %></a></li>
-        <li><a href="/<%= locale %>/calculators/venus-sign"><%= __('Venus Sign Calculator') %></a></li>
-        <li><a href="/<%= locale %>/calculators/mars-sign"><%= __('Mars Sign Calculator') %></a></li>
-        <li><a href="/<%= locale %>/calculators/western-zodiac"><%= __('Western Zodiac Calculator') %></a></li>
-        <li><a href="/<%= locale %>/calculators/chinese-zodiac"><%= __('Chinese Zodiac Calculator') %></a></li>
-        <li><a href="/<%= locale %>/calculators/vedic-astrology"><%= __('Vedic Astrology Calculator') %></a></li>
-        <li><a href="/<%= locale %>/calculators/compatibility"><%= __('Compatibility Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/planetary-aspect"><%= __('Planetary Aspect Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/mercury-sign"><%= __('Mercury Sign Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/moon-sign"><%= __('Moon Sign Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/venus-sign"><%= __('Venus Sign Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/mars-sign"><%= __('Mars Sign Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/western-zodiac"><%= __('Western Zodiac Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/chinese-zodiac"><%= __('Chinese Zodiac Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/vedic-astrology"><%= __('Vedic Astrology Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/compatibility"><%= __('Compatibility Calculator') %></a></li>
       </ul>
     </div>
     <!-- Environmental Impact Calculators -->
     <div class="category">
       <h4><%= __('Environmental Impact Calculators') %></h4>
       <ul>
-        <li><a href="/<%= locale %>/calculators/carbon-footprint"><%= __('Carbon Footprint Calculator') %></a></li>
-        <li><a href="/<%= locale %>/calculators/water-usage"><%= __('Water Usage Calculator') %></a></li>
-        <li><a href="/<%= locale %>/calculators/energy-consumption"><%= __('Energy Consumption Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/carbon-footprint"><%= __('Carbon Footprint Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/water-usage"><%= __('Water Usage Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/energy-consumption"><%= __('Energy Consumption Calculator') %></a></li>
       </ul>
     </div>
     <!-- Business and Marketing Calculators -->
     <div class="category">
       <h4><%= __('Business and Marketing Calculators') %></h4>
       <ul>
-        <li><a href="/<%= locale %>/calculators/roi"><%= __('ROI Calculator') %></a></li>
-        <li><a href="/<%= locale %>/calculators/break-even"><%= __('Break-even Analysis Calculator') %></a></li>
-        <li><a href="/<%= locale %>/calculators/project-cost"><%= __('Project Cost Estimator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/roi"><%= __('ROI Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/break-even"><%= __('Break-even Analysis Calculator') %></a></li>
+        <li><a href="<%= langPrefix %>/calculators/project-cost"><%= __('Project Cost Estimator') %></a></li>
       </ul>
     </div>
   </div>
@@ -89,5 +90,5 @@
 <section class="about-section">
   <h3><%= __('Why Choose Us?') %></h3>
   <p><%= __('We provide a comprehensive collection of calculators designed to help you with everyday calculations. Our tools are easy to use, accurate, and free.') %></p>
-  <a href="/<%= locale %>/about" class="btn"><%= __('Learn More About Us') %></a>
+  <a href="<%= langPrefix %>/about" class="btn"><%= __('Learn More About Us') %></a>
 </section>
