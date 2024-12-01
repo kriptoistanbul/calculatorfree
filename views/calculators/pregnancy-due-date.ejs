@@ -1,0 +1,15 @@
+<!-- views/calculators/pregnancy-due-date.ejs -->
+
+<h2><%= __('Pregnancy Due Date Calculator') %></h2>
+<p><%= __('Calculate your pregnancy due date based on your last menstrual period.') %></p>
+
+<form id="pregnancy-due-date-form">
+  <label for="lastMenstrualPeriod"><%= __('Last Menstrual Period (MM/DD/YYYY):') %></label>
+  <input type="date" id="lastMenstrualPeriod" name="lastMenstrualPeriod" required>
+
+  <button type="submit"><%= __('Calculate Due Date') %></button>
+</form>
+
+<div id="pregnancy-due-date-result"></div>
+
+<script src="/assets/js/pregnancyDueDateCalculator.js"></script>

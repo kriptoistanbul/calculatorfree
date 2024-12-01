@@ -1,0 +1,353 @@
+<!-- views/calculators/break-even.ejs -->
+
+<!DOCTYPE html>
+<html lang="<%= locale %>">
+<head>
+    <meta charset="UTF-8">
+    <title><%= __('Break-even Analysis Calculator') %> | Calculator-Free Online</title>
+    <meta name="description" content="<%= __('Use our comprehensive Break-even Analysis Calculator to determine the number of units you need to sell to cover your costs, analyze profitability, and make informed business decisions.') %>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Normalize CSS to ensure consistency across browsers -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <!-- Bootstrap CSS for responsive and modern styling -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom Styles */
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .product {
+            border: 1px solid #dee2e6;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+            position: relative;
+        }
+        .remove-product-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+        }
+        .error {
+            color: red;
+        }
+        .chart-container {
+            position: relative;
+            height: 40vh;
+            width: 100%;
+            margin-top: 30px;
+        }
+        #allocation-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #dee2e6;
+        }
+        .btn-add-product {
+            margin-bottom: 20px;
+        }
+        .slider-container {
+            margin-bottom: 20px;
+        }
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .slider-value {
+            width: 60px;
+            text-align: right;
+        }
+        .fixed-allocation {
+            margin-left: 10px;
+        }
+        /* Additional Styles for SEO Content */
+        .content-section {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #f1f1f1;
+            border-radius: 8px;
+        }
+        .content-section h1, .content-section h2, .content-section h3 {
+            color: #333333;
+        }
+        .content-section p, .content-section ul {
+            color: #555555;
+            line-height: 1.6;
+        }
+        .content-section ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- SEO-Optimized Headings -->
+        <h1 class="mb-4"><%= __('Break-even Analysis Calculator') %></h1>
+        <p class="mb-4"><%= __('Determine the break-even point for your business by analyzing your fixed and variable costs across multiple products. Utilize our advanced calculator to make informed financial decisions.') %></p>
+        
+        <form id="break-even-form">
+            <h2 class="h5"><%= __('Fixed Costs') %></h2>
+            <div class="form-group">
+                <label for="fixedCosts"><%= __('Fixed Costs ($):') %></label>
+                <input type="number" class="form-control" id="fixedCosts" name="fixedCosts" step="0.01" required>
+            </div>
+
+            <h2 class="h5"><%= __('Products') %></h2>
+            <div id="products-container">
+                <div class="product">
+                    <h5><%= __('Product 1') %></h5>
+                    <button type="button" class="btn btn-danger btn-sm remove-product-btn" onclick="removeProduct(this)"><%= __('Remove') %></button>
+                    <div class="form-group">
+                        <label><%= __('Product Name (Optional):') %></label>
+                        <input type="text" class="form-control" name="productName" placeholder="<%= __('e.g., Product A') %>">
+                    </div>
+                    <div class="form-group">
+                        <label><%= __('Variable Cost per Unit ($):') %></label>
+                        <input type="number" class="form-control" name="variableCostPerUnit" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label><%= __('Price per Unit ($):') %></label>
+                        <input type="number" class="form-control" name="pricePerUnit" step="0.01" required>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-secondary btn-add-product" onclick="addProduct()"><%= __('Add Another Product') %></button>
+            <button type="submit" class="btn btn-primary"><%= __('Calculate Break-even Point') %></button>
+        </form>
+
+        <div id="break-even-result" class="mt-4"></div>
+
+        <!-- Chart Container -->
+        <div class="chart-container">
+            <canvas id="breakEvenChart"></canvas>
+        </div>
+
+        <!-- Allocation Section -->
+        <div id="allocation-section" style="display: none;">
+            <h2 class="h5"><%= __('Allocate Break-even Units') %></h2>
+            <p class="text-muted"><%= __('Adjust the number of units to sell for each product by dragging the sliders below. The allocations will automatically adjust to maintain the break-even point.') %></p>
+            <div id="allocation-container">
+                <!-- Allocation sliders will be dynamically generated here -->
+            </div>
+            <div id="allocation-result" class="mt-4"></div>
+        </div>
+
+        <!-- Profit/Loss Projection Section -->
+        <div id="profit-loss-section" style="display: none;">
+            <h2 class="h5"><%= __('Profit/Loss Projection') %></h2>
+            <p class="text-muted"><%= __('This additional tool allows you to project potential profit or loss based on your expected sales. You do not need to use this to find your break-even point.') %></p>
+            <form id="profit-loss-form">
+                <div class="form-group">
+                    <label for="expectedSales"><%= __('Expected Sales (units):') %></label>
+                    <input type="number" class="form-control" id="expectedSales" name="expectedSales" step="1" min="0" required>
+                </div>
+                <button type="submit" class="btn btn-success"><%= __('Calculate Profit/Loss') %></button>
+            </form>
+
+            <div id="profit-loss-result" class="mt-4"></div>
+        </div>
+
+        <!-- SEO Content Section -->
+        <div class="content-section">
+            <h1><%= __('Break Even Calculator: Calculate Break Even Point') %></h1>
+
+            <p><%= __('The <strong>break even point</strong> is a crucial financial metric that every business needs to understand. It represents the point where the business’s revenue matches its costs—no profit, no loss. Utilizing a <strong>Break Even Calculator</strong> helps determine the level of output or revenue at which your business starts generating profit. In this guide, we will explore how to use our calculator, different scenarios like the <strong>break even point calculator in dollars</strong> and <strong>break even point calculator in units</strong>, and the various benefits of understanding the break even point.') %></p>
+
+            <h2><%= __('What is Break Even Point: A Detailed Explanation') %></h2>
+            <p><%= __('The <strong>break even point calculation</strong> can be complex because it involves multiple factors, such as fixed costs, variable costs, and sales price per unit. The calculation is affected by fixed costs, such as rent, and variable costs that change with the level of production. The calculation can also be expressed in different ways depending on the business context, such as break even point in sales revenue, break even point in units, or break even point in dollars. For specific industries, like hospitals or restaurants, the break even point calculation for hospitals can involve additional variables.') %></p>
+
+            <h2><%= __('How is the Break Even Point Calculated?') %></h2>
+            <p><%= __('There are several approaches to <strong>calculating the break even point</strong>, including using fixed and variable costs, contribution margin ratio, and algebraic formulas. Let\'s explore the key methods:') %></p>
+            <h3><%= __('1. Calculating Break Even Point with Fixed and Variable Costs') %></h3>
+            <p><%= __('To determine the break even point, you need to know the fixed and variable costs. The formula is:') %></p>
+            <p><em><%= __('Break Even Point (Units) = Fixed Costs / (Price per Unit - Variable Cost per Unit)') %></em></p>
+            <p><%= __('For example, if your fixed costs are $5,000, your variable cost per unit is $10, and your selling price per unit is $20, the break even point is:') %></p>
+            <p><strong><%= __('Break Even Point = 5,000 / (20 - 10) = 500 units') %></strong></p>
+
+            <h3><%= __('2. Break Even Point Calculator in Dollars') %></h3>
+            <p><%= __('Another way to determine the break even point is by calculating the revenue needed to cover all costs:') %></p>
+            <p><em><%= __('Break Even Point (Dollars) = Break Even Units * Price per Unit') %></em></p>
+            <p><%= __('Using the example above, the break even point in dollars is:') %></p>
+            <p><strong><%= __('Break Even Revenue = 500 units * $20 = $10,000') %></strong></p>
+            <p><%= __('This means you need $10,000 in revenue to cover all of your costs.') %></p>
+
+            <h3><%= __('3. Break Even Point Calculator with Contribution Margin Ratio') %></h3>
+            <p><%= __('The <strong>contribution margin ratio</strong> is the ratio of the contribution margin to the selling price. It helps understand how much of each dollar contributes to covering fixed costs. The formula is:') %></p>
+            <p><em><%= __('Break Even Point (Dollars) = Fixed Costs / Contribution Margin Ratio') %></em></p>
+            <p><%= __('For example, if your contribution margin ratio is 50%, and your fixed costs are $5,000, your break even point in revenue is:') %></p>
+            <p><strong><%= __('Break Even Revenue = 5,000 / 0.5 = $10,000') %></strong></p>
+
+            <h2><%= __('Break Even Point Analysis for Multiple Products') %></h2>
+            <p><%= __('If you have more than one product, determining the break even point becomes a bit more complicated. The <strong>break even point calculator for multiple products</strong> allows you to input different products, their variable costs, and their prices to see the combined impact on your financial outcomes. It is essential to calculate the break even point for each product, particularly if you have a diverse product line. You can also use the <strong>break even point hybrid calculator</strong> to factor in different variables and see the effect on your business.') %></p>
+
+            <h2><%= __('Scenarios Where Break Even Point Calculation is Useful') %></h2>
+            <h3><%= __('1. Break Even Point for Service Businesses') %></h3>
+            <p><%= __('For service-based businesses, like consulting or software as a service (SaaS), calculating the break even point involves understanding how many service hours or subscriptions are required to cover all costs. The <strong>break even point calculator for service business</strong> helps determine the number of clients or projects needed to achieve profitability.') %></p>
+            
+            <h3><%= __('2. Break Even Point for Hospitals') %></h3>
+            <p><%= __('The <strong>break even point calculation for hospitals</strong> includes both fixed costs like salaries and equipment, as well as variable costs like medical supplies. By using a customized <strong>break even point calculator</strong>, healthcare providers can ensure that they are pricing their services effectively to cover all costs and sustain operations.') %></p>
+            
+            <h3><%= __('3. Break Even Point for Restaurants') %></h3>
+            <p><%= __('Restaurants can use the <strong>break even point calculator for restaurants</strong> to figure out the number of customers needed each month to cover expenses like rent, food costs, and wages. This information is critical for setting daily sales targets and ensuring profitability.') %></p>
+
+            <h2><%= __('Different Types of Break Even Calculators') %></h2>
+            <h3><%= __('1. Break Even Point Calculator Algebra') %></h3>
+            <p><%= __('For those who prefer a more mathematical approach, the <strong>break even point calculator algebra</strong> uses algebraic methods to determine the break even point. This is especially helpful for students and professionals looking to understand the mechanics behind the calculations.') %></p>
+
+            <h3><%= __('2. Break Even Point Calculator for Social Security') %></h3>
+            <p><%= __('The <strong>break even point calculator for social security</strong> helps retirees determine the age at which they will break even on the benefits received. This tool compares taking benefits early versus waiting, and it shows the point at which delaying social security yields a higher total benefit.') %></p>
+
+            <h3><%= __('3. EV Break Even Point Calculator') %></h3>
+            <p><%= __('The <strong>EV break even point calculator</strong> is specifically designed for electric vehicles. It helps potential buyers determine when the cost savings on fuel and maintenance will offset the higher initial cost of the vehicle.') %></p>
+
+            <h2><%= __('Break Even Point Calculation Example PDF and Template') %></h2>
+            <p><%= __('If you\'re looking for a <strong>break even point calculation example PDF</strong> or a <strong>break even point calculation template</strong>, we\'ve got you covered. These resources can help guide you through the process of manually calculating the break even point or provide a ready-made template for your own calculations. Simply enter your fixed and variable costs, and the template will do the rest.') %></p>
+
+            <h2><%= __('Break Even Point Graph and Chart Analysis') %></h2>
+            <p><%= __('Visualizing your break even point can be incredibly helpful for understanding your financial situation. The <strong>break even point calculator graph</strong> and <strong>break even analysis chart calculator</strong> generate a chart that shows your costs, revenue, and break even point. This allows you to see how changes in sales volume impact your profitability visually. You can also use the <strong>break even analysis calculator and graph excel</strong> to create a customized chart that fits your needs.') %></p>
+
+            <h2><%= __('How to Calculate Break Even Point in Excel') %></h2>
+            <p><%= __('Many business owners use Excel to calculate their financial metrics, and the <strong>break even point calculator excel</strong> download allows you to easily perform break even analysis. Here’s how to set it up in Excel:') %></p>
+            <ul>
+                <li><%= __('Input your fixed costs in one cell.') %></li>
+                <li><%= __('Input your variable cost per unit and selling price per unit.') %></li>
+                <li><%= __('Use the formula <code>=FixedCosts / (SellingPrice - VariableCost)</code> to calculate the break even point in units.') %></li>
+            </ul>
+            <p><%= __('Excel also allows you to generate charts, making it easy to visualize your break even analysis. You can download a <strong>break even point calculation template</strong> for a quick start.') %></p>
+
+            <h2><%= __('Using Break Even Point Calculator for Loan Evaluation') %></h2>
+            <p><%= __('The <strong>break even point loan calculator</strong> is ideal for businesses seeking loans. It helps you determine whether the revenue from the project will be sufficient to cover the costs, including loan repayments. By calculating your break even point, you can show lenders that your business will generate enough revenue to cover both operational expenses and loan repayments, which makes a strong case for approval.') %></p>
+
+            <h2><%= __('Benefits of Using a Break Even Point Calculator') %></h2>
+            <p><%= __('There are several key benefits to using a <strong>break even point calculator</strong>:') %></p>
+            <h3><%= __('1. Set Realistic Sales Goals') %></h3>
+            <p><%= __('Knowing your break even point helps you set achievable sales targets. Whether you are using a <strong>monthly break even point calculator</strong> or a <strong>break even point calculator with solution</strong>, having a clear financial goal provides direction and focus for your sales and marketing teams.') %></p>
+
+            <h3><%= __('2. Pricing Decisions') %></h3>
+            <p><%= __('Using a <strong>break even point calculator with cost and revenue</strong> allows you to test different pricing strategies and see how they impact profitability. For example, if your current break even point is too high, it may indicate that your pricing strategy needs adjustment.') %></p>
+
+            <h3><%= __('3. Risk Assessment') %></h3>
+            <p><%= __('Calculating your break even point helps you assess the risk associated with different business decisions. For instance, if you\'re considering increasing your fixed costs by investing in new equipment, a <strong>cash break even point calculator</strong> will help determine if this investment will still allow you to reach profitability.') %></p>
+
+            <h2><%= __('Frequently Asked Questions') %></h2>
+            <h3><%= __('1. What Happens at the Break Even Point?') %></h3>
+            <p><%= __('At the <strong>break even point</strong>, total revenue equals total costs. This means that the business is not making a profit, but it is also not incurring a loss. Reaching this point is crucial for sustainability, as any sales beyond this point will contribute to profit.') %></p>
+
+            <h3><%= __('2. How Do You Calculate the Break Even Point with Multiple Products?') %></h3>
+            <p><%= __('To calculate the break even point for multiple products, you need to consider the contribution margin of each product and its share of the total sales mix. A <strong>calculate break even point with sales mix</strong> approach is used, which takes into account the percentage of sales for each product relative to the total sales. Our <strong>break even point calculator multiple products</strong> tool simplifies this process.') %></p>
+
+            <h3><%= __('3. Can I Calculate Break Even Point for Options?') %></h3>
+            <p><%= __('Yes, the <strong>calculate break even point call option</strong> allows you to determine the point at which an options strategy becomes profitable. This is particularly useful for investors looking to assess the risks and returns of different financial instruments.') %></p>
+
+            <h2><%= __('Break Even Point Calculation for Specific Scenarios') %></h2>
+            <h3><%= __('1. Break Even Point for Mortgage and Refinance') %></h3>
+            <p><%= __('When dealing with real estate, calculating the break even point is essential for understanding when your property will start generating a positive return. The <strong>break even point calculator mortgage</strong> and <strong>break even point refinance calculator</strong> can be used to determine how long it will take for the cost of refinancing or buying a home to pay off through reduced payments or property appreciation.') %></p>
+
+            <h3><%= __('2. Break Even Point for Hybrid Costs') %></h3>
+            <p><%= __('The <strong>break even point hybrid calculator</strong> is particularly useful for businesses that have both fixed and variable components in their costs. Hybrid costs can make calculating the break even point more complex, but this specialized calculator takes into account all cost types, providing a more accurate figure for planning.') %></p>
+
+            <h2><%= __('Conclusion') %></h2>
+            <p><%= __('Calculating your <strong>break even point</strong> is vital for every business, whether you\'re a startup assessing the feasibility of your product, a service-based business calculating the number of clients needed to reach profitability, or an investor evaluating the breakeven of different financial options. Our <strong>Break Even Calculator</strong> offers a user-friendly and efficient way to determine the break even point in units, dollars, or even revenue. Whether you are considering a <strong>break even point calculator in rands</strong>, for hybrid costs, or for multiple products, this tool makes financial planning accessible to everyone.') %></p>
+            <p><%= __('Take advantage of the <strong>break even analysis calculator excel template</strong> and other resources available to ensure your business is on the right track to profitability. Knowing your break even point empowers you to make informed decisions, manage risks, and set realistic, achievable goals. Try our calculator today and gain the insights you need to take your business to the next level.') %></p>
+        </div>
+    </div>
+
+    <!-- Pass Localization Strings -->
+    <script>
+        const localization = {
+            breakEvenPoint: "<%= __('Break-even Point') %>",
+            breakEvenRevenue: "<%= __('Break-even Revenue') %>",
+            marginOfSafety: "<%= __('Margin of Safety') %>",
+            profitOrLoss: "<%= __('Profit/Loss Projection') %>",
+            invalidNumbers: "<%= __('Please enter valid numbers.') %>",
+            priceError: "<%= __('Price per unit must be greater than variable cost per unit.') %>",
+            downloadCSV: "<%= __('Download CSV') %>",
+            totalFixedCosts: "<%= __('Total Fixed Costs') %>",
+            totalVariableCosts: "<%= __('Total Variable Costs') %>",
+            totalRevenue: "<%= __('Total Revenue') %>",
+            expectedSales: "<%= __('Expected Sales (units):') %>",
+            calculateProfitLoss: "<%= __('Calculate Profit/Loss') %>",
+            profit: "<%= __('Profit') %>",
+            loss: "<%= __('Loss') %>",
+            breakEvenAchieved: "<%= __('Break-even achieved.') %>",
+            revenue: "<%= __('Revenue') %>",
+            costs: "<%= __('Costs') %>",
+            breakEvenAnalysis: "<%= __('Break-even Analysis') %>",
+            unitsSold: "<%= __('Units Sold') %>",
+            amount: "<%= __('Amount ($)') %>",
+            product: "<%= __('Product') %>",
+            addAnotherProduct: "<%= __('Add Another Product') %>",
+            productName: "<%= __('Product Name (Optional):') %>",
+            variableCostPerUnit: "<%= __('Variable Cost per Unit ($):') %>",
+            pricePerUnit: "<%= __('Price per Unit ($):') %>",
+            unitsToSellPerProduct: "<%= __('Units to Sell Per Product for Break-even') %>",
+            allocationError: "<%= __('The total allocated units must equal the break-even units.') %>",
+            allocationSuccess: "<%= __('Allocation updated successfully.') %>",
+            contributionMarginError: "<%= __('Total Contribution Margin must be greater than zero.') %>",
+            unitsAllocation: "<%= __('Units Allocation') %>",
+            salesMixExplanation: "<%= __('Percentage of total sales attributed to this product.') %>",
+            allocateBreakEvenUnits: "<%= __('Allocate Break-even Units') %>",
+            allocateBreakEvenUnitsExplanation: "<%= __('After calculating the break-even point, adjust the number of units to sell for each product by dragging the sliders below. The allocations will automatically adjust to maintain the break-even point.') %>",
+            profitLossProjection: "<%= __('Profit/Loss Projection') %>",
+            profitLossDetails: "<%= __('Profit/Loss Details') %>",
+            updateAllocation: "<%= __('Update Allocation') %>",
+            numberOfUnitsToSell: "<%= __('Number of Units to Sell') %>",
+            remove: "<%= __('Remove') %>",
+            fixAllocation: "<%= __('Fix Allocation') %>",
+            // Add other strings from SEO content
+            'Break Even Calculator: Calculate Break Even Point': "<%= __('Break Even Calculator: Calculate Break Even Point') %>",
+            'What is Break Even Point: A Detailed Explanation': "<%= __('What is Break Even Point: A Detailed Explanation') %>",
+            'How is the Break Even Point Calculated?': "<%= __('How is the Break Even Point Calculated?') %>",
+            'Calculating Break Even Point with Fixed and Variable Costs': "<%= __('Calculating Break Even Point with Fixed and Variable Costs') %>",
+            'Break Even Point Calculator in Dollars': "<%= __('Break Even Point Calculator in Dollars') %>",
+            'Break Even Point Calculator with Contribution Margin Ratio': "<%= __('Break Even Point Calculator with Contribution Margin Ratio') %>",
+            'Break Even Point Analysis for Multiple Products': "<%= __('Break Even Point Analysis for Multiple Products') %>",
+            'Scenarios Where Break Even Point Calculation is Useful': "<%= __('Scenarios Where Break Even Point Calculation is Useful') %>",
+            'Break Even Point for Service Businesses': "<%= __('Break Even Point for Service Businesses') %>",
+            'Break Even Point for Hospitals': "<%= __('Break Even Point for Hospitals') %>",
+            'Break Even Point for Restaurants': "<%= __('Break Even Point for Restaurants') %>",
+            'Different Types of Break Even Calculators': "<%= __('Different Types of Break Even Calculators') %>",
+            'Break Even Point Calculator Algebra': "<%= __('Break Even Point Calculator Algebra') %>",
+            'Break Even Point Calculator for Social Security': "<%= __('Break Even Point Calculator for Social Security') %>",
+            'EV Break Even Point Calculator': "<%= __('EV Break Even Point Calculator') %>",
+            'Break Even Point Calculation Example PDF and Template': "<%= __('Break Even Point Calculation Example PDF and Template') %>",
+            'Break Even Point Graph and Chart Analysis': "<%= __('Break Even Point Graph and Chart Analysis') %>",
+            'How to Calculate Break Even Point in Excel': "<%= __('How to Calculate Break Even Point in Excel') %>",
+            'Using Break Even Point Calculator for Loan Evaluation': "<%= __('Using Break Even Point Calculator for Loan Evaluation') %>",
+            'Benefits of Using a Break Even Point Calculator': "<%= __('Benefits of Using a Break Even Point Calculator') %>",
+            'Set Realistic Sales Goals': "<%= __('Set Realistic Sales Goals') %>",
+            'Pricing Decisions': "<%= __('Pricing Decisions') %>",
+            'Risk Assessment': "<%= __('Risk Assessment') %>",
+            'Frequently Asked Questions': "<%= __('Frequently Asked Questions') %>",
+            'What Happens at the Break Even Point?': "<%= __('What Happens at the Break Even Point?') %>",
+            'How Do You Calculate the Break Even Point with Multiple Products?': "<%= __('How Do You Calculate the Break Even Point with Multiple Products?') %>",
+            'Can I Calculate Break Even Point for Options?': "<%= __('Can I Calculate Break Even Point for Options?') %>",
+            'Break Even Point Calculation for Specific Scenarios': "<%= __('Break Even Point Calculation for Specific Scenarios') %>",
+            'Break Even Point for Mortgage and Refinance': "<%= __('Break Even Point for Mortgage and Refinance') %>",
+            'Break Even Point for Hybrid Costs': "<%= __('Break Even Point for Hybrid Costs') %>",
+            'Conclusion': "<%= __('Conclusion') %>",
+            'Please enter valid numbers.': "<%= __('Please enter valid numbers.') %>",
+            'Price per unit must be greater than variable cost per unit.': "<%= __('Price per unit must be greater than variable cost per unit.') %>",
+            'Remove': "<%= __('Remove') %>",
+            'Fix Allocation': "<%= __('Fix Allocation') %>",
+            // Continue adding all necessary strings
+        };
+    </script>
+
+    <!-- Include Chart.js from CDN with defer to optimize loading -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js" defer></script>
+
+    <!-- Include the optimized JavaScript file with defer -->
+    <script src="/assets/js/breakEvenCalculator.js" defer></script>
+</div>
+</body>
+</html>

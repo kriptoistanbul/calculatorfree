@@ -1,0 +1,18 @@
+<!-- views/calculators/ovulation.ejs -->
+
+<h2><%= __('Ovulation Calculator') %></h2>
+<p><%= __('Calculate your ovulation days based on your last menstrual period.') %></p>
+
+<form id="ovulation-form">
+  <label for="lastMenstrualPeriod"><%= __('Last Menstrual Period (MM/DD/YYYY):') %></label>
+  <input type="date" id="lastMenstrualPeriod" name="lastMenstrualPeriod" required>
+
+  <label for="cycleLength"><%= __('Cycle Length (days):') %></label>
+  <input type="number" id="cycleLength" name="cycleLength" value="28" required>
+
+  <button type="submit"><%= __('Calculate Ovulation Days') %></button>
+</form>
+
+<div id="ovulation-result"></div>
+
+<script src="/assets/js/ovulationCalculator.js"></script>

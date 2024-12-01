@@ -1,0 +1,33 @@
+<!-- views/calculators/unit-conversion.ejs -->
+
+<h2><%= __('Unit Conversion Calculator') %></h2>
+<p><%= __('Convert between different units easily.') %></p>
+
+<form id="unit-conversion-form">
+  <label for="value"><%= __('Value:') %></label>
+  <input type="number" id="value" name="value" step="0.01" required>
+
+  <label for="fromUnit"><%= __('From Unit:') %></label>
+  <select id="fromUnit" name="fromUnit" required>
+    <option value="meters">Meters</option>
+    <option value="kilometers">Kilometers</option>
+    <option value="miles">Miles</option>
+    <option value="feet">Feet</option>
+    <!-- Add more units as needed -->
+  </select>
+
+  <label for="toUnit"><%= __('To Unit:') %></label>
+  <select id="toUnit" name="toUnit" required>
+    <option value="meters">Meters</option>
+    <option value="kilometers">Kilometers</option>
+    <option value="miles">Miles</option>
+    <option value="feet">Feet</option>
+    <!-- Add more units as needed -->
+  </select>
+
+  <button type="submit"><%= __('Convert') %></button>
+</form>
+
+<div id="unit-conversion-result"></div>
+
+<script src="/assets/js/unitConversionCalculator.js"></script>

@@ -91,14 +91,14 @@ const blogPosts = [
   // Add more posts as needed
 ];
 
-// Define calculator routes (only those with existing EJS templates)
+// Define calculator routes (ensure all have corresponding EJS files)
 const calculatorRoutes = [
   // Date and Time Calculators
   { path: '/calculators/age', view: 'calculators/age', title: 'Age Calculator', description: 'Calculate your exact age in years, months, and days.' },
+  { path: '/calculators/age-in-days', view: 'calculators/age-in-days', title: 'Age in Days Calculator', description: 'Enter your birthdate to calculate your age in total days.' },
   { path: '/calculators/date-difference', view: 'calculators/date-difference', title: 'Date Difference Calculator', description: 'Calculate the difference between two dates.' },
   { path: '/calculators/time-zone-converter', view: 'calculators/time-zone-converter', title: 'Time Zone Converter', description: 'Convert time between different time zones.' },
   { path: '/calculators/work-hours', view: 'calculators/work-hours', title: 'Work Hours Calculator', description: 'Calculate total work hours.' },
-  { path: '/calculators/age-in-days', view: 'calculators/age-in-days', title: 'Age in Days Calculator', description: 'Enter your birthdate to calculate your age in total days.' },
   { path: '/calculators/countdown-timer', view: 'calculators/countdown-timer', title: 'Countdown Timer', description: 'Set a countdown timer for any event.' },
 
   // Financial Calculators
@@ -129,14 +129,18 @@ const calculatorRoutes = [
   { path: '/calculators/percentage', view: 'calculators/percentage', title: 'Percentage Calculator', description: 'Perform various percentage calculations.' },
 
   // Astrology and Zodiac Calculators
-  // Removed missing EJS templates
-  // Ensure EJS files exist for these routes or remove them
-  // For demonstration, only include existing ones
   { path: '/calculators/compatibility', view: 'calculators/compatibility', title: 'Compatibility Calculator', description: 'Check compatibility between signs.' },
-  { path: '/calculators/aily-horoscope', view: 'calculators/aily-horoscope', title: 'Daily Horoscope Calculator', description: 'Get your daily horoscope based on your zodiac sign.' },
+  { path: '/calculators/daily-horoscope', view: 'calculators/daily-horoscope', title: 'Daily Horoscope Calculator', description: 'Get your daily horoscope based on your zodiac sign.' },
   { path: '/calculators/horoscope', view: 'calculators/horoscope', title: 'Horoscope Calculator', description: 'Explore detailed horoscopes based on your birth details.' },
   { path: '/calculators/natal-chart', view: 'calculators/natal-chart', title: 'Natal Chart Calculator', description: 'Generate your natal chart for detailed astrological insights.' },
+  { path: '/calculators/planetary-aspect', view: 'calculators/planetary-aspect', title: 'Planetary Aspect Calculator', description: 'Calculate planetary aspects in astrology.' },
+  { path: '/calculators/mercury-sign', view: 'calculators/mercury-sign', title: 'Mercury Sign Calculator', description: 'Find out your Mercury sign.' },
+  { path: '/calculators/vedic-astrology', view: 'calculators/vedic-astrology', title: 'Vedic Astrology Calculator', description: 'Explore Vedic astrology.' },
+  { path: '/calculators/moon-sign', view: 'calculators/moon-sign', title: 'Moon Sign Calculator', description: 'Find out your Moon sign.' },
+  { path: '/calculators/mars-sign', view: 'calculators/mars-sign', title: 'Mars Sign Calculator', description: 'Find out your Mars sign.' },
+  { path: '/calculators/venus-sign', view: 'calculators/venus-sign', title: 'Venus Sign Calculator', description: 'Find out your Venus sign.' },
   { path: '/calculators/western-zodiac', view: 'calculators/western-zodiac', title: 'Western Zodiac Calculator', description: 'Find out your Western zodiac sign.' },
+  { path: '/calculators/chinese-zodiac', view: 'calculators/chinese-zodiac', title: 'Chinese Zodiac Calculator', description: 'Find out your Chinese zodiac sign.' },
 
   // Environmental Impact Calculators
   { path: '/calculators/carbon-footprint', view: 'calculators/carbon-footprint', title: 'Carbon Footprint Calculator', description: 'Calculate your carbon footprint.' },

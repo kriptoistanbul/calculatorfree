@@ -1,0 +1,18 @@
+<!-- views/calculators/roi.ejs -->
+
+<h2><%= __('ROI Calculator') %></h2>
+<p><%= __('Calculate your Return on Investment (ROI) based on your gains and costs.') %></p>
+
+<form id="roi-form">
+  <label for="gain"><%= __('Gain from Investment ($):') %></label>
+  <input type="number" id="gain" name="gain" step="0.01" required>
+
+  <label for="cost"><%= __('Cost of Investment ($):') %></label>
+  <input type="number" id="cost" name="cost" step="0.01" required>
+
+  <button type="submit"><%= __('Calculate ROI') %></button>
+</form>
+
+<div id="roi-result"></div>
+
+<script src="/assets/js/roiCalculator.js"></script>

@@ -1,0 +1,30 @@
+<!-- views/calculators/body-fat.ejs -->
+
+<h2><%= __('Body Fat Calculator') %></h2>
+<p><%= __('Calculate your body fat percentage using your measurements.') %></p>
+
+<form id="body-fat-form">
+  <label for="weight"><%= __('Weight (lbs):') %></label>
+  <input type="number" id="weight" name="weight" step="0.1" required>
+
+  <label for="waist"><%= __('Waist Circumference (inches):') %></label>
+  <input type="number" id="waist" name="waist" step="0.1" required>
+
+  <label for="neck"><%= __('Neck Circumference (inches):') %></label>
+  <input type="number" id="neck" name="neck" step="0.1" required>
+
+  <label for="hip" class="optional"><%= __('Hip Circumference (inches) [For Women]:') %></label>
+  <input type="number" id="hip" name="hip" step="0.1">
+
+  <label for="gender"><%= __('Gender:') %></label>
+  <select id="gender" name="gender" required>
+    <option value="male"><%= __('Male') %></option>
+    <option value="female"><%= __('Female') %></option>
+  </select>
+
+  <button type="submit"><%= __('Calculate Body Fat') %></button>
+</form>
+
+<div id="body-fat-result"></div>
+
+<script src="/assets/js/bodyFatCalculator.js"></script>

@@ -1,0 +1,26 @@
+<!-- views/calculators/water-usage.ejs -->
+
+<h2><%= __('Water Usage Calculator') %></h2>
+<p><%= __('Calculate your daily and monthly water usage based on appliance usage.') %></p>
+
+<form id="water-usage-form">
+  <div id="appliances-container">
+    <div class="appliance">
+      <label><%= __('Appliance Name:') %></label>
+      <input type="text" name="applianceName" required>
+
+      <label><%= __('Water Usage per Use (liters):') %></label>
+      <input type="number" name="waterUsage" step="0.1" required>
+
+      <label><%= __('Uses per Day:') %></label>
+      <input type="number" name="usesPerDay" step="0.1" required>
+    </div>
+  </div>
+
+  <button type="button" onclick="addAppliance()"><%= __('Add Another Appliance') %></button>
+  <button type="submit"><%= __('Calculate Water Usage') %></button>
+</form>
+
+<div id="water-usage-result"></div>
+
+<script src="/assets/js/waterUsageCalculator.js"></script>

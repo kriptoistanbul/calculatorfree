@@ -1,0 +1,26 @@
+<!-- views/calculators/energy-consumption.ejs -->
+
+<h2><%= __('Energy Consumption Calculator') %></h2>
+<p><%= __('Calculate your energy consumption based on appliance usage.') %></p>
+
+<form id="energy-consumption-form">
+  <div id="appliances-container">
+    <div class="appliance">
+      <label><%= __('Appliance Name:') %></label>
+      <input type="text" name="applianceName" required>
+
+      <label><%= __('Power Rating (Watts):') %></label>
+      <input type="number" name="powerRating" step="0.1" required>
+
+      <label><%= __('Usage Hours per Day:') %></label>
+      <input type="number" name="usageHours" step="0.1" required>
+    </div>
+  </div>
+
+  <button type="button" onclick="addAppliance()"><%= __('Add Another Appliance') %></button>
+  <button type="submit"><%= __('Calculate Energy Consumption') %></button>
+</form>
+
+<div id="energy-consumption-result"></div>
+
+<script src="/assets/js/energyConsumptionCalculator.js"></script>

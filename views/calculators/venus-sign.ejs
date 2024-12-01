@@ -1,0 +1,18 @@
+<!-- views/calculators/venus-sign.ejs -->
+
+<h2><%= __('Venus Sign Calculator') %></h2>
+<p><%= __('Find out your Venus sign based on your birth date and time.') %></p>
+
+<form id="venus-sign-form">
+  <label for="birthDate"><%= __('Birth Date (MM/DD/YYYY):') %></label>
+  <input type="date" id="birthDate" name="birthDate" required>
+
+  <label for="birthTime"><%= __('Birth Time (HH:MM):') %></label>
+  <input type="time" id="birthTime" name="birthTime" required>
+
+  <button type="submit"><%= __('Find My Venus Sign') %></button>
+</form>
+
+<div id="venus-sign-result"></div>
+
+<script src="/assets/js/venusSignCalculator.js"></script>

@@ -1,0 +1,18 @@
+<!-- views/calculators/mercury-sign.ejs -->
+
+<h2><%= __('Mercury Sign Calculator') %></h2>
+<p><%= __('Find out your Mercury sign based on your birth date and time.') %></p>
+
+<form id="mercury-sign-form">
+  <label for="birthDate"><%= __('Birth Date (MM/DD/YYYY):') %></label>
+  <input type="date" id="birthDate" name="birthDate" required>
+
+  <label for="birthTime"><%= __('Birth Time (HH:MM):') %></label>
+  <input type="time" id="birthTime" name="birthTime" required>
+
+  <button type="submit"><%= __('Find My Mercury Sign') %></button>
+</form>
+
+<div id="mercury-sign-result"></div>
+
+<script src="/assets/js/mercurySignCalculator.js"></script>

@@ -1,0 +1,24 @@
+<!-- views/calculators/investment-return.ejs -->
+
+<h2><%= __('Investment Return Calculator') %></h2>
+<p><%= __('Calculate the future value of your investment based on periodic contributions.') %></p>
+
+<form id="investment-return-form">
+  <label for="initialInvestment"><%= __('Initial Investment ($):') %></label>
+  <input type="number" id="initialInvestment" name="initialInvestment" step="0.01" required>
+
+  <label for="monthlyContribution"><%= __('Monthly Contribution ($):') %></label>
+  <input type="number" id="monthlyContribution" name="monthlyContribution" step="0.01" required>
+
+  <label for="annualInterestRate"><%= __('Annual Interest Rate (%):') %></label>
+  <input type="number" id="annualInterestRate" name="annualInterestRate" step="0.01" required>
+
+  <label for="years"><%= __('Investment Period (years):') %></label>
+  <input type="number" id="years" name="years" min="1" required>
+
+  <button type="submit"><%= __('Calculate Future Value') %></button>
+</form>
+
+<div id="investment-return-result"></div>
+
+<script src="/assets/js/investmentReturnCalculator.js"></script>
