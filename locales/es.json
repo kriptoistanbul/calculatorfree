@@ -476,5 +476,11 @@
 	"Moderately active (moderate exercise/sports 3-5 days/week)": "Moderately active (moderate exercise/sports 3-5 days/week)",
 	"Very active (hard exercise/sports 6-7 days a week)": "Very active (hard exercise/sports 6-7 days a week)",
 	"Extra active (very hard exercise/sports & physical job or 2x training)": "Extra active (very hard exercise/sports & physical job or 2x training)",
-	"Include Body Fat Percentage": "Include Body Fat Percentage"
+	"Include Body Fat Percentage": "Include Body Fat Percentage",
+	"Calculate your body fat percentage.": "Calculate your body fat percentage.",
+	"Calculate your body fat percentage using your measurements.": "Calculate your body fat percentage using your measurements.",
+	"Weight (lbs):": "Weight (lbs):",
+	"Waist Circumference (inches):": "Waist Circumference (inches):",
+	"Neck Circumference (inches):": "Neck Circumference (inches):",
+	"Hip Circumference (inches) [For Women]:": "Hip Circumference (inches) [For Women]:"
 }
