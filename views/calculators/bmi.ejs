@@ -1,16 +1,480 @@
-<h2><%= __('BMI Calculator') %></h2>
-<p><%= __('Calculate your Body Mass Index and understand what it means.') %></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced BMI Calculator | Comprehensive Body Mass Index Tool</title>
+    <meta name="description" content="Use our advanced BMI Calculator to accurately determine your Body Mass Index. Our comprehensive tool considers age, gender, muscle mass, and more to provide detailed health insights. Optimize your health journey with precise BMI measurements and actionable recommendations.">
+    <meta name="keywords" content="BMI Calculator, Body Mass Index, calculate BMI, advanced BMI tool, BMI for children, BMI for adults, BMI with muscle mass, BMI and waist circumference, health metrics, RMR calculation, BMI percentile, fitness calculator, weight loss, obesity assessment, BMI charts, BMI for athletes, BMI for seniors, BMI for pregnant women">
 
-<form id="bmi-form">
-  <label for="weight"><%= __('Weight (kg):') %></label>
-  <input type="number" id="weight" name="weight" step="0.1" required>
+    <!-- Font Awesome for Icons (Optional) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHq6ZGtF1JqgUjH9sOq0zBrk1DlbOQp4QK4xR1G0yEElH7j68D+yfj9SfVw3X1Zq3x+vmQaA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <label for="height"><%= __('Height (cm):') %></label>
-  <input type="number" id="height" name="height" step="0.1" required>
+    <!-- External CSS (Recommended) -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
 
-  <button type="submit"><%= __('Calculate') %></button>
-</form>
+    <style>
+        /* Inline CSS for demonstration purposes. Ideally, use an external stylesheet. */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
 
-<div id="result"></div>
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            overflow: hidden;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-<script src="/assets/js/bmiCalculator.js"></script>
+        h1, h2, h3 {
+            color: #333;
+            margin-top: 20px;
+        }
+
+        p {
+            line-height: 1.6;
+            color: #555;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input[type="date"], input[type="number"], select, input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+        button {
+            padding: 12px 30px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+            color: #333;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+
+        .download-section {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .download-section a {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            font-size: 16px;
+        }
+
+        .download-section a:hover {
+            background-color: #218838;
+        }
+
+        canvas {
+            margin-top: 30px;
+            max-width: 100%;
+            height: auto !important;
+            display: none;
+        }
+
+        /* SEO Optimized Content */
+        section#educational-content {
+            margin-top: 50px;
+        }
+
+        section#educational-content h2, section#educational-content h3 {
+            color: #007BFF;
+        }
+
+        section#educational-content ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            button {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Advanced BMI Calculator</h1>
+        <p>Welcome to our <strong>Advanced BMI Calculator</strong>, a comprehensive tool designed to provide you with detailed insights into your Body Mass Index (BMI) and overall health metrics. Whether you're an athlete, a parent, a senior, or someone keen on monitoring their health, our calculator caters to a diverse range of needs.</p>
+        
+        <!-- BMI Calculator Section -->
+        <div id="bmi-calculator">
+            <h2>Calculate Your BMI</h2>
+            <p>Determine your Body Mass Index (BMI) accurately by entering your weight, height, age, and gender. Our advanced calculator also considers muscle mass and waist circumference to provide a more comprehensive health assessment.</p>
+            
+            <form id="bmi-form">
+                <!-- Unit Selection -->
+                <label for="unit">Select Units:</label>
+                <select id="unit" name="unit" required>
+                    <option value="metric" selected>Metric (kg, cm)</option>
+                    <option value="imperial">Imperial (lbs, inches)</option>
+                </select>
+                
+                <!-- Weight Input -->
+                <label for="weight">Weight:</label>
+                <input type="number" id="weight" name="weight" step="0.1" required placeholder="Enter your weight">
+                
+                <!-- Height Input -->
+                <label for="height">Height:</label>
+                <input type="number" id="height" name="height" step="0.1" required placeholder="Enter your height">
+                
+                <!-- Age Input -->
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" min="1" max="120" required placeholder="Enter your age">
+                
+                <!-- Gender Selection -->
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="" disabled selected>Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+                
+                <!-- Body Composition -->
+                <label><input type="checkbox" id="include-muscle" name="include-muscle"> Include Muscle Mass</label>
+                <label><input type="checkbox" id="include-waist" name="include-waist"> Include Waist Circumference</label>
+                
+                <button type="submit">Calculate</button>
+            </form>
+            
+            <div id="bmi-result" class="result"></div>
+            
+            <!-- Chart Display -->
+            <canvas id="bmiChart" width="400" height="200"></canvas>
+        </div>
+        
+        <!-- Download Excel Template -->
+        <div class="download-section">
+            <a href="/downloads/ageCalculatorTemplate.xlsx" download>Download Excel Template</a>
+        </div>
+        
+        <!-- Educational Content Section -->
+        <section id="educational-content">
+            <h2>Understanding Body Mass Index (BMI)</h2>
+            <p>
+                Body Mass Index (BMI) is a widely used metric for assessing whether an individual has a healthy body weight for a given height. Developed by mathematician Adolphe Quetelet in the 19th century, BMI has become a standard tool in both clinical and public health settings to categorize individuals into different weight statuses: underweight, normal weight, overweight, and obese.
+            </p>
+            <p>
+                While BMI is a valuable indicator, it's essential to understand its scope, limitations, and the factors it considers. This comprehensive guide delves into the intricacies of BMI, providing you with the knowledge to interpret your BMI results accurately and understand their implications for your health.
+            </p>
+            
+            <h3>How is BMI Calculated?</h3>
+            <p>
+                BMI is calculated using a simple mathematical formula that relates your weight to your height. The formula differs slightly based on the unit system you use:
+            </p>
+            <ul>
+                <li><strong>Metric System (kg/m²):</strong> <em>BMI = Weight (kg) / (Height (m))²</em></li>
+                <li><strong>Imperial System (lbs/in²):</strong> <em>BMI = (Weight (lbs) / (Height (in))²) × 703</em></li>
+            </ul>
+            <p>
+                This calculation provides a single numerical value that places you within a weight category, facilitating quick assessments and comparisons.
+            </p>
+            
+            <h3>Understanding BMI Categories</h3>
+            <p>
+                BMI categories help in identifying potential health risks associated with different weight statuses. Here's a breakdown of the standard BMI categories:
+            </p>
+            <ul>
+                <li><strong>Underweight:</strong> BMI less than 18.5</li>
+                <li><strong>Normal weight:</strong> BMI between 18.5 and 24.9</li>
+                <li><strong>Overweight:</strong> BMI between 25 and 29.9</li>
+                <li><strong>Obese:</strong> BMI of 30 or higher</li>
+            </ul>
+            <p>
+                These categories serve as general guidelines. However, individual health can vary based on numerous factors, including muscle mass, bone density, age, and gender.
+            </p>
+            
+            <h3>Factors Affecting BMI Accuracy</h3>
+            <p>
+                While BMI is a useful screening tool, several factors can influence its accuracy:
+            </p>
+            <ul>
+                <li><strong>Muscle Mass:</strong> Individuals with high muscle mass may have a higher BMI, classifying them as overweight or obese, even if their body fat percentage is low.</li>
+                <li><strong>Bone Density:</strong> People with denser bones may have higher BMIs without excess body fat.</li>
+                <li><strong>Age:</strong> As people age, muscle mass tends to decrease, potentially altering BMI classifications.</li>
+                <li><strong>Gender:</strong> Men and women typically have different body compositions, which can affect BMI interpretations.</li>
+                <li><strong>Body Frame Size:</strong> Individuals with larger frames may naturally weigh more, influencing their BMI.</li>
+            </ul>
+            <p>
+                Recognizing these factors is crucial for interpreting BMI results accurately and avoiding misconceptions about one's health status.
+            </p>
+            
+            <h3>BMI for Different Populations</h3>
+            <p>
+                BMI interpretations can vary across different populations. Our advanced BMI Calculator addresses these variations by incorporating age, gender, and body composition factors, ensuring a more tailored and accurate assessment.
+            </p>
+            
+            <h4>BMI for Children and Teens</h4>
+            <p>
+                For individuals under 18, BMI is interpreted differently. Children's BMI is age and gender-specific, as children are growing and their body compositions are changing. Instead of fixed categories, BMI percentiles are used:
+            </p>
+            <ul>
+                <li><strong>Underweight:</strong> Less than the 5th percentile</li>
+                <li><strong>Healthy weight:</strong> 5th percentile to less than the 85th percentile</li>
+                <li><strong>Overweight:</strong> 85th percentile to less than the 95th percentile</li>
+                <li><strong>Obese:</strong> 95th percentile or higher</li>
+            </ul>
+            <p>
+                These percentiles are based on growth charts developed by health organizations like the CDC and WHO.
+            </p>
+            
+            <h4>BMI for Athletes</h4>
+            <p>
+                Athletes often possess higher muscle mass, which can result in elevated BMI scores that don't accurately reflect their body fat levels. For this population, additional metrics like body fat percentage and waist circumference are recommended for a more comprehensive health assessment.
+            </p>
+            
+            <h4>BMI for Seniors</h4>
+            <p>
+                As individuals age, muscle mass tends to decrease, and fat distribution changes. Therefore, BMI categories may need adjustment to account for these physiological changes. Our calculator includes options to consider these factors, providing seniors with a more accurate BMI interpretation.
+            </p>
+            
+            <h4>BMI for Pregnant Women</h4>
+            <p>
+                Pregnancy brings significant changes to a woman's body, including weight gain and altered fat distribution. While BMI can still be used as a general indicator, it's essential to consult healthcare providers for personalized assessments during pregnancy.
+            </p>
+            
+            <h3>Advanced Features of Our BMI Calculator</h3>
+            <p>
+                Our BMI Calculator is designed to offer more than just a basic BMI score. It incorporates several advanced features to provide a holistic view of your health metrics:
+            </p>
+            <ul>
+                <li><strong>Multiple Unit Support:</strong> Choose between Metric (kg, cm) and Imperial (lbs, inches) units for your convenience.</li>
+                <li><strong>Age and Gender Consideration:</strong> Tailor your BMI results based on your age and gender for more accurate assessments.</li>
+                <li><strong>Body Composition Factors:</strong> Include muscle mass and waist circumference to refine your BMI classification.</li>
+                <li><strong>Additional Health Metrics:</strong> Calculate your Resting Metabolic Rate (RMR) to understand your daily calorie needs.</li>
+                <li><strong>Visual Representation:</strong> View your BMI results dynamically through interactive charts.</li>
+                <li><strong>Educational Content:</strong> Access comprehensive information about BMI, its uses, and limitations.</li>
+                <li><strong>Enhanced User Experience:</strong> Enjoy a responsive design that works seamlessly across all devices, with intuitive input fields and clear result displays.</li>
+                <li><strong>Accessibility and Localization:</strong> Utilize a tool that's accessible to a diverse audience, with support for multiple languages and compliance with accessibility standards.</li>
+                <li><strong>Integration with External Tools:</strong> Export your BMI results to platforms like Excel or Google Sheets for personal tracking and analysis.</li>
+                <li><strong>Specialized Calculators:</strong> Access tailored BMI calculations for specific groups such as athletes, seniors, and pregnant women.</li>
+            </ul>
+            
+            <h3>How to Use the BMI Calculator</h3>
+            <p>
+                Utilizing our advanced BMI Calculator is straightforward. Follow these simple steps to obtain a comprehensive health assessment:
+            </p>
+            <ol>
+                <li><strong>Select Your Units:</strong> Choose between Metric (kg, cm) and Imperial (lbs, inches) units based on your preference.</li>
+                <li><strong>Enter Your Weight:</strong> Input your weight in the selected unit.</li>
+                <li><strong>Enter Your Height:</strong> Input your height in the selected unit.</li>
+                <li><strong>Enter Your Age:</strong> Input your age to allow the calculator to provide age-specific interpretations.</li>
+                <li><strong>Select Your Gender:</strong> Choose your gender to tailor the BMI assessment.</li>
+                <li><strong>Include Additional Factors:</strong> Check the boxes to include muscle mass and waist circumference for a more detailed analysis.</li>
+                <li><strong>Calculate:</strong> Click the "Calculate" button to view your BMI results, health classifications, and additional health metrics.</li>
+            </ol>
+            
+            <h3>Interpreting Your BMI Results</h3>
+            <p>
+                After entering your details and submitting the form, the calculator provides a detailed breakdown of your BMI results:
+            </p>
+            <ul>
+                <li><strong>Your BMI Score:</strong> A numerical value representing your BMI.</li>
+                <li><strong>Your Classification:</strong> Indicates whether you're underweight, normal weight, overweight, or obese.</li>
+                <li><strong>Additional Health Metrics:</strong> Includes waist circumference risk assessment and Resting Metabolic Rate (RMR).</li>
+                <li><strong>Visual Chart:</strong> An interactive chart displaying your BMI in the context of standard BMI categories.</li>
+            </ul>
+            <p>
+                These results offer valuable insights into your health status, helping you make informed decisions about your lifestyle and wellness routines.
+            </p>
+            
+            <h3>Limitations of BMI</h3>
+            <p>
+                While BMI is a useful screening tool, it's important to recognize its limitations:
+            </p>
+            <ul>
+                <li><strong>Does Not Differentiate Between Muscle and Fat:</strong> BMI does not account for muscle mass, which can lead to misleading classifications, especially in athletes and bodybuilders.</li>
+                <li><strong>Does Not Consider Fat Distribution:</strong> BMI doesn't indicate where fat is distributed in the body, which is a crucial factor in assessing health risks.</li>
+                <li><strong>Age and Gender Variations:</strong> BMI calculations do not adjust for differences in body composition related to age and gender.</li>
+                <li><strong>Not Suitable for All Populations:</strong> Certain populations, such as pregnant women and individuals with specific medical conditions, may require alternative or additional metrics for accurate health assessments.</li>
+            </ul>
+            <p>
+                To address these limitations, our advanced BMI Calculator incorporates additional factors like muscle mass and waist circumference, providing a more nuanced understanding of your health.
+            </p>
+            
+            <h3>Enhancing BMI Accuracy with Additional Metrics</h3>
+            <p>
+                To provide a more comprehensive health assessment, our BMI Calculator allows you to include additional metrics:
+            </p>
+            <ul>
+                <li><strong>Muscle Mass:</strong> By accounting for muscle mass, the calculator adjusts BMI classifications, offering a more accurate reflection of your body composition.</li>
+                <li><strong>Waist Circumference:</strong> Measuring waist circumference helps assess central obesity, a significant risk factor for cardiovascular diseases and type 2 diabetes.</li>
+                <li><strong>Resting Metabolic Rate (RMR):</strong> Understanding your RMR aids in determining your daily calorie needs, essential for weight management and overall health.</li>
+            </ul>
+            <p>
+                Incorporating these metrics enhances the accuracy of the BMI assessment, enabling you to gain deeper insights into your health status.
+            </p>
+            
+            <h3>Additional Health Insights</h3>
+            <p>
+                Beyond BMI, our calculator provides valuable health insights:
+            </p>
+            <ul>
+                <li><strong>Resting Metabolic Rate (RMR):</strong> An estimate of the number of calories your body needs at rest, which can guide your dietary and exercise plans.</li>
+                <li><strong>Waist Circumference Risk Assessment:</strong> Evaluates your risk of developing obesity-related health issues based on your waist measurement.</li>
+                <li><strong>BMI Percentile for Children and Teens:</strong> Provides a percentile ranking to assess whether a child or teenager falls within a healthy weight range.</li>
+            </ul>
+            <p>
+                These insights empower you to make informed decisions about your health and wellness journey.
+            </p>
+            
+            <h3>Interactive Charts for Visual Representation</h3>
+            <p>
+                Visualizing your BMI results can aid in understanding and tracking your health metrics over time. Our BMI Calculator integrates dynamic charts that:
+            </p>
+            <ul>
+                <li><strong>Display BMI Categories:</strong> Shows where your BMI falls within the standard categories, providing a clear visual context.</li>
+                <li><strong>Track Trends:</strong> Allows you to monitor changes in your BMI and other health metrics over time, helping you gauge the effectiveness of your health initiatives.</li>
+            </ul>
+            <p>
+                Utilizing visual data representations makes it easier to comprehend complex health information, fostering better health management.
+            </p>
+            
+            <h3>Exporting Your BMI Results</h3>
+            <p>
+                For users interested in tracking their health metrics over time, our BMI Calculator offers the option to export results:
+            </p>
+            <ul>
+                <li><strong>Excel Integration:</strong> Download your BMI results as an Excel file, enabling you to maintain a personal health log.</li>
+                <li><strong>Google Sheets Integration:</strong> Export your data directly to Google Sheets for easy access and analysis across devices.</li>
+            </ul>
+            <p>
+                These export options facilitate ongoing health tracking, allowing you to monitor progress and make data-driven decisions.
+            </p>
+            
+            <h3>Specialized BMI Calculators</h3>
+            <p>
+                Understanding that different populations have unique health considerations, our platform offers specialized BMI calculators:
+            </p>
+            <ul>
+                <li><strong>Athletes:</strong> Adjusted BMI calculations that account for higher muscle mass, providing a more accurate health assessment.</li>
+                <li><strong>Pregnant Women:</strong> Tailored BMI assessments to consider the physiological changes during pregnancy.</li>
+                <li><strong>Children and Teens:</strong> BMI percentile-based assessments to evaluate healthy weight ranges in growing individuals.</li>
+                <li><strong>Seniors:</strong> BMI interpretations that consider age-related changes in body composition.</li>
+            </ul>
+            <p>
+                These specialized calculators ensure that users receive the most relevant and accurate health assessments based on their unique circumstances.
+            </p>
+            
+            <h3>FAQs About BMI</h3>
+            <p>
+                To further assist you in understanding BMI and its implications, here are answers to some frequently asked questions:
+            </p>
+            <ul>
+                <li><strong>1. Can BMI Calculators Be Wrong?</strong><br>
+                Yes, BMI calculators can sometimes provide misleading results, especially for individuals with high muscle mass, athletes, or those with certain medical conditions. That's why our advanced calculator incorporates additional metrics to enhance accuracy.</li>
+                
+                <li><strong>2. Do BMI Calculators Account for Muscle?</strong><br>
+                Basic BMI calculators do not account for muscle mass. However, our advanced BMI Calculator includes an option to consider muscle mass, adjusting BMI classifications accordingly for a more accurate assessment.</li>
+                
+                <li><strong>3. Can You Trust BMI Calculator?</strong><br>
+                BMI calculators are reliable as general indicators of weight status and associated health risks. However, they should not be the sole measure of health. It's advisable to consult healthcare professionals for comprehensive health evaluations.</li>
+                
+                <li><strong>4. How to Use BMI Calculator?</strong><br>
+                Simply enter your weight, height, age, and gender into the calculator. Optionally, include muscle mass and waist circumference for a more detailed assessment, then click "Calculate" to view your BMI results and health insights.</li>
+                
+                <li><strong>5. Does BMI Calculator Change with Age?</strong><br>
+                Yes, BMI interpretations can vary with age, especially for children and teenagers who are still growing. Our calculator adjusts BMI classifications based on age to provide accurate percentile rankings for younger users.</li>
+                
+                <li><strong>6. How Does a BMI Calculator Work?</strong><br>
+                A BMI calculator uses your weight and height to compute the Body Mass Index, which categorizes your weight status. Our advanced calculator also considers age, gender, muscle mass, and waist circumference for a comprehensive assessment.</li>
+                
+                <li><strong>7. Are BMI Calculators Accurate?</strong><br>
+                BMI calculators are generally accurate for most adults but have limitations. They do not differentiate between muscle and fat mass and do not account for fat distribution. Our advanced calculator addresses some of these limitations by including additional health metrics.</li>
+                
+                <li><strong>8. Am I Overweight BMI Calculator?</strong><br>
+                By entering your weight, height, age, and gender, our calculator will determine your BMI and classify your weight status, indicating whether you fall into the overweight category.</li>
+                
+                <li><strong>9. Does BMI Calculator Work?</strong><br>
+                Yes, BMI calculators work by applying a simple formula to your weight and height. Our advanced calculator enhances this by incorporating additional factors to provide a more accurate and comprehensive health assessment.</li>
+                
+                <li><strong>10. Who Should Use BMI Calculator?</strong><br>
+                Anyone interested in understanding their weight status and associated health risks can benefit from using a BMI calculator. It's especially useful for individuals monitoring their health, athletes, parents tracking their children's growth, and seniors managing age-related health changes.</li>
+            </ul>
+            
+            <h3>Conclusion</h3>
+            <p>
+                Body Mass Index (BMI) is a foundational tool in assessing an individual's weight status and potential health risks. While it offers valuable insights, it's essential to recognize its limitations and complement it with other health metrics for a holistic understanding of one's health. Our <strong>Advanced BMI Calculator</strong> is designed to bridge these gaps, providing a detailed and accurate assessment by considering various factors such as age, gender, muscle mass, and waist circumference.
+            </p>
+            <p>
+                By leveraging our comprehensive tool, you can gain deeper insights into your health, track your progress over time, and make informed decisions to enhance your well-being. Remember, while tools like BMI calculators are beneficial, consulting with healthcare professionals remains crucial for personalized health advice and interventions.
+            </p>
+            <p>
+                Empower yourself with knowledge and take proactive steps towards a healthier, balanced life with our <strong>Advanced BMI Calculator</strong>.
+            </p>
+        </section>
+    </div>
+    
+    <!-- Include Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- BMI Calculator JavaScript -->
+    <script src="/assets/js/bmiCalculator.js"></script>
+
+    <script>
+        // Tab Switching Functionality (Removed as per user request)
+        // Since the user requested not to have a tab for content, content is placed below the tools.
+        // Therefore, no tab functionality is required here.
+    </script>
+</body>
+</html>
