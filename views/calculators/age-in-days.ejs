@@ -1,13 +1,171 @@
-<h2><%= __('Age in Days Calculator') %></h2>
-<p><%= __('Enter your birthdate to calculate your age in total days.') %></p>
-
-<form id="age-days-form">
-  <label for="birthdate"><%= __('Birthdate:') %></label>
-  <input type="date" id="birthdate" name="birthdate" required>
-
-  <button type="submit"><%= __('Calculate') %></button>
-</form>
-
-<p id="age-days-result"></p>
-
-<script src="/assets/js/ageInDaysCalculator.js"></script>
+<!DOCTYPE html>
+<html lang="<%= locale %>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= __('Age Calculator') %></title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1><%= __('Age Calculator') %></h1>
+        <p><%= __('Calculate your exact age in various units and explore additional features.') %></p>
+        
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <button class="tab-button active" data-tab="basic-age"><%= __('Basic Age Calculation') %></button>
+            <button class="tab-button" data-tab="specific-date"><%= __('Age on Specific Date') %></button>
+            <button class="tab-button" data-tab="age-difference"><%= __('Age Difference') %></button>
+            <button class="tab-button" data-tab="planet-age"><%= __('Planetary Age') %></button>
+            <button class="tab-button" data-tab="biological-age"><%= __('Biological Age') %></button>
+            <button class="tab-button" data-tab="additional-features"><%= __('Additional Features') %></button>
+        </div>
+        
+        <!-- Tab Contents -->
+        <div class="tab-content active" id="basic-age">
+            <!-- Basic Age Calculation Form -->
+            <form id="age-form">
+                <fieldset>
+                    <legend><%= __('Basic Age Calculation') %></legend>
+                    
+                    <label for="birthdate"><%= __('Enter your birthdate:') %></label>
+                    <input type="date" id="birthdate" name="birthdate" required>
+                    
+                    <button type="submit"><%= __('Calculate Age') %></button>
+                </fieldset>
+            </form>
+            <!-- Result Display -->
+            <div id="basic-age-result" class="result"></div>
+        </div>
+        
+        <div class="tab-content" id="specific-date">
+            <!-- Specific Date Age Calculation Form -->
+            <form id="specific-date-form">
+                <fieldset>
+                    <legend><%= __('Calculate Age on a Specific Date') %></legend>
+                    
+                    <label for="specific-date-input"><%= __('Enter the specific date:') %></label>
+                    <input type="date" id="specific-date-input" name="specific-date">
+                    
+                    <button type="submit"><%= __('Calculate on Specific Date') %></button>
+                </fieldset>
+            </form>
+            <!-- Result Display -->
+            <div id="specific-date-result" class="result"></div>
+        </div>
+        
+        <div class="tab-content" id="age-difference">
+            <!-- Age Difference Calculation Form -->
+            <form id="age-difference-form">
+                <fieldset>
+                    <legend><%= __('Age Difference Between Two People') %></legend>
+                    
+                    <label for="birthdate1"><%= __('Enter birthdate for Person 1:') %></label>
+                    <input type="date" id="birthdate1" name="birthdate1" required>
+                    
+                    <label for="birthdate2"><%= __('Enter birthdate for Person 2:') %></label>
+                    <input type="date" id="birthdate2" name="birthdate2" required>
+                    
+                    <button type="submit"><%= __('Calculate Age Difference') %></button>
+                </fieldset>
+            </form>
+            <!-- Result Display -->
+            <div id="age-difference-result" class="result"></div>
+        </div>
+        
+        <div class="tab-content" id="planet-age">
+            <!-- Age on Other Planets Form -->
+            <form id="planet-age-form">
+                <fieldset>
+                    <legend><%= __('Calculate Age on Other Planets') %></legend>
+                    
+                    <label for="planet-select"><%= __('Select a planet:') %></label>
+                    <select id="planet-select" name="planet-select">
+                        <option value="Mercury">Mercury</option>
+                        <option value="Venus">Venus</option>
+                        <option value="Earth" selected>Earth</option>
+                        <option value="Mars">Mars</option>
+                        <option value="Jupiter">Jupiter</option>
+                        <option value="Saturn">Saturn</option>
+                        <option value="Uranus">Uranus</option>
+                        <option value="Neptune">Neptune</option>
+                        <option value="Pluto">Pluto</option>
+                    </select>
+                    
+                    <button type="submit"><%= __('Calculate Planetary Age') %></button>
+                </fieldset>
+            </form>
+            <!-- Result Display -->
+            <div id="planet-age-result" class="result"></div>
+        </div>
+        
+        <div class="tab-content" id="biological-age">
+            <!-- Biological Age Estimation Form -->
+            <form id="biological-age-form">
+                <fieldset>
+                    <legend><%= __('Biological Age Estimation') %></legend>
+                    
+                    <label><input type="checkbox" id="exercise" name="exercise"> <%= __('Regular Exercise') %></label><br>
+                    <label><input type="checkbox" id="smoke" name="smoke"> <%= __('Do Not Smoke') %></label><br>
+                    <label><input type="checkbox" id="diet" name="diet"> <%= __('Healthy Diet') %></label><br>
+                    
+                    <button type="submit"><%= __('Estimate Biological Age') %></button>
+                </fieldset>
+            </form>
+            <!-- Result Display -->
+            <div id="biological-age-result" class="result"></div>
+        </div>
+        
+        <div class="tab-content" id="additional-features">
+            <!-- Additional Features Section -->
+            <fieldset>
+                <legend><%= __('Additional Features') %></legend>
+                
+                <!-- Age in Weeks -->
+                <form id="age-weeks-form">
+                    <label for="birthdate-weeks"><%= __('Enter your birthdate to calculate age in weeks:') %></label>
+                    <input type="date" id="birthdate-weeks" name="birthdate-weeks" required>
+                    <button type="submit"><%= __('Calculate Age in Weeks') %></button>
+                </form>
+                <div id="age-weeks-result" class="result"></div>
+                
+                <!-- Gestational Age Calculation -->
+                <form id="gestational-age-form">
+                    <label for="last-menstrual-period"><%= __('Enter Last Menstrual Period (LMP):') %></label>
+                    <input type="date" id="last-menstrual-period" name="last-menstrual-period" required>
+                    <button type="submit"><%= __('Calculate Gestational Age') %></button>
+                </form>
+                <div id="gestational-age-result" class="result"></div>
+                
+                <!-- Age in Lunar Years -->
+                <form id="lunar-age-form">
+                    <label for="birthdate-lunar"><%= __('Enter your birthdate to calculate lunar age:') %></label>
+                    <input type="date" id="birthdate-lunar" name="birthdate-lunar" required>
+                    <button type="submit"><%= __('Calculate Lunar Age') %></button>
+                </form>
+                <div id="lunar-age-result" class="result"></div>
+                
+                <!-- Zodiac Sign Display -->
+                <form id="zodiac-form">
+                    <label for="zodiac-birthdate"><%= __('Enter your birthdate to find your zodiac sign:') %></label>
+                    <input type="date" id="zodiac-birthdate" name="zodiac-birthdate" required>
+                    <button type="submit"><%= __('Find Zodiac Sign') %></button>
+                </form>
+                <div id="zodiac-result" class="result"></div>
+            </fieldset>
+        </div>
+        
+        <!-- Download Excel Template -->
+        <div class="download-section">
+            <a href="/downloads/ageCalculatorTemplate.xlsx" download><%= __('Download Excel Template') %></a>
+        </div>
+        
+        <!-- Chart Display (Global) -->
+        <canvas id="ageChart" width="400" height="200" style="display:none;"></canvas>
+    </div>
+    
+    <script src="/assets/js/ageCalculator.js"></script>
+</body>
+</html>

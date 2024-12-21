@@ -1,13 +1,1075 @@
-<h2><%= __('Age Calculator') %></h2>
-<p><%= __('Calculate your exact age in years, months, and days.') %></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Ultimate Age Calculator: How Old Are You Now?</title>
+    <meta name="description" content="Discover your exact age with our comprehensive Age Calculator. Calculate how old you are now, determine age differences, explore age on other planets, and more. Accurate, user-friendly, and feature-rich.">
+    <meta name="keywords" content="Age Calculator, how old I am now, what is my age, age calculator death, age calculator newborn, age calculator video, age calculator malayalam, age calculator with decimals, age calculator upsc, age calculator without year, age calculator kaise kare, age calculator logic, age calculator using date of birth, age calculator to the minute, age calculator high school graduation, school age calculator qld, age calculator subtraction, age calculator to be 21, age calculator v2.0, age calculator vba code, age calculator vikram samvat, age calculator when will i be, age calculator year in excel, age calculator reverse, age calculator z, age calculator perfect game, age calculator majhi naukri, age calculator seconds, age calculator year only, school age calculator new zealand, age calculator usssa baseball, age calculator nhs, age calculator excel, age calculator in excel, age calculator l, age calculator for rmd, age calculator questions, age calculator by date of birth in excel, age calculator how old was i, age calculator in months, age calculator visual basic, age calculator javascript w3schools, age calculator xls, age calculator for two people, age calculator months, age calculator google, age calculator chronological, age calculator health, age calculator face, age calculator how long will i live, age calculator for dogs, age calculator excel sheet, weight for age calculator z score, age calculator chart, age calculator jquery, age calculator dog, age calculator soup, age calculator nepali to english, age calculator year month day in excel, age calculator cat, age calculator adjusted age, age calculator korean, age calculator pregnancy, age calculation query in sql, age calculator using javascript, age calculator how old will i be, age calculation questions and answers pdf, age calculator school, age calculator using photo, age calculator formula, age calculator list 2024, age calculator online, age calculator usa softball, age calculator kg, age calculator fps, age calculator nadra, age calculator q, age calculator ka matlab, age calculator app, age calculator simple, age calculator little league, age calculator peabody, age calculator online by date of birth in tamil, age calculator premature, age calculator the calculator site, age calculator mahanmk, age calculator by year, age calculator github, age calculator by photo, age calculator date of birth, age calculator hours, age calculator govt job, age calculator how old do i look, age calculator please, age variance calculator, age calculator with time, age calculator speech therapy, age calculator rohit, age calculator kundli, age calculator site, age calculator pearson, age calculator brigance, age calculator by health, age calculator vedic astrology, age calculator college, age calculator between two people, age calculator year, age calculator jyotish, age calculator ai, age calculator xiaomi, age calculator app by face, age calculator html code, age calculator down to the second, age calculator in seconds, age calculator mod, age calculator nda, age calculator name, age calculator react, age calculator super duper, age calculator time and date, age calculator questions in hindi, menopause age calculator quiz, age calculator logo png, age calculator asq, age calculator age difference, age calculator in the future, age calculator chart 2024, age calculator game, age calculator kinder, age calculator of two person, age calculator by graduation year, age calculator excel from dob, age calculator online by face, age calculator with zodiac sign, age calculator app download, age calculator logo, age calculator math cats, age calculator online photo, age calculator rootsweb, age calculator to the second, age calculator for testing, age calculator difference, age calculator graduation, age calculator hijri, age calculator trick, age calculator job, age calculator how old am i, age calculator planets, age calculator ancestry, age calculator economic times, age calculator voice, age calculator ncs, age calculator easy, age calculator birth to death, age calculator ka formula, age calculator maths project, age calculator us, age calculator java, age calculator list, age calculator online by date of birth in excel, age calculator usssa, age calculator download, age calculator omni, age calculator at death, age calculation query in sql, age calculator rashi, age calculator relationship, age calculator zodiac, age calculator at math cats, age calculator guru, age calculator lausd, age calculator quebec, age calculator iamrohit, age calculator picture, age calculator for cats, age calculator javascript, age calculator as on, age calculator kindergarten, age calculator marathi, age calculator for nursery admission, age calculator for standardized tests">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHq6ZGtF1JqgUjH9sOq0zBrk1DlbOQp4QK4xR1G0yEElH7j68D+yfj9SfVw3X1Zq3x+vmQaA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Inline CSS for demonstration purposes. Ideally, use an external stylesheet. */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
 
-<form id="age-form">
-  <label for="birthdate"><%= __('Enter your birthdate:') %></label>
-  <input type="date" id="birthdate" name="birthdate" required>
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            overflow: hidden;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-  <button type="submit"><%= __('Calculate') %></button>
-</form>
+        h1, h2, h3 {
+            color: #333;
+            margin-top: 20px;
+        }
 
-<p id="result"></p>
+        p {
+            line-height: 1.6;
+            color: #555;
+        }
 
-<script src="/assets/js/ageCalculator.js"></script>
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 15px;
+            cursor: pointer;
+            background-color: #f9f9f9;
+            border: none;
+            outline: none;
+            transition: background-color 0.3s, color 0.3s;
+            font-size: 16px;
+            margin-right: 2px;
+            color: #333;
+        }
+
+        .tab-button:last-child {
+            margin-right: 0;
+        }
+
+        .tab-button:hover {
+            background-color: #e9e9e9;
+        }
+
+        .tab-button.active {
+            background-color: #007BFF;
+            color: #fff;
+            font-weight: bold;
+            border-bottom: 2px solid #0056b3;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px 0;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input[type="date"], select, input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+        button {
+            padding: 12px 30px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+            color: #333;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+
+        .zodiac-sign {
+            font-style: italic;
+            color: #007BFF;
+        }
+
+        .download-section {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .download-section a {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            font-size: 16px;
+        }
+
+        .download-section a:hover {
+            background-color: #218838;
+        }
+
+        canvas {
+            margin-top: 30px;
+            max-width: 100%;
+            height: auto !important;
+            display: none;
+        }
+
+        /* SEO Optimized Content */
+        section#seo-content {
+            margin-top: 50px;
+        }
+
+        section#seo-content h2, section#seo-content h3 {
+            color: #007BFF;
+        }
+
+        section#seo-content ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                text-align: left;
+                margin-bottom: 2px;
+            }
+
+            .tab-button:last-child {
+                margin-bottom: 0;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            button {
+                font-size: 14px;
+            }
+
+            .tab-button {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>The Ultimate Age Calculator: How Old Are You Now?</h1>
+        <p>Welcome to the most comprehensive <strong>Age Calculator</strong> available online. Whether you're curious about your exact age in years, months, days, hours, minutes, and seconds, or need to determine the age difference between two individuals, our tool offers precise and versatile calculations. Explore a myriad of features including biological age estimation, age on other planets, gestational age tracking, and more. Dive in to discover how our Age Calculator can cater to all your age-related queries with unmatched accuracy and ease of use.</p>
+        
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <button class="tab-button active" data-tab="basic-age">Basic Age Calculation</button>
+            <button class="tab-button" data-tab="specific-date">Age on Specific Date</button>
+            <button class="tab-button" data-tab="age-difference">Age Difference</button>
+            <button class="tab-button" data-tab="planet-age">Planetary Age</button>
+            <button class="tab-button" data-tab="biological-age">Biological Age Estimation</button>
+            <button class="tab-button" data-tab="additional-features">Additional Features</button>
+        </div>
+        
+        <!-- Tab Contents -->
+        <div class="tab-content active" id="basic-age">
+            <h2>Basic Age Calculation</h2>
+            <p>Calculate your precise age down to the second. This feature provides a detailed breakdown of your age, helping you understand your exact time lived in various units.</p>
+            <form id="age-form">
+                <label for="birthdate">Enter your birthdate:</label>
+                <input type="date" id="birthdate" name="birthdate" required>
+                <button type="submit">Calculate Age</button>
+            </form>
+            <div id="basic-age-result" class="result"></div>
+        </div>
+        
+        <div class="tab-content" id="specific-date">
+            <h2>Age on Specific Date</h2>
+            <p>Curious about how old you were on a particular date in the past or how old you'll be on a future date? Use our Age Calculator to get precise calculations for any specific date you choose.</p>
+            <form id="specific-date-form">
+                <label for="specific-date-input">Enter the specific date:</label>
+                <input type="date" id="specific-date-input" name="specific-date">
+                <button type="submit">Calculate on Specific Date</button>
+            </form>
+            <div id="specific-date-result" class="result"></div>
+        </div>
+        
+        <div class="tab-content" id="age-difference">
+            <h2>Age Difference Between Two People</h2>
+            <p>Determine the exact age gap between two individuals. Whether it's for personal curiosity or official purposes, our Age Difference Calculator provides accurate results in years, months, and days.</p>
+            <form id="age-difference-form">
+                <label for="birthdate1">Enter birthdate for Person 1:</label>
+                <input type="date" id="birthdate1" name="birthdate1" required>
+                
+                <label for="birthdate2">Enter birthdate for Person 2:</label>
+                <input type="date" id="birthdate2" name="birthdate2" required>
+                
+                <button type="submit">Calculate Age Difference</button>
+            </form>
+            <div id="age-difference-result" class="result"></div>
+        </div>
+        
+        <div class="tab-content" id="planet-age">
+            <h2>Calculate Age on Other Planets</h2>
+            <p>Ever wondered how old you'd be on Mars or Jupiter? Our Planetary Age Calculator adjusts your age based on the orbital periods of different planets, giving you a unique perspective of your age in the cosmos.</p>
+            <form id="planet-age-form">
+                <label for="planet-select">Select a planet:</label>
+                <select id="planet-select" name="planet-select">
+                    <option value="Mercury">Mercury</option>
+                    <option value="Venus">Venus</option>
+                    <option value="Earth" selected>Earth</option>
+                    <option value="Mars">Mars</option>
+                    <option value="Jupiter">Jupiter</option>
+                    <option value="Saturn">Saturn</option>
+                    <option value="Uranus">Uranus</option>
+                    <option value="Neptune">Neptune</option>
+                    <option value="Pluto">Pluto</option>
+                </select>
+                <button type="submit">Calculate Planetary Age</button>
+            </form>
+            <div id="planet-age-result" class="result"></div>
+        </div>
+        
+        <div class="tab-content" id="biological-age">
+            <h2>Biological Age Estimation</h2>
+            <p>Your chronological age might not reflect your true biological age. Factors like exercise, diet, and lifestyle choices influence your biological age. Use our estimation tool to gain insights into your health and well-being.</p>
+            <form id="biological-age-form">
+                <label><input type="checkbox" id="exercise" name="exercise"> Regular Exercise</label>
+                <label><input type="checkbox" id="smoke" name="smoke"> Do Not Smoke</label>
+                <label><input type="checkbox" id="diet" name="diet"> Healthy Diet</label>
+                <button type="submit">Estimate Biological Age</button>
+            </form>
+            <div id="biological-age-result" class="result"></div>
+        </div>
+        
+        <div class="tab-content" id="additional-features">
+            <h2>Additional Features</h2>
+            <p>Our Age Calculator offers a range of additional functionalities to cater to diverse needs. From calculating age in weeks to determining your zodiac sign, explore the extended capabilities below.</p>
+            
+            <!-- Age in Weeks -->
+            <h3>Calculate Age in Weeks</h3>
+            <form id="age-weeks-form">
+                <label for="birthdate-weeks">Enter your birthdate to calculate age in weeks:</label>
+                <input type="date" id="birthdate-weeks" name="birthdate-weeks" required>
+                <button type="submit">Calculate Age in Weeks</button>
+            </form>
+            <div id="age-weeks-result" class="result"></div>
+            
+            <!-- Gestational Age Calculation -->
+            <h3>Gestational Age Calculation</h3>
+            <form id="gestational-age-form">
+                <label for="last-menstrual-period">Enter Last Menstrual Period (LMP):</label>
+                <input type="date" id="last-menstrual-period" name="last-menstrual-period" required>
+                <button type="submit">Calculate Gestational Age</button>
+            </form>
+            <div id="gestational-age-result" class="result"></div>
+            
+            <!-- Lunar Age -->
+            <h3>Calculate Lunar Age</h3>
+            <form id="lunar-age-form">
+                <label for="birthdate-lunar">Enter your birthdate to calculate lunar age:</label>
+                <input type="date" id="birthdate-lunar" name="birthdate-lunar" required>
+                <button type="submit">Calculate Lunar Age</button>
+            </form>
+            <div id="lunar-age-result" class="result"></div>
+            
+            <!-- Zodiac Sign Display -->
+            <h3>Find Your Zodiac Sign</h3>
+            <form id="zodiac-form">
+                <label for="zodiac-birthdate">Enter your birthdate to find your zodiac sign:</label>
+                <input type="date" id="zodiac-birthdate" name="zodiac-birthdate" required>
+                <button type="submit">Find Zodiac Sign</button>
+            </form>
+            <div id="zodiac-result" class="result"></div>
+        </div>
+        
+        <!-- Download Excel Template -->
+        <div class="download-section">
+            <a href="/downloads/ageCalculatorTemplate.xlsx" download>Download Excel Template</a>
+        </div>
+        
+        <!-- Chart Display -->
+        <canvas id="ageChart" width="400" height="200"></canvas>
+        
+        <!-- SEO Optimized Content -->
+        <section id="seo-content">
+            <h2>How Old Am I Now? Get Precise Age Calculations Instantly</h2>
+            <p>Understanding your exact age can be essential for various reasons, from personal milestones to legal requirements. Our <strong>Age Calculator</strong> provides precise age calculations in multiple units, ensuring you have the most accurate information at your fingertips. Whether you need to know how old you are now, calculate your age in different time frames, or determine age-related statistics, our tool is designed to meet all your needs with unparalleled accuracy and ease.</p>
+            
+            <h3>What is My Age? Discover Your Exact Age Today</h3>
+            <p>Ever wondered, "What is my age?" Our Age Calculator answers this question comprehensively. By simply entering your date of birth, you can instantly know your age in years, months, days, hours, minutes, and seconds. This level of detail is perfect for tracking personal growth, planning future events, or simply satisfying your curiosity about how time has passed since your birth.</p>
+            
+            <h2>Why Use an Age Calculator?</h2>
+            <p>An <strong>Age Calculator</strong> is a versatile tool that serves multiple purposes across different aspects of life. Here are some compelling reasons to use our Age Calculator:</p>
+            <ul>
+                <li><strong>Personal Milestones:</strong> Track your progress towards significant life events such as graduation, retirement, or anniversaries.</li>
+                <li><strong>Legal Requirements:</strong> Determine if you meet the age criteria for various legal permissions like voting, driving, or drinking.</li>
+                <li><strong>Health and Fitness:</strong> Understand your biological age to make informed decisions about your health and wellness routines.</li>
+                <li><strong>Astrological Insights:</strong> Discover your zodiac sign and explore how it relates to your personality and life path.</li>
+                <li><strong>Professional Needs:</strong> Calculate age differences for job applications, eligibility for certain roles, or pension planning.</li>
+            </ul>
+            
+            <h2>Features of Our Comprehensive Age Calculator</h2>
+            <p>Our Age Calculator is not just about knowing how old you are. It offers a range of features that provide deeper insights and cater to various needs. Here’s what makes our tool stand out:</p>
+            
+            <h3>1. Age Calculation with Decimals</h3>
+            <p>For users seeking a more precise age measurement, our calculator provides age in decimal format. This is especially useful for statistical analyses, scientific research, or detailed personal tracking.</p>
+            
+            <h3>2. Age Difference Calculation</h3>
+            <p>Determine the exact age gap between two individuals. Whether it’s for personal curiosity, official documentation, or compatibility assessments, our Age Difference Calculator offers accurate results in years, months, and days.</p>
+            
+            <h3>3. Age on Other Planets</h3>
+            <p>Each planet has a different orbital period around the sun, meaning a "year" on another planet is different from an Earth year. Our Planetary Age Calculator adjusts your age based on the selected planet's orbital period, providing a fun and educational way to view your age from an interplanetary perspective.</p>
+            
+            <h3>4. Biological Age Estimation</h3>
+            <p>Biological age reflects your physical health and well-being, which might differ from your chronological age. By factoring in lifestyle choices such as exercise, smoking, and diet, our Biological Age Estimation tool offers insights into your true physical condition.</p>
+            
+            <h3>5. Age Calculation in Weeks</h3>
+            <p>Calculating age in weeks can be particularly useful for tracking development in newborns and infants. Our Age in Weeks Calculator offers precise week-based age calculations to meet these specific needs.</p>
+            
+            <h3>6. Gestational Age Calculation</h3>
+            <p>For expectant mothers, tracking gestational age is crucial. Our Gestational Age Calculator determines the number of weeks and days pregnant based on the Last Menstrual Period (LMP), aiding in prenatal care and planning.</p>
+            
+            <h3>7. Lunar Age Calculation</h3>
+            <p>Delve into your age according to the lunar calendar. Lunar years are slightly shorter than solar years, and our Lunar Age Calculator offers a different perspective on your age, adding a cultural and historical dimension to your personal data.</p>
+            
+            <h3>8. Zodiac Sign Integration</h3>
+            <p>Beyond age calculations, our tool identifies your zodiac sign based on your birthdate. Explore astrological insights and understand how your sign influences your personality and life events.</p>
+            
+            <h2>Common Questions About Age Calculators</h2>
+            
+            <h3>Can I Use the Age Calculator for Different Purposes?</h3>
+            <p>Absolutely! Our Age Calculator is versatile and can be used for various purposes such as determining eligibility for social security, calculating age for school admissions, estimating biological age, and even for astrology purposes like finding your zodiac sign.</p>
+            
+            <h3>How Does the Age Calculator Work?</h3>
+            <p>Our Age Calculator uses your date of birth to compute your age in multiple units including years, months, days, hours, minutes, and seconds. Advanced features like biological age estimation and zodiac sign integration utilize additional inputs and calculations to provide comprehensive insights.</p>
+            
+            <h3>Where Can I Access the Age Calculator?</h3>
+            <p>You can access our Age Calculator directly through our website. It is fully integrated into our platform, ensuring a seamless and user-friendly experience across all devices.</p>
+            
+            <h3>How Accurate is the Age Calculator?</h3>
+            <p>Our Age Calculator is designed with precision in mind. It accurately calculates age based on the provided date of birth and specific dates, ensuring reliable results whether you're calculating your age in years or down to the second.</p>
+            
+            <h3>What Additional Features Does the Age Calculator Offer?</h3>
+            <p>Beyond basic age calculations, our tool offers features like biological age estimation based on lifestyle factors, gestational age calculation for pregnancy tracking, age in weeks, lunar age calculations, and zodiac sign determination. These features make our Age Calculator one of the most comprehensive tools available.</p>
+            
+            <h3>Can I Download the Age Calculator Data?</h3>
+            <p>Yes! We provide downloadable Excel templates that allow you to perform age calculations offline. These templates come with pre-filled formulas, making it easy to integrate age calculations into your personal or professional projects.</p>
+            
+            <h3>How Do I Use the Age Calculator?</h3>
+            <p>Using our Age Calculator is straightforward. Select the desired feature from the tabs, enter the required information such as your date of birth, and click the calculate button. The results will be displayed directly below the respective form, ensuring clarity and ease of understanding.</p>
+            
+            <h3>Does the Age Calculator Support Multiple Languages?</h3>
+            <p>Yes, our Age Calculator supports multiple languages to cater to a global audience. You can switch between different languages to use the tool in your preferred language, enhancing accessibility and user experience.</p>
+            
+            <h3>How Can I Integrate the Age Calculator with Other Tools?</h3>
+            <p>Our Age Calculator can be easily integrated with tools like Google Sheets and Excel. Additionally, for developers, we provide JavaScript source code snippets that can be incorporated into your own projects, allowing for seamless integration and customization.</p>
+            
+            <h3>Is the Age Calculator Mobile-Friendly?</h3>
+            <p>Yes, our Age Calculator is designed to be fully responsive, ensuring a smooth and intuitive experience on both desktop and mobile devices. Whether you're on a smartphone, tablet, or computer, you can access and use all features without any issues.</p>
+            
+            <h3>What Privacy Measures Are in Place?</h3>
+            <p>Your privacy is paramount. Our Age Calculator does not store or share your personal information. All calculations are performed locally on your device, ensuring your data remains secure and private.</p>
+            
+            <h2>Understanding Different Age Calculations</h2>
+            <p>Age can be calculated in various ways depending on the context and requirement. Here's a breakdown of the different age calculations our tool offers:</p>
+            
+            <h3>Chronological Age</h3>
+            <p>Your chronological age is the actual time you've lived since your birth. It's measured in years, months, days, hours, minutes, and seconds. This is the most commonly referenced age and is used in legal, educational, and social contexts.</p>
+            
+            <h3>Biological Age</h3>
+            <p>Biological age reflects your physical health and well-being. Unlike chronological age, which is simply a measure of time, biological age considers factors like exercise, diet, smoking, and stress levels. Our Biological Age Estimation tool helps you understand how your lifestyle impacts your health.</p>
+            
+            <h3>Lunar Age</h3>
+            <p>Lunar age is based on the lunar calendar, where a lunar year consists of approximately 354 days. This method is prevalent in certain cultures and provides a different perspective on your age compared to the solar calendar.</p>
+            
+            <h3>Gestational Age</h3>
+            <p>Gestational age is used to determine the stage of pregnancy, measured in weeks and days from the last menstrual period (LMP). Our Gestational Age Calculator assists expectant mothers in tracking their pregnancy progress accurately.</p>
+            
+            <h2>Why Accurate Age Calculations Matter</h2>
+            <p>Accurate age calculations are essential in various scenarios, ensuring that you meet the necessary requirements and make informed decisions. Here's why precision in age calculation is crucial:</p>
+            <ul>
+                <li><strong>Legal Compliance:</strong> Many legal processes require accurate age verification, such as voting eligibility, driving licenses, and alcohol consumption.</li>
+                <li><strong>Educational Admissions:</strong> Schools and educational institutions often have age criteria for admissions and placements.</li>
+                <li><strong>Health and Wellness:</strong> Tracking biological age can guide health and wellness decisions, promoting a healthier lifestyle.</li>
+                <li><strong>Astrological Insights:</strong> Accurate age and zodiac sign determination enrich your astrological readings and insights.</li>
+                <li><strong>Retirement Planning:</strong> Knowing your exact age assists in planning for retirement benefits and financial security.</li>
+            </ul>
+            
+            <h2>Integrate Age Calculations into Your Workflow</h2>
+            <p>Our Age Calculator isn't just a standalone tool; it offers integration capabilities with popular software like Excel and Google Sheets. By downloading our Excel templates or using JavaScript snippets, you can incorporate age calculations into your personal or professional workflows seamlessly. Whether you're a student, educator, professional, or developer, our tool adapts to your needs, enhancing productivity and accuracy.</p>
+            
+            <h3>Downloadable Excel Templates</h3>
+            <p>For those who prefer offline calculations or need to incorporate age data into spreadsheets, our downloadable Excel templates are the perfect solution. These templates come with pre-filled formulas, allowing you to perform various age calculations effortlessly. Simply input your date of birth or other required data, and the template does the rest.</p>
+            <ul>
+                <li><strong>Basic Age Calculation:</strong> Compute age in years, months, days, and decimal format.</li>
+                <li><strong>Age Difference:</strong> Determine the age gap between two individuals.</li>
+                <li><strong>Age in Weeks:</strong> Calculate your age in weeks for detailed tracking.</li>
+                <li><strong>Gestational Age:</strong> Track pregnancy progress with precision.</li>
+                <li><strong>Lunar Age:</strong> Understand your age according to the lunar calendar.</li>
+                <li><strong>Zodiac Sign:</strong> Identify your zodiac sign based on your birthdate.</li>
+            </ul>
+            
+            <h3>JavaScript Integration</h3>
+            <p>Developers can take advantage of our JavaScript source code to integrate age calculation functionalities into their own websites or applications. Whether you're building a personal blog, a professional tool, or an educational platform, our JavaScript snippets provide a robust foundation for implementing accurate and versatile age calculations.</p>
+            
+            <h2>Enhancing User Experience with Visual Data Representation</h2>
+            <p>Visual representations like charts and graphs can significantly enhance the user experience by making data more understandable and engaging. Our Age Calculator includes dynamic chart rendering capabilities, allowing users to visualize their age data in various formats.</p>
+            
+            <h3>Interactive Charts</h3>
+            <p>Once calculations are performed, users can view their age data through interactive charts. Whether it's a bar chart showing age breakdowns or a pie chart illustrating age distribution, these visual tools make understanding age data intuitive and straightforward.</p>
+            
+            <h3>Customization Options</h3>
+            <p>Users can customize the type of chart displayed, choosing from options like bar charts, pie charts, or line graphs. This flexibility ensures that the visual data representation aligns with the user's preferences and needs.</p>
+            
+            <h2>Conclusion: Embrace Precision with Our Comprehensive Age Calculator</h2>
+            <p>Age is a fundamental aspect of our identity, influencing various facets of life from personal milestones to professional opportunities. Our comprehensive <strong>Age Calculator</strong> offers unparalleled precision, versatility, and user-friendliness, making it an essential tool for everyone. Whether you're seeking to understand your exact age, plan for the future, or explore age-related insights across different contexts, our tool is designed to meet and exceed your expectations. Experience the power of accurate age calculations and make informed decisions that shape your life's journey.</p>
+        </section>
+    </div>
+    
+    <script>
+        // ageCalculator.js
+        
+        // Planetary Orbital Periods relative to Earth years
+        const planetOrbitalPeriods = {
+            Mercury: 0.2408467,
+            Venus: 0.61519726,
+            Earth: 1,
+            Mars: 1.8808158,
+            Jupiter: 11.862615,
+            Saturn: 29.447498,
+            Uranus: 84.016846,
+            Neptune: 164.79132,
+            Pluto: 248.00 // Including Pluto for interest
+        };
+        
+        // Zodiac Signs Data
+        const zodiacSigns = [
+            { name: 'Capricorn', start: { month: 12, day: 22 }, end: { month: 1, day: 19 } },
+            { name: 'Aquarius', start: { month: 1, day: 20 }, end: { month: 2, day: 18 } },
+            { name: 'Pisces', start: { month: 2, day: 19 }, end: { month: 3, day: 20 } },
+            { name: 'Aries', start: { month: 3, day: 21 }, end: { month: 4, day: 19 } },
+            { name: 'Taurus', start: { month: 4, day: 20 }, end: { month: 5, day: 20 } },
+            { name: 'Gemini', start: { month: 5, day: 21 }, end: { month: 6, day: 20 } },
+            { name: 'Cancer', start: { month: 6, day: 21 }, end: { month: 7, day: 22 } },
+            { name: 'Leo', start: { month: 7, day: 23 }, end: { month: 8, day: 22 } },
+            { name: 'Virgo', start: { month: 8, day: 23 }, end: { month: 9, day: 22 } },
+            { name: 'Libra', start: { month: 9, day: 23 }, end: { month: 10, day: 22 } },
+            { name: 'Scorpio', start: { month: 10, day: 23 }, end: { month: 11, day: 21 } },
+            { name: 'Sagittarius', start: { month: 11, day: 22 }, end: { month: 12, day: 21 } }
+        ];
+        
+        // Function to calculate age
+        function calculateAge(birthdate, specificDate = new Date()) {
+            let ageYears = specificDate.getFullYear() - birthdate.getFullYear();
+            let ageMonths = specificDate.getMonth() - birthdate.getMonth();
+            let ageDays = specificDate.getDate() - birthdate.getDate();
+            let ageHours = specificDate.getHours() - birthdate.getHours();
+            let ageMinutes = specificDate.getMinutes() - birthdate.getMinutes();
+            let ageSeconds = specificDate.getSeconds() - birthdate.getSeconds();
+        
+            if (ageSeconds < 0) {
+                ageMinutes--;
+                ageSeconds += 60;
+            }
+        
+            if (ageMinutes < 0) {
+                ageHours--;
+                ageMinutes += 60;
+            }
+        
+            if (ageHours < 0) {
+                ageDays--;
+                ageHours += 24;
+            }
+        
+            if (ageDays < 0) {
+                ageMonths--;
+                ageDays += new Date(specificDate.getFullYear(), specificDate.getMonth(), 0).getDate();
+            }
+        
+            if (ageMonths < 0) {
+                ageYears--;
+                ageMonths += 12;
+            }
+        
+            // Calculate age with decimals
+            const totalMonths = ageYears * 12 + ageMonths + ageDays / 30.44;
+            const ageDecimal = (totalMonths / 12).toFixed(2);
+        
+            return {
+                years: ageYears,
+                months: ageMonths,
+                days: ageDays,
+                hours: ageHours,
+                minutes: ageMinutes,
+                seconds: ageSeconds,
+                decimal: ageDecimal
+            };
+        }
+        
+        // Function to calculate age difference
+        function calculateAgeDifference(birthdate1, birthdate2) {
+            const diffMilliseconds = Math.abs(birthdate1 - birthdate2);
+            const diffDate = new Date(diffMilliseconds);
+        
+            const ageDifferenceYears = diffDate.getUTCFullYear() - 1970;
+            const ageDifferenceMonths = diffDate.getUTCMonth();
+            const ageDifferenceDays = diffDate.getUTCDate() - 1;
+        
+            return {
+                years: ageDifferenceYears,
+                months: ageDifferenceMonths,
+                days: ageDifferenceDays
+            };
+        }
+        
+        // Function to calculate age on a specific planet
+        function calculatePlanetaryAge(ageDecimal, planet) {
+            const orbitalPeriod = planetOrbitalPeriods[planet];
+            const planetaryAge = (ageDecimal / orbitalPeriod).toFixed(2);
+            return planetaryAge;
+        }
+        
+        // Function to estimate biological age
+        function estimateBiologicalAge(challenges) {
+            let biologicalAge = challenges.years;
+            if (!challenges.exercise) biologicalAge += 1;
+            if (!challenges.smoke) biologicalAge += 1;
+            if (!challenges.diet) biologicalAge += 1;
+            // Additional factors can be added here
+            return biologicalAge;
+        }
+        
+        // Function to calculate age in weeks
+        function calculateAgeInWeeks(birthdate, specificDate = new Date()) {
+            const diffTime = Math.abs(specificDate - birthdate);
+            const diffWeeks = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 7));
+            return diffWeeks;
+        }
+        
+        // Function to calculate gestational age
+        function calculateGestationalAge(lmpDate, specificDate = new Date()) {
+            const diffTime = specificDate - lmpDate;
+            const gestationalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            const gestationalWeeks = Math.floor(gestationalDays / 7);
+            const remainingDays = gestationalDays % 7;
+            return {
+                weeks: gestationalWeeks,
+                days: remainingDays
+            };
+        }
+        
+        // Function to calculate lunar age
+        function calculateLunarAge(birthdate, specificDate = new Date()) {
+            // Lunar year is approximately 354 days
+            const diffTime = specificDate - birthdate;
+            const lunarAge = (diffTime / (1000 * 60 * 60 * 24 * 354)).toFixed(2);
+            return lunarAge;
+        }
+        
+        // Function to find zodiac sign
+        function findZodiacSign(birthdate) {
+            const month = birthdate.getMonth() + 1; // Months are zero-based
+            const day = birthdate.getDate();
+        
+            for (const sign of zodiacSigns) {
+                if (
+                    (month === sign.start.month && day >= sign.start.day) ||
+                    (month === sign.end.month && day <= sign.end.day)
+                ) {
+                    return sign.name;
+                }
+            }
+            return 'Unknown';
+        }
+        
+        // Function to render chart
+        function renderChart(labels, data, chartType = 'bar', chartLabel = 'Age Breakdown') {
+            const ctx = document.getElementById('ageChart').getContext('2d');
+            if (window.ageChartInstance) {
+                window.ageChartInstance.destroy();
+            }
+            window.ageChartInstance = new Chart(ctx, {
+                type: chartType,
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: chartLabel,
+                        data: data,
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(153, 102, 255, 0.6)',
+                            'rgba(255, 159, 64, 0.6)',
+                            'rgba(255, 99, 132, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { 
+                            beginAtZero: true,
+                            ticks: {
+                                color: '#333' // Ensures y-axis labels are readable
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#333' // Ensures x-axis labels are readable
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#333' // Ensures legend text is readable
+                            }
+                        }
+                    }
+                }
+            });
+            document.getElementById('ageChart').style.display = 'block';
+        }
+        
+        // Function to switch tabs
+        function switchTab(tabId) {
+            // Remove active class from all buttons and contents
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Add active class to selected tab and content
+            const activeButton = document.querySelector(`.tab-button[data-tab="${tabId}"]`);
+            const activeContent = document.getElementById(tabId);
+            
+            if (activeButton && activeContent) {
+                activeButton.classList.add('active');
+                activeContent.classList.add('active');
+            }
+        }
+        
+        // Event Listeners for Tab Buttons
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.getAttribute('data-tab');
+                switchTab(tabId);
+            });
+        });
+        
+        // Event Listener for Basic Age Calculation
+        document.getElementById('age-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+        
+            const birthdateInput = document.getElementById('birthdate').value;
+            if (!birthdateInput) {
+                document.getElementById('basic-age-result').innerHTML = '<span class="error">Please enter a valid birthdate.</span>';
+                return;
+            }
+        
+            const birthdate = new Date(birthdateInput);
+            const now = new Date();
+        
+            if (isNaN(birthdate)) {
+                document.getElementById('basic-age-result').innerHTML = '<span class="error">Invalid date format.</span>';
+                return;
+            }
+        
+            if (birthdate > now) {
+                document.getElementById('basic-age-result').innerHTML = '<span class="error">Birthdate cannot be in the future.</span>';
+                document.getElementById('ageChart').style.display = 'none';
+                return;
+            }
+        
+            const age = calculateAge(birthdate, now);
+        
+            // Display the result
+            document.getElementById('basic-age-result').innerHTML = `
+                <strong>Basic Age Calculation:</strong><br>
+                You are ${age.years} years, ${age.months} months, ${age.days} days, 
+                ${age.hours} hours, ${age.minutes} minutes, and ${age.seconds} seconds old.<br>
+                Your age in decimal: ${age.decimal} years.
+            `;
+        
+            // Render chart
+            const labels = ['Years', 'Months', 'Days', 'Hours', 'Minutes', 'Seconds'];
+            const data = [age.years, age.months, age.days, age.hours, age.minutes, age.seconds];
+            renderChart(labels, data, 'bar', 'Basic Age Breakdown');
+        });
+        
+        // Event Listener for Specific Date Age Calculation
+        document.getElementById('specific-date-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+        
+            const birthdateInput = document.getElementById('birthdate').value;
+            const specificDateInput = document.getElementById('specific-date-input').value;
+        
+            if (!birthdateInput) {
+                document.getElementById('specific-date-result').innerHTML = '<span class="error">Please enter your birthdate.</span>';
+                return;
+            }
+        
+            const birthdate = new Date(birthdateInput);
+            const specificDate = specificDateInput ? new Date(specificDateInput) : new Date();
+        
+            if (isNaN(birthdate) || (specificDateInput && isNaN(specificDate))) {
+                document.getElementById('specific-date-result').innerHTML = '<span class="error">Invalid date format.</span>';
+                return;
+            }
+        
+            if (birthdate > specificDate) {
+                document.getElementById('specific-date-result').innerHTML = '<span class="error">Birthdate cannot be after the specific date.</span>';
+                document.getElementById('ageChart').style.display = 'none';
+                return;
+            }
+        
+            const age = calculateAge(birthdate, specificDate);
+        
+            // Display the result
+            document.getElementById('specific-date-result').innerHTML = `
+                <strong>Age on ${specificDate.toDateString()}:</strong><br>
+                You were ${age.years} years, ${age.months} months, and ${age.days} days old.
+            `;
+        
+            // Render chart
+            const labels = ['Years', 'Months', 'Days'];
+            const data = [age.years, age.months, age.days];
+            renderChart(labels, data, 'bar', 'Age on Specific Date');
+        });
+        
+        // Event Listener for Age Difference Calculation
+        document.getElementById('age-difference-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+        
+            const birthdate1Input = document.getElementById('birthdate1').value;
+            const birthdate2Input = document.getElementById('birthdate2').value;
+        
+            if (!birthdate1Input || !birthdate2Input) {
+                document.getElementById('age-difference-result').innerHTML = '<span class="error">Please enter both birthdates.</span>';
+                return;
+            }
+        
+            const birthdate1 = new Date(birthdate1Input);
+            const birthdate2 = new Date(birthdate2Input);
+        
+            if (isNaN(birthdate1) || isNaN(birthdate2)) {
+                document.getElementById('age-difference-result').innerHTML = '<span class="error">Invalid date format.</span>';
+                return;
+            }
+        
+            const ageDifference = calculateAgeDifference(birthdate1, birthdate2);
+        
+            // Display the result
+            document.getElementById('age-difference-result').innerHTML = `
+                <strong>Age Difference:</strong><br>
+                The age difference is ${ageDifference.years} years, ${ageDifference.months} months, and ${ageDifference.days} days.
+            `;
+        
+            // Render chart
+            const labels = ['Years', 'Months', 'Days'];
+            const data = [ageDifference.years, ageDifference.months, ageDifference.days];
+            renderChart(labels, data, 'bar', 'Age Difference Breakdown');
+        });
+        
+        // Event Listener for Planetary Age Calculation
+        document.getElementById('planet-age-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+        
+            const birthdateInput = document.getElementById('birthdate').value;
+            const planet = document.getElementById('planet-select').value;
+        
+            if (!birthdateInput) {
+                document.getElementById('planet-age-result').innerHTML = '<span class="error">Please enter your birthdate.</span>';
+                return;
+            }
+        
+            const birthdate = new Date(birthdateInput);
+            const now = new Date();
+        
+            if (isNaN(birthdate)) {
+                document.getElementById('planet-age-result').innerHTML = '<span class="error">Invalid date format.</span>';
+                return;
+            }
+        
+            if (birthdate > now) {
+                document.getElementById('planet-age-result').innerHTML = '<span class="error">Birthdate cannot be in the future.</span>';
+                document.getElementById('ageChart').style.display = 'none';
+                return;
+            }
+        
+            const age = calculateAge(birthdate, now);
+            const planetaryAge = calculatePlanetaryAge(age.decimal, planet);
+        
+            // Display the result
+            document.getElementById('planet-age-result').innerHTML = `
+                <strong>Your Age on ${planet}:</strong><br>
+                You are ${planetaryAge} years old on ${planet}.
+            `;
+        
+            // Render chart
+            const labels = [`${planet} Age`];
+            const data = [planetaryAge];
+            renderChart(labels, data, 'bar', `Age on ${planet}`);
+        });
+        
+        // Event Listener for Biological Age Estimation
+        document.getElementById('biological-age-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+        
+            const birthdateInput = document.getElementById('birthdate').value;
+            if (!birthdateInput) {
+                document.getElementById('biological-age-result').innerHTML = '<span class="error">Please enter your birthdate first.</span>';
+                return;
+            }
+        
+            const birthdate = new Date(birthdateInput);
+            const now = new Date();
+        
+            if (isNaN(birthdate)) {
+                document.getElementById('biological-age-result').innerHTML = '<span class="error">Invalid date format.</span>';
+                return;
+            }
+        
+            if (birthdate > now) {
+                document.getElementById('biological-age-result').innerHTML = '<span class="error">Birthdate cannot be in the future.</span>';
+                document.getElementById('ageChart').style.display = 'none';
+                return;
+            }
+        
+            const age = calculateAge(birthdate, now);
+        
+            // Get lifestyle factors
+            const exercise = document.getElementById('exercise').checked;
+            const smoke = document.getElementById('smoke').checked;
+            const diet = document.getElementById('diet').checked;
+        
+            const biologicalAge = estimateBiologicalAge({ years: age.years, exercise, smoke, diet });
+        
+            // Display the result
+            document.getElementById('biological-age-result').innerHTML = `
+                <strong>Biological Age Estimation:</strong><br>
+                Your estimated biological age is ${biologicalAge} years.
+            `;
+        
+            // Render chart
+            const labels = ['Chronological Age', 'Biological Age'];
+            const data = [age.years, biologicalAge];
+            renderChart(labels, data, 'bar', 'Age Comparison');
+        });
+        
+        // Event Listener for Age in Weeks Calculation
+        document.getElementById('age-weeks-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+        
+            const birthdateInput = document.getElementById('birthdate-weeks').value;
+            if (!birthdateInput) {
+                document.getElementById('age-weeks-result').innerHTML = '<span class="error">Please enter your birthdate.</span>';
+                return;
+            }
+        
+            const birthdate = new Date(birthdateInput);
+            const now = new Date();
+        
+            if (isNaN(birthdate)) {
+                document.getElementById('age-weeks-result').innerHTML = '<span class="error">Invalid date format.</span>';
+                return;
+            }
+        
+            if (birthdate > now) {
+                document.getElementById('age-weeks-result').innerHTML = '<span class="error">Birthdate cannot be in the future.</span>';
+                document.getElementById('ageChart').style.display = 'none';
+                return;
+            }
+        
+            const weeks = calculateAgeInWeeks(birthdate, now);
+        
+            // Display the result
+            document.getElementById('age-weeks-result').innerHTML = `
+                <strong>Your Age in Weeks:</strong><br>
+                You are ${weeks} weeks old.
+            `;
+        
+            // Render chart
+            const labels = ['Weeks'];
+            const data = [weeks];
+            renderChart(labels, data, 'bar', 'Age in Weeks');
+        });
+        
+        // Event Listener for Gestational Age Calculation
+        document.getElementById('gestational-age-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+        
+            const lmpInput = document.getElementById('last-menstrual-period').value;
+            if (!lmpInput) {
+                document.getElementById('gestational-age-result').innerHTML = '<span class="error">Please enter the Last Menstrual Period (LMP) date.</span>';
+                return;
+            }
+        
+            const lmpDate = new Date(lmpInput);
+            const now = new Date();
+        
+            if (isNaN(lmpDate)) {
+                document.getElementById('gestational-age-result').innerHTML = '<span class="error">Invalid date format.</span>';
+                return;
+            }
+        
+            if (lmpDate > now) {
+                document.getElementById('gestational-age-result').innerHTML = '<span class="error">LMP date cannot be in the future.</span>';
+                document.getElementById('ageChart').style.display = 'none';
+                return;
+            }
+        
+            const gestationalAge = calculateGestationalAge(lmpDate, now);
+        
+            // Display the result
+            document.getElementById('gestational-age-result').innerHTML = `
+                <strong>Gestational Age:</strong><br>
+                You are ${gestationalAge.weeks} weeks and ${gestationalAge.days} days pregnant.
+            `;
+        
+            // Render chart
+            const labels = ['Weeks', 'Days'];
+            const data = [gestationalAge.weeks, gestationalAge.days];
+            renderChart(labels, data, 'bar', 'Gestational Age');
+        });
+        
+        // Event Listener for Lunar Age Calculation
+        document.getElementById('lunar-age-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+        
+            const birthdateInput = document.getElementById('birthdate-lunar').value;
+            if (!birthdateInput) {
+                document.getElementById('lunar-age-result').innerHTML = '<span class="error">Please enter your birthdate.</span>';
+                return;
+            }
+        
+            const birthdate = new Date(birthdateInput);
+            const now = new Date();
+        
+            if (isNaN(birthdate)) {
+                document.getElementById('lunar-age-result').innerHTML = '<span class="error">Invalid date format.</span>';
+                return;
+            }
+        
+            if (birthdate > now) {
+                document.getElementById('lunar-age-result').innerHTML = '<span class="error">Birthdate cannot be in the future.</span>';
+                document.getElementById('ageChart').style.display = 'none';
+                return;
+            }
+        
+            const lunarAge = calculateLunarAge(birthdate, now);
+        
+            // Display the result
+            document.getElementById('lunar-age-result').innerHTML = `
+                <strong>Your Lunar Age:</strong><br>
+                You are ${lunarAge} lunar years old.
+            `;
+        
+            // Render chart
+            const labels = ['Lunar Years'];
+            const data = [lunarAge];
+            renderChart(labels, data, 'bar', 'Lunar Age');
+        });
+        
+        // Event Listener for Zodiac Sign Display
+        document.getElementById('zodiac-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+        
+            const birthdateInput = document.getElementById('zodiac-birthdate').value;
+            if (!birthdateInput) {
+                document.getElementById('zodiac-result').innerHTML = '<span class="error">Please enter your birthdate.</span>';
+                return;
+            }
+        
+            const birthdate = new Date(birthdateInput);
+        
+            if (isNaN(birthdate)) {
+                document.getElementById('zodiac-result').innerHTML = '<span class="error">Invalid date format.</span>';
+                return;
+            }
+        
+            const zodiac = findZodiacSign(birthdate);
+        
+            // Display the result
+            document.getElementById('zodiac-result').innerHTML = `
+                <strong>Your Zodiac Sign:</strong><br>
+                You are a <span class="zodiac-sign">${zodiac}</span>.
+            `;
+        });
+        
+        // Initial Tab Setup
+        document.addEventListener('DOMContentLoaded', () => {
+            switchTab('basic-age'); // Set default active tab
+        });
+    </script>
+    
+    <!-- Include Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>
