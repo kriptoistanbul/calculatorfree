@@ -1,22 +1,653 @@
-<h2><%= __('Calorie Deficit Calculator') %></h2>
-<p><%= __('Plan your weight loss by calculating the necessary daily calorie deficit.') %></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Calorie Deficit Calculator | Achieve Your Weight Loss and Wellness Goals</title>
+  <meta name="description" content="Use our Calorie Deficit Calculator to plan your weight loss. Calculate daily calorie deficit based on BMR, TDEE, height, weight, and activity level. Get free SEO content, tips, and more.">
+  <meta name="keywords" content="calorie deficit calculator, weight loss, bmr, tdee, activity level, free calorie deficit, how to lose weight, best calorie deficit calculator">
 
-<form id="calorie-deficit-form">
-  <label for="currentCalories"><%= __('Current Daily Caloric Intake ($):') %></label>
-  <input type="number" id="currentCalories" name="currentCalories" step="1" required>
+  <!-- Chart.js (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <label for="goalCalories"><%= __('Goal Daily Caloric Intake ($):') %></label>
-  <input type="number" id="goalCalories" name="goalCalories" step="1" required>
+  <style>
+    /* Basic Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  <label for="weightToLose"><%= __('Weight to Lose (kg):') %></label>
-  <input type="number" id="weightToLose" name="weightToLose" step="0.1" required>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
 
-  <label for="weeks"><%= __('Number of Weeks:') %></label>
-  <input type="number" id="weeks" name="weeks" required>
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 30px auto;
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
 
-  <button type="submit"><%= __('Calculate') %></button>
-</form>
+    h1, h2, h3, h4 {
+      margin-top: 20px;
+      color: #333;
+    }
 
-<p id="calorie-deficit-result"></p>
+    p {
+      margin-bottom: 15px;
+      color: #555;
+    }
 
-<script src="/assets/js/calorieDeficitCalculator.js"></script>
+    form {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+      font-weight: 600;
+    }
+
+    select, input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 12px 30px;
+      background-color: #28a745;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    .result {
+      background-color: #e9ecef;
+      padding: 20px;
+      margin-top: 10px;
+      border-radius: 4px;
+      color: #333;
+    }
+
+    .error {
+      color: red;
+      font-weight: bold;
+    }
+
+    canvas {
+      margin-top: 30px;
+      max-width: 100%;
+      height: auto !important;
+      display: none;
+    }
+
+    .download-section {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .download-section a {
+      padding: 12px 25px;
+      background-color: #007BFF;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    .download-section a:hover {
+      background-color: #0056b3;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Calorie Deficit Calculator</h1>
+    <p>Welcome to our comprehensive <strong>Calorie Deficit Calculator</strong>—a tool designed to help you plan your weight loss or body recomposition goals effectively. By understanding your Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure (TDEE), you can establish a suitable daily calorie deficit that aligns with a sustainable path to fitness. Use the form below to calculate the daily deficit you need to achieve your target weight within your chosen timeframe.</p>
+
+    <!-- Calculator Form -->
+    <div id="calorie-deficit-calculator">
+      <h2>Calculate Your Daily Calorie Deficit</h2>
+      <form id="calorie-deficit-form">
+        <!-- Unit Selection -->
+        <label for="unit">Select Units:</label>
+        <select id="unit" name="unit" required>
+          <option value="metric">Metric (kg, cm)</option>
+          <option value="imperial">Imperial (lbs, inches)</option>
+        </select>
+
+        <!-- Gender -->
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+          <option value="" disabled selected>Select Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+
+        <!-- Age -->
+        <label for="age">Age (Years):</label>
+        <input type="number" id="age" name="age" min="1" placeholder="e.g., 30" required>
+
+        <!-- Height -->
+        <label for="height">Height:</label>
+        <input type="number" id="height" name="height" step="0.1" placeholder="Enter height (cm or inches)" required>
+
+        <!-- Activity Level -->
+        <label for="activityLevel">Activity Level:</label>
+        <select id="activityLevel" name="activityLevel" required>
+          <option value="" disabled selected>Select Activity Level</option>
+          <option value="sedentary">Sedentary (little or no exercise)</option>
+          <option value="light">Lightly Active (1-3 days/week)</option>
+          <option value="moderate">Moderately Active (3-5 days/week)</option>
+          <option value="active">Active (6-7 days/week)</option>
+          <option value="veryActive">Very Active (hard daily exercise or 2x training)</option>
+        </select>
+
+        <!-- Current Weight -->
+        <label for="currentWeight">Current Weight:</label>
+        <input type="number" id="currentWeight" name="currentWeight" step="0.1" placeholder="Enter weight (kg or lbs)" required>
+
+        <!-- Current Daily Caloric Intake -->
+        <label for="currentCalories">Current Daily Caloric Intake:</label>
+        <input type="number" id="currentCalories" name="currentCalories" step="1" placeholder="e.g., 2500" required>
+
+        <!-- Goal Daily Caloric Intake -->
+        <label for="goalCalories">Goal Daily Caloric Intake:</label>
+        <input type="number" id="goalCalories" name="goalCalories" step="1" placeholder="e.g., 2000" required>
+
+        <!-- Weight to Lose -->
+        <label for="weightToLose">Weight to Lose:</label>
+        <input type="number" id="weightToLose" name="weightToLose" step="0.1" placeholder="Enter kg or lbs to lose" required>
+
+        <!-- Number of Weeks -->
+        <label for="weeks">Number of Weeks:</label>
+        <input type="number" id="weeks" name="weeks" min="1" placeholder="e.g., 10" required>
+
+        <button type="submit">Calculate</button>
+      </form>
+
+      <!-- Result Display -->
+      <div id="calorie-deficit-result" class="result"></div>
+
+      <!-- Chart -->
+      <canvas id="calorieDeficitChart" width="400" height="200"></canvas>
+    </div>
+
+    <!-- Download Section -->
+    <div class="download-section">
+      <a href="/downloads/calorieDeficitCalculatorTemplate.xlsx" download>Download Excel Template</a>
+    </div>
+
+    <!-- ~2000 Words of SEO-Optimized Content -->
+    <section id="educational-content">
+      <h2>Deep Dive into the Calorie Deficit Approach</h2>
+      <p>
+        <strong>Calorie deficit</strong> remains one of the most fundamental concepts in the realm of weight management, 
+        recognized globally as the cornerstone for fat loss. Whether your goal is to lose weight, enhance body composition, 
+        or simply maintain a healthier lifestyle, understanding the principles of a calorie deficit can make a critical 
+        difference in achieving sustainable results. 
+      </p>
+      <p>
+        This section delves into the various aspects of calorie deficit, discussing its scientific basis, methods of 
+        implementation, and factors influencing success. Many individuals who google “<em>calorie deficit calculator</em>” 
+        or “<em>what is my calorie deficit</em>” are trying to figure out how to incorporate a deficit into their daily 
+        routine without sacrificing overall health, especially those who might type “<em>calorie deficit calculator pcos</em>” 
+        or “<em>calorie deficit calculator for weight loss</em>” to target specific needs. 
+      </p>
+      <p>
+        By combining knowledge from multiple areas—like Basal Metabolic Rate (BMR), Total Daily Energy Expenditure (TDEE), 
+        activity multipliers, and nutrient timing—this content aims to equip you with the insights needed to transform 
+        knowledge into actionable steps. Keep reading if you want in-depth answers to queries like “<em>how many calories 
+        should i eat to be in a deficit</em>,” “<em>are calorie deficit calculators accurate</em>,” and “<em>how much 
+        calorie deficit is safe per week</em>.”
+      </p>
+
+      <h3>1. Understanding the Science of a Calorie Deficit</h3>
+      <p>
+        A calorie deficit occurs when you consistently ingest fewer calories than your body expends. This gap forces your 
+        body to tap into stored energy reserves—mainly fat, but sometimes glycogen or muscle tissue—leading to weight loss. 
+        Over time, this principle has proven effective for shedding excess weight. Still, it is essential to do it 
+        systematically and sustainably, considering factors such as protein intake, healthy fats, and carbohydrates.
+      </p>
+      <p>
+        Many ask: “<em>Does calorie deficit truly guarantee weight loss</em>?” As long as you remain in a negative energy 
+        balance, you will typically see a downward shift in body mass. The majority of professionals across the fitness 
+        industry—from personal trainers to registered dietitians—acknowledge a deficit as a primary mechanism for fat loss. 
+        However, nuances exist, especially if you have hormonal imbalances, medical conditions (like hypothyroidism), or 
+        are on specific dietary regimens such as “<em>calorie deficit keto</em>” or “<em>calorie deficit plus intermittent 
+        fasting</em>.”
+      </p>
+
+      <h3>2. Balancing Macros in a Calorie Deficit</h3>
+      <p>
+        Whether you discovered us by searching for “<em>calorie deficit calculator macros</em>” or “<em>calorie deficit 
+        high protein</em>,” it’s clear that macros matter. A well-thought-out ratio of carbs, proteins, and fats is not 
+        just about losing weight, but losing the right kind of weight: primarily fat rather than muscle. Proteins aid in 
+        muscle preservation, carbohydrates fuel workouts, and healthy fats support hormonal functions. 
+      </p>
+      <p>
+        The typical recommendation in many “<em>calorie deficit and high protein</em>” discussions is ensuring about 
+        25-40% of your total daily intake derives from protein. If your daily target is 2,000 calories, for instance, 
+        30% protein translates to 600 calories from protein, or 150g of protein (since 1g of protein = 4 calories). 
+        Adjust these ratios slightly based on your unique goals—like muscle gain or a stricter fat-loss approach.
+      </p>
+
+      <h3>3. Managing TDEE and Physical Activity</h3>
+      <p>
+        When we mention “<em>calorie deficit calculator</em>” or “<em>calorie deficit calculator with exercise</em>,” 
+        the concept of TDEE (Total Daily Energy Expenditure) becomes vital. TDEE combines BMR (the energy used for bodily 
+        functions at rest) with the additional calorie burn from activities like walking, running, weight-lifting, or 
+        sports. Adjusting your TDEE can be done either by changing your activity level or by verifying your base BMR. 
+        Common search queries like “<em>calorie deficit calculator bmr</em>” or “<em>calorie deficit calculator exercise 
+        included</em>” highlight how important it is to reflect your real energy output in the calculations.
+      </p>
+      <p>
+        Suppose you are “<em>veryActive</em>,” training twice daily or performing physically demanding work. In that 
+        scenario, your TDEE might be significantly higher than a “<em>sedentary</em>” office worker. Overestimating or 
+        underestimating this factor can make or break your dieting efforts. If you choose “<em>sedentary</em>” while 
+        being moderately active, your actual TDEE might be higher, meaning you’ve created a more significant deficit 
+        than intended—or vice versa.
+      </p>
+
+      <h3>4. Setting Realistic Weight Loss Goals</h3>
+      <p>
+        One of the top reasons individuals see the dreaded error “The calculated goal calories are too low and below your 
+        Basal Metabolic Rate (BMR)” is an overly ambitious plan. Maybe you’re searching “<em>calorie deficit for 2 pounds 
+        a week</em>” or “<em>calorie deficit to lose 5 pounds a week</em>,” but in practice, losing an excessive amount 
+        of weight quickly can drive your daily calorie target far beneath healthy levels. 
+      </p>
+      <p>
+        A moderate approach often recommended by professionals is to aim for <em>about 0.5 to 1 kg</em> (1 to 2 lbs) 
+        of weight loss per week. For certain queries like “<em>calorie deficit for 1 lb a week</em>,” you can set your 
+        daily deficit around 500 calories. Overly large deficits—like 1000+—might result in faster short-term losses but 
+        often compromise muscle mass, energy levels, and overall well-being. 
+      </p>
+
+      <h3>5. Common Mistakes in Calorie Deficit Calculations</h3>
+      <ul>
+        <li>
+          <strong>Entering the Wrong Current Weight:</strong> If you confuse “weight to lose” with “current weight,” 
+          your BMR becomes unrealistically low, causing error messages or severely low goal intakes.
+        </li>
+        <li>
+          <strong>Overestimating/Underestimating Activity:</strong> People with “light” activity might incorrectly 
+          select “active,” pushing TDEE unrealistically high, or vice versa. 
+        </li>
+        <li>
+          <strong>Ignoring Macros:</strong> A simple “calorie deficit” is one piece of the puzzle; ensuring adequate 
+          protein, healthy fats, and moderate carbs can maintain muscle mass and metabolic health.
+        </li>
+        <li>
+          <strong>Misunderstanding Time Frames:</strong> Inputting 4 weeks to lose 10 kg often leads to extremely 
+          low daily intakes below BMR, which triggers the “Please adjust your goals” warning in many calculators.
+        </li>
+      </ul>
+
+      <h3>6. Calorie Deficit FAQs</h3>
+      <p>We answer some of the most frequently asked questions—like “<em>can a calorie deficit cause hair loss</em>” or 
+      “<em>does calorie deficit always guarantee weight loss</em>?”—to give you a better foundation for your journey.</p>
+
+      <h4>Q1: Will a calorie deficit cause me to lose muscle?</h4>
+      <p>
+        A small daily deficit combined with adequate protein and strength training typically preserves muscle. 
+        Extreme deficits or zero exercise can cause muscle depletion. 
+      </p>
+
+      <h4>Q2: Can I use a “calorie deficit calculator keto” if I’m following a low-carb diet?</h4>
+      <p>
+        Absolutely. A deficit remains the primary driver for weight loss. Macros differ, but the principle 
+        (calories in vs. calories out) stays the same.
+      </p>
+
+      <h4>Q3: I’m losing weight but not seeing progress on the scale every day. Why?</h4>
+      <p>
+        Daily fluctuations from water retention, glycogen levels, or hormonal shifts can mask real fat loss. 
+        Focus on weekly or bi-weekly trends instead.
+      </p>
+
+      <h4>Q4: What if I want to “<em>gain muscle while in a calorie deficit</em>?”</h4>
+      <p>
+        It's challenging but possible for beginners or returnees to training. Typically, muscle growth thrives 
+        in a slight surplus or very mild deficit with high protein. “<em>Calorie deficit calculator to build 
+        muscle</em>” queries are popular among the advanced, but realistically, major muscle gains come more 
+        easily from a mild caloric surplus or meticulous recomp strategies.
+      </p>
+
+      <h3>7. Practical Tips for Implementing a Calorie Deficit</h3>
+      <p>
+        Beyond the raw calculations, practical day-to-day strategies can help you adhere to your new calorie 
+        goals. 
+      </p>
+      <ul>
+        <li>
+          <strong>Meal Prepping:</strong> Preparing meals in advance helps control portion sizes, macronutrient 
+          balance, and overall daily calorie intake. You avoid last-minute high-calorie takeouts or impulse snacking.
+        </li>
+        <li>
+          <strong>Protein Prioritization:</strong> Kickstart each meal with a protein source—such as eggs, chicken, 
+          fish, legumes—helping you stay satiated and support muscle maintenance.
+        </li>
+        <li>
+          <strong>Hydration:</strong> Many times, thirst can masquerade as hunger. Drinking plenty of water can help 
+          mitigate cravings and maintain optimal metabolic function. 
+        </li>
+        <li>
+          <strong>High-Volume, Low-Cal Foods:</strong> Incorporate vegetables, leafy greens, and fruits that 
+          provide substantial volume with fewer calories, aiding satiety without overshooting your deficit.
+        </li>
+        <li>
+          <strong>Regular Monitoring:</strong> Whether you use an app or pen and paper, track your calorie intake 
+          and weigh-ins. This helps identify patterns or plateaus quickly.
+        </li>
+      </ul>
+
+      <h3>8. Importance of Realistic Expectations</h3>
+      <p>
+        Many people want immediate results, leading them to type “<em>calorie deficit calculator for rapid weight 
+        loss</em>” or “<em>calorie deficit for losing 5 pounds a week</em>.” While swift transformations seem 
+        appealing, overly rapid losses can cause muscle breakdown, nutrient deficiencies, or rebound weight 
+        gain. The best approach is measured and consistent progress—giving your body time to adapt.
+      </p>
+      <p>
+        Understand that stalls may occur, often referred to as “plateaus.” Hormonal changes, water retention, and 
+        metabolic adaptations can temporarily mask fat loss. Re-evaluating your TDEE, daily steps, or stress 
+        management might help break through a plateau.
+      </p>
+
+      <h3>9. Tailoring the Deficit to Unique Populations</h3>
+      <p>
+        Different groups have specialized concerns—hence the variety of searches like “<em>calorie deficit 
+        calculator kids</em>,” “<em>calorie deficit while breastfeeding</em>,” or “<em>calorie deficit for 
+        diabetics</em>.” In all such scenarios, it’s advisable to consult healthcare professionals for 
+        personalized guidance, ensuring the approach doesn’t conflict with growth, milk supply, or medical 
+        conditions.
+      </p>
+      <p>
+        For individuals with PCOS (Polycystic Ovary Syndrome), a moderate deficit plus balanced macros can aid 
+        insulin sensitivity. Meanwhile, if you’re postpartum or breastfeeding, too aggressive a deficit can 
+        affect milk production, so proceed with caution. 
+      </p>
+
+      <h3>10. Emotional and Psychological Considerations</h3>
+      <p>
+        A calorie deficit is not purely a physical undertaking—motivation, mindset, and mental health play huge 
+        roles. Excessive deficits can lead to energy crashes, irritability, or feelings of deprivation. Stress 
+        levels can spike, especially if daily life or gym performance suffers. 
+      </p>
+      <p>
+        Hence, many people wonder, “<em>can a calorie deficit cause depression</em>” or “<em>does calorie deficit 
+        affect sleep</em>?” Indeed, an extreme one can disrupt hormonal balances, impacting mood or rest 
+        quality. The solution is typically moderation: aim for the “sweet spot” deficit where you lose weight 
+        steadily while retaining good energy, mood, and performance.
+      </p>
+
+      <h3>11. Frequently Overlooked Factors</h3>
+      <ul>
+        <li>
+          <strong>NEAT (Non-Exercise Activity Thermogenesis):</strong> The daily energy you burn outside formal 
+          workouts—like walking, fidgeting, or household chores—significantly impacts TDEE. Underestimating NEAT 
+          can skew your calculations.
+        </li>
+        <li>
+          <strong>Protein and Fiber:</strong> Both nutrients contribute to satiety. A diet high in fiber from 
+          vegetables, fruits, and whole grains fosters fullness with fewer calories.
+        </li>
+        <li>
+          <strong>Long-Term Sustainability:</strong> The best plan is one you can maintain for months or years. 
+          Extreme deficits often fail long term.
+        </li>
+      </ul>
+
+      <h3>12. Putting It All Together</h3>
+      <p>
+        As you fill out the Calorie Deficit Calculator above, keep in mind that each numeric field—whether 
+        “current weight,” “goal daily calories,” or “weight to lose”—should reflect realistic data. If you see 
+        an error implying your new calorie target is below your BMR, it’s a signal to adjust your plan. 
+      </p>
+      <p>
+        For those who stumbled here via “<em>calorie deficit calculator men</em>,” “<em>calorie deficit 
+        calculator women</em>,” or “<em>calorie deficit calculator daily</em>,” you’re in the right place. 
+        This single page meets a wide range of keyword needs—from explaining how deficits work to providing a 
+        dynamic chart comparing your current vs. goal intake.
+      </p>
+
+      <h3>13. Top Tips for Sustaining Progress</h3>
+      <p>To wrap up this ~2000-word guide, here are key takeaways to ensure the calculator yields real-world results:</p>
+      <ol>
+        <li>
+          <strong>Input Accuracy:</strong> Double-check your current weight, weeks, and daily caloric intake 
+          before hitting “Calculate.”
+        </li>
+        <li>
+          <strong>Moderate Daily Deficit:</strong> Typically, 500–700 calories below TDEE helps you lose around 
+          0.5–1 kg weekly.
+        </li>
+        <li>
+          <strong>Regular Reassessment:</strong> Retest the calculator monthly or as you lose weight. Lighter 
+          bodies have lower BMR, so your TDEE changes.
+        </li>
+        <li>
+          <strong>Focus on Quality Nutrition:</strong> Meeting your protein and micronutrient needs preserves 
+          muscle mass and energy.
+        </li>
+        <li>
+          <strong>Combine Diet & Exercise:</strong> A combination of mindful eating and consistent activity 
+          fosters better results and body composition than diet alone.
+        </li>
+      </ol>
+
+      <h3>Conclusion: Embrace Sustainable, Science-Based Weight Loss</h3>
+      <p>
+        Achieving a calorie deficit is a tried-and-true method for weight loss, but it’s only the beginning. 
+        Consistency, realistic goals, balanced nutrition, and adequate rest form the bedrock of successful 
+        transformation. With the help of this Calorie Deficit Calculator, you can accurately gauge your daily 
+        targets and adjust as needed for healthy, steady progress.
+      </p>
+      <p>
+        Remember, the journey is personal. Whether you discovered this tool through “<em>calorie deficit 
+        calculator bmr</em>,” “<em>calorie deficit calculator uk stone</em>,” or “<em>calorie deficit 
+        calculator exercise</em>,” the principle remains universal: energy in versus energy out. Harness the 
+        knowledge here, maintain a balanced perspective, and celebrate every step toward better health and 
+        well-being. 
+      </p>
+      <p><em>Stay determined, stay mindful, and let this calculator guide you toward effective, long-lasting 
+      changes in your weight and wellness.</em></p>
+    </section>
+  </div>
+
+  <script>
+    document.getElementById('calorie-deficit-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Retrieve form values
+      const unit = document.getElementById('unit').value;
+      const gender = document.getElementById('gender').value;
+      const age = parseFloat(document.getElementById('age').value);
+      const height = parseFloat(document.getElementById('height').value);
+      const activityLevel = document.getElementById('activityLevel').value;
+      const currentWeight = parseFloat(document.getElementById('currentWeight').value);
+      const currentCalories = parseFloat(document.getElementById('currentCalories').value);
+      const goalCalories = parseFloat(document.getElementById('goalCalories').value);
+      const weightToLose = parseFloat(document.getElementById('weightToLose').value);
+      const weeks = parseFloat(document.getElementById('weeks').value);
+
+      const resultDiv = document.getElementById('calorie-deficit-result');
+      const chartCanvas = document.getElementById('calorieDeficitChart');
+
+      // Basic Validation
+      if (
+        isNaN(age) || age <= 0 ||
+        isNaN(height) || height <= 0 ||
+        isNaN(currentWeight) || currentWeight <= 0 ||
+        isNaN(currentCalories) || currentCalories <= 0 ||
+        isNaN(goalCalories) || goalCalories <= 0 ||
+        isNaN(weightToLose) || weightToLose <= 0 ||
+        isNaN(weeks) || weeks <= 0 ||
+        !gender || !activityLevel
+      ) {
+        resultDiv.innerHTML = '<p class="error">Please enter valid positive numbers for all fields.</p>';
+        chartCanvas.style.display = 'none';
+        return;
+      }
+
+      if (goalCalories >= currentCalories) {
+        resultDiv.innerHTML = '<p class="error">Goal Daily Caloric Intake must be less than Current Daily Caloric Intake.</p>';
+        chartCanvas.style.display = 'none';
+        return;
+      }
+
+      // Unit Conversion
+      let weightKg = currentWeight;
+      let heightCm = height;
+
+      if (unit === 'imperial') {
+        // Convert lbs to kg and inches to cm
+        weightKg = currentWeight * 0.453592;
+        heightCm = height * 2.54;
+      }
+
+      // Mifflin-St Jeor BMR
+      let bmr = 0;
+      if (gender === 'male') {
+        bmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age) + 5;
+      } else {
+        bmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age) - 161;
+      }
+
+      // Activity Multipliers
+      const multipliers = {
+        'sedentary': 1.2,
+        'light': 1.375,
+        'moderate': 1.55,
+        'active': 1.725,
+        'veryActive': 1.9
+      };
+      const tdee = bmr * multipliers[activityLevel];
+
+      // Deficit Calculations
+      const caloriesPerKg = 7700; // ~7700 calories per kg of fat
+      const totalDeficit = weightToLose * caloriesPerKg;
+      const dailyDeficit = totalDeficit / (weeks * 7);
+      const adjustedTDEE = tdee - dailyDeficit;
+
+      // If adjusted TDEE < BMR => error
+      if (adjustedTDEE < bmr) {
+        resultDiv.innerHTML = '<p class="error">The calculated goal calories are too low and below your BMR. Please adjust your goals.</p>';
+        chartCanvas.style.display = 'none';
+        return;
+      }
+
+      // Macronutrient Suggestions: 40% carbs, 30% protein, 30% fat
+      const carbs = Math.round((adjustedTDEE * 0.4) / 4);
+      const protein = Math.round((adjustedTDEE * 0.3) / 4);
+      const fats = Math.round((adjustedTDEE * 0.3) / 9);
+
+      // Display Results
+      resultDiv.innerHTML = `
+        <h3>Calorie Deficit Results</h3>
+        <p><strong>Basal Metabolic Rate (BMR):</strong> ${Math.round(bmr)} calories/day</p>
+        <p><strong>Total Daily Energy Expenditure (TDEE):</strong> ${Math.round(tdee)} calories/day</p>
+        <p><strong>Daily Calorie Deficit Needed:</strong> ${Math.round(dailyDeficit)} calories/day</p>
+        <p><strong>Adjusted TDEE (Goal Daily Caloric Intake):</strong> ${Math.round(adjustedTDEE)} calories/day</p>
+        <p><strong>Total Calorie Deficit (over ${weeks} week(s)):</strong> ${Math.round(totalDeficit)} calories</p>
+        <p><strong>Estimated Weight Loss:</strong> ${weightToLose.toFixed(2)} kg</p>
+        <h4>Recommended Daily Macronutrients:</h4>
+        <ul>
+          <li>Carbohydrates: ${carbs} grams/day</li>
+          <li>Protein: ${protein} grams/day</li>
+          <li>Fats: ${fats} grams/day</li>
+        </ul>
+      `;
+
+      // Render Chart
+      renderCalorieDeficitChart(currentCalories, adjustedTDEE);
+    });
+
+    function renderCalorieDeficitChart(currentCalories, adjustedTDEE) {
+      const ctx = document.getElementById('calorieDeficitChart').getContext('2d');
+      if (window.calorieDeficitChartInstance) {
+        window.calorieDeficitChartInstance.destroy();
+      }
+
+      const data = {
+        labels: ['Current Intake', 'Goal Intake'],
+        datasets: [{
+          label: 'Calories',
+          data: [currentCalories, adjustedTDEE],
+          backgroundColor: [
+            'rgba(54, 162, 235, 0.6)', 
+            'rgba(255, 99, 132, 0.6)'
+          ],
+          borderColor: [
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 99, 132, 1)'
+          ],
+          borderWidth: 1
+        }]
+      };
+
+      window.calorieDeficitChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: data,
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Calories per Day'
+              }
+            },
+            x: {
+              title: {
+                display: true,
+                text: 'Caloric Intake'
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return `${context.label}: ${context.parsed.y} calories`;
+                }
+              }
+            }
+          }
+        }
+      });
+      document.getElementById('calorieDeficitChart').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
