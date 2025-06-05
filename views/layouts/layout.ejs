@@ -119,7 +119,7 @@
   <script>
     function changeLanguage(lang) {
       // Use <%- %> to output unescaped JSON string
-      var originalUrl = - JSON.stringify(originalUrl) ;
+      var originalUrl = <%- JSON.stringify(originalUrl) %>;
       var currentUrl = originalUrl.replace(/^\/(en|fr|es|de|zh|ru|ja|ar|pt|hi)/, '');
       var newUrl = lang === 'en' ? currentUrl : '/' + lang + currentUrl;
       window.location.href = newUrl;
